@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
+import { Divider } from 'primereact/divider';
 import './Navigation.css';
 
 function Navigation({ isLoggedIn }) {
@@ -9,6 +10,7 @@ function Navigation({ isLoggedIn }) {
     const [value, setValue] = useState('');
 
     return (
+        <>
         <nav className="navigation-bar">
             {/* <div > */}
             <div className="logo">
@@ -43,7 +45,12 @@ function Navigation({ isLoggedIn }) {
                 )}
             </div>
             {/* </div> */}
+
         </nav>
+        <div className='divide-line'>
+            <Divider />
+        </div>
+        </>
     );
 }
 export default Navigation;
