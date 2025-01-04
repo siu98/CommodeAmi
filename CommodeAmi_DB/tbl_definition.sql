@@ -38,7 +38,8 @@ CREATE TABLE TBL_MOVIE (
 ) ENGINE=InnoDB;
 
 CREATE TABLE TBL_ACTOR (
-                           actor_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                           -- actor_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                           actor_id BIGINT PRIMARY KEY, -- AUTO_INCREMENT 제거
                            name VARCHAR(255),
                            gender VARCHAR(50),
                            profile_image TEXT,
