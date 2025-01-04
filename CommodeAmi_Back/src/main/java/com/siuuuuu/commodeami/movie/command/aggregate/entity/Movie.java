@@ -48,6 +48,9 @@ public class Movie {
     @Column(name="running_time")
     private Integer runningTime;
 
+    @Column(name="trailers")
+    private String trailers;
+
     @Column(name="youtube_url")
     private String youtubeUrl;
 

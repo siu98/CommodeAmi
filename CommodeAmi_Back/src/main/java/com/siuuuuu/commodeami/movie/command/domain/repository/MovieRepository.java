@@ -9,9 +9,12 @@ import java.util.Optional;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 //    boolean existsByTitle(String title); // 영화 제목으로 중복 체크
-@Query("SELECT CASE WHEN COUNT(m) > 0 THEN TRUE ELSE FALSE END FROM Movie m WHERE m.title = :title")
-boolean existsByTitle(@Param("title") String title);
+    @Query("SELECT CASE WHEN COUNT(m) > 0 THEN TRUE ELSE FALSE END FROM Movie m WHERE m.title = :title")
+    boolean existsByTitle(@Param("title") String title);
     Optional<Movie> findByMovieId(Long movieId);
 
     Optional<Movie> findByApiId(Long apiId);
+
+    @Query("SELECT m FROM Movie m WHERE LOWER(m.title) = LOWER(:title)")
+    Optional<Movie> findByTitleIgnoreCase(@Param("title") String title);
 }
