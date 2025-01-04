@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class Actor {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="actor_id")
     private Long actorId;
 
@@ -19,7 +19,8 @@ public class Actor {
     private String name;
 
     @Column(name="gender")
-    private String gender;
+    @Convert(converter = ActorGenderConverter.class)
+    private ActorGender gender;
 
     @Column(name="profile_image")
     private String profileImage;
@@ -29,4 +30,7 @@ public class Actor {
 
     @Column(name="original_name")
     private String originalName;
+
+//    @Version
+//    private Integer version;
 }

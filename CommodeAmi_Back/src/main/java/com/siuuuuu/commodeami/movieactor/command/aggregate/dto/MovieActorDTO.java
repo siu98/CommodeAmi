@@ -10,7 +10,7 @@ import lombok.Data;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class MovieActorDTO {
 
-    @JsonProperty("movie_actor_id")
+//    @JsonProperty("movie_actor_id")
     private Long movieActorId;
 
     @JsonProperty("character")

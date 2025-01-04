@@ -17,4 +17,8 @@ public interface ActorRepository extends JpaRepository<Actor, Long> {
 @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT a FROM Actor a WHERE a.name = :name")
     Optional<Actor> findByName(@Param("name") String name);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("SELECT a FROM Actor a WHERE a.actorId = :actorId")
+    Optional<Actor> findByIdWithLock(@Param("actorId") Long actorId);
 }
