@@ -31,6 +31,7 @@ CREATE TABLE TBL_MOVIE (
     original_country VARCHAR(255),
     stills TEXT,
     running_time INT,
+    trailers TEXT,
     youtube_url TEXT,
     cumulative_audience BIGINT,
     box_office_rank INT,
