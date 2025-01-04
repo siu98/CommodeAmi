@@ -65,13 +65,14 @@ CREATE TABLE TBL_CUSTOM_TICKET (
 ) ENGINE=InnoDB;
 
 CREATE TABLE TBL_MOVIE_ACTOR (
-                                 movie_actor_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-                                 role VARCHAR(255),
-                                 actor_id BIGINT,
-                                 movie_id BIGINT,
-                                 casting_order INT(11),
-                                 CONSTRAINT fk_movie_actor_actor FOREIGN KEY (actor_id) REFERENCES TBL_ACTOR(actor_id) ON DELETE CASCADE,
-                                 CONSTRAINT fk_movie_actor_movie FOREIGN KEY (movie_id) REFERENCES TBL_MOVIE(movie_id) ON DELETE CASCADE
+    movie_actor_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    role VARCHAR(255),
+    actor_id BIGINT,
+    movie_id BIGINT,
+    casting_order INT(11),
+    CONSTRAINT fk_movie_actor_actor FOREIGN KEY (actor_id) REFERENCES TBL_ACTOR(actor_id) ON DELETE CASCADE,
+    CONSTRAINT fk_movie_actor_movie FOREIGN KEY (movie_id) REFERENCES TBL_MOVIE(movie_id) ON DELETE CASCADE,
+    CONSTRAINT unique_movie_actor UNIQUE (movie_id, actor_id) -- 복합 고유 키
 ) ENGINE=InnoDB;
 
 CREATE TABLE TBL_SCOPE (
