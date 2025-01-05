@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Entity
-@Table(name="TBL_MOVIE_ACTOR")
+@Table(name = "TBL_MOVIE_ACTOR", uniqueConstraints = @UniqueConstraint(columnNames = {"movie_id", "actor_id"}))
 public class MovieActor {
 
     @Id
@@ -20,7 +20,7 @@ public class MovieActor {
     @Column(name="role")
     private String role;
 
-    @Column(name="order")
+    @Column(name="casting_order")
     private Integer castingOrder;
 
     @ManyToOne
