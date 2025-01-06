@@ -23,7 +23,7 @@
 
 .logo h1 {
     font-size: 1.8rem;
-    color: #333;
+    color: #3D6094;
     margin: 0;
     cursor: pointer;
     display: flex;
@@ -51,7 +51,7 @@
 }
 
 .search-bar .p-inputtext:focus {
-    border-color: #007bff;
+    border-color: #3D6094;
     outline: none;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
 }
@@ -65,7 +65,7 @@
 .auth-buttons .link-button .p-button {
     padding: 8px 16px;
     font-size: 0.9rem;
-    background-color: #007bff;
+    background-color: #3D6094;
     border: none;
     color: white;
     border-radius: 4px;

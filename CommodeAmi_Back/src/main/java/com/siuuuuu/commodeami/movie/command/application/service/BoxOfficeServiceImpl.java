@@ -35,7 +35,7 @@ public class BoxOfficeServiceImpl implements BoxOfficeService {
 
     @Override
     @Scheduled(cron = "0 0 1 * * ?") // 매일 오전 1시에 실행
-    @Scheduled(fixedRate = 10000000)
+//    @Scheduled(fixedRate = 10000000)
     @Transactional
     public void updateBoxOfficeData() {
 
