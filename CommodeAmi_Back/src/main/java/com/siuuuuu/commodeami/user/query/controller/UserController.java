@@ -6,6 +6,7 @@ import com.siuuuuu.commodeami.user.command.aggregate.dto.UserDTO;
 import com.siuuuuu.commodeami.user.command.aggregate.entity.User;
 import com.siuuuuu.commodeami.user.command.domain.repository.UserRepository;
 import com.siuuuuu.commodeami.user.query.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +34,12 @@ public class UserController {
         String email = user.getUserName();
         UserDTO userDTO = userService.findByEmail(email);
         return ResponseDTO.ok(userDTO);
+    }
+
+    // 액세스 토큰 재발급
+    @GetMapping("/refresh")
+    public ResponseDTO<?> refresh(HttpServletRequest request) {
+        return ResponseDTO.ok("accessToken 재발급 성공");
     }
 
     // 회원 조회
