@@ -2,10 +2,18 @@ import axios from 'axios'
 
 export const fetchBoxOfficeMovies = async() => {
     try {
-        const response = await axios.get('http://localhost:8000/api/movies/');
-        const filteredAndSortedMovies = response.data
-          .filter((movie) => movie.box_office_rank >= 1 && movie.box_office_rank <= 10)
-          .sort((a, b) => a.box_office_rank - b.box_office_rank);
+        const response = await axios.get('/api/movie');
+
+        // 응답 데이터 확인
+        console.log('API 응답:', response.data);
+
+        // 배열 형태가 아닐 경우 적절히 처리
+        const movies = Array.isArray(response.data) ? response.data : response.data.data;
+
+
+        const filteredAndSortedMovies = movies
+          .filter((movie) => movie.boxOfficeRank >= 1 && movie.boxOfficeRank <= 10)
+          .sort((a, b) => a.boxOfficeRank - b.boxOfficeRank);
         return filteredAndSortedMovies;
         
       } catch (error) {

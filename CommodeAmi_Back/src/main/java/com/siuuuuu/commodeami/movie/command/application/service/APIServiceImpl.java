@@ -66,7 +66,7 @@ public class APIServiceImpl implements APIService {
 //    @Transactional
     public List<PopularMovieDTO> fetchPopularMovies() {
         log.info("Fetching popular movies from TMDB API...");
-        int totalPagesToFetch = 20; // 가져올 페이지 수 설정 (필요에 따라 조정 가능)
+        int totalPagesToFetch = 100; // 가져올 페이지 수 설정 (필요에 따라 조정 가능)
         List<PopularMovieDTO> allPopularMovies = new ArrayList<>();
 
         try {

@@ -8,6 +8,8 @@ import com.siuuuuu.commodeami.movie.query.repository.MovieMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MovieServiceImpl implements MovieService {
 
@@ -16,6 +18,12 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     public MovieServiceImpl(MovieMapper movieMapper) {
         this.movieMapper = movieMapper;
+    }
+
+    // 영화 전체 조회 구현
+    @Override
+    public List<Movie> findAllMovies() {
+        return movieMapper.selectAllMovie();
     }
 
     @Override

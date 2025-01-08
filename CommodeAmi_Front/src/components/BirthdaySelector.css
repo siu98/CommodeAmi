@@ -1,0 +1,11 @@
+.birthdate-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+
+.birthdate-container select:focus {
+    border-color: #007bff;
+    outline: none;
+  }

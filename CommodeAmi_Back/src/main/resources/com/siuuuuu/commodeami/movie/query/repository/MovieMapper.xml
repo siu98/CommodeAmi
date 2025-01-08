@@ -20,6 +20,26 @@
         <result property="apiId" column="api_id" />
     </resultMap>
 
+    <select id="selectAllMovie" resultMap="movieResultMap">
+        SELECT
+            MOVIE_ID
+           ,TITLE
+           ,PLOT
+           ,RELEASED_AT
+           ,POSTER_URL
+           ,GENRE
+           ,ORIGINAL_TITLE
+           ,ORIGINAL_COUNTRY
+           ,STILLS
+           ,RUNNING_TIME
+           ,YOUTUBE_URL
+           ,CUMULATIVE_AUDIENCE
+           ,BOX_OFFICE_RANK
+           ,API_ID
+         FROM
+            TBL_MOVIE
+    </select>
+
     <select id="selectMovieById" resultMap="movieResultMap">
         SELECT
             MOVIE_ID
