@@ -6,6 +6,7 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { Divider } from 'primereact/divider';
 import LoginPage from '../views/user/LoginPage'; // LoginPage 컴포넌트 가져오기
+import SignupPage from '../views/user/SignupPage';
 import './Navigation.css';
 
 function Navigation() {
@@ -17,7 +18,16 @@ function Navigation() {
 
     const [value, setValue] = useState('');
     const [showDialog, setShowDialog] = useState(false); // Dialog 표시 상태
+    const [showSignupDialog, setShowSignupDialog] = useState(false);
     const [formData, setFormData] = useState({ email: '', password: '' }); // 상태를 부모에서 관리
+    const [signupFormData, setSignupFormData] = useState({
+        username: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        nickname: '',
+        gender: '',
+    });
     const [error, setError] = useState(''); // 에러 메시지 상태도 부모에서 관리
 
 
@@ -55,7 +65,10 @@ function Navigation() {
                                 />
                             </div>
                             <Link to="/signup" className="link-button">
-                                <Button label="회원가입" />
+                                <Button 
+                                    label="회원가입" 
+                                    onClick={()=> setShowSignupDialog(true)}
+                                />
                             </Link>
                         </>
                     ) : (
@@ -83,6 +96,14 @@ function Navigation() {
                 setFormData={setFormData}
                 error={error}
                 setError={setError}
+            />
+
+            {/* SignupPage 컴포넌트 */}
+            <SignupPage
+                showDialog={showSignupDialog}
+                setShowDialog={setShowSignupDialog}
+                formData={signupFormData}
+                setFormData={setSignupFormData}
             />
         </>
     );
