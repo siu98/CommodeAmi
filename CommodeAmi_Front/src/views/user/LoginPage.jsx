@@ -48,7 +48,7 @@ function LoginPage({
                 life: 3000,
             });
             console.log("로그인 결과:", success);
-            console.log("인증 상태:", authState);
+            // console.log("인증 상태:", authState);
             setShowDialog(false);
         } else {
             // 실패 시 Toast 메시지 표시

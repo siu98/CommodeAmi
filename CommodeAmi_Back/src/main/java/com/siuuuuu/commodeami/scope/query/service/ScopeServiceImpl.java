@@ -57,4 +57,16 @@ public class ScopeServiceImpl implements ScopeService {
 
         return modelMapper.map(scope, ScopeDTO.class);
     }
+
+    @Override
+    public ScopeDTO getScopeByUserIdAndMovieId(Long userId, Long movieId) {
+        // Mapper를 사용해 해당 유저의 특정 영화 별점 조회
+        Scope scope = scopeMapper.selectScopesByUserIdAndUserId(userId, movieId);
+
+        if (scope == null) {
+            throw new IllegalArgumentException("별점을 찾을 수 없습니다.");
+        }
+
+        return modelMapper.map(scope, ScopeDTO.class);
+    }
 }

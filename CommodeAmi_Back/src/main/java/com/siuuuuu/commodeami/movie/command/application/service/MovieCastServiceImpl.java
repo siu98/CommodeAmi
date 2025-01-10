@@ -3,7 +3,7 @@ package com.siuuuuu.commodeami.movie.command.application.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.siuuuuu.commodeami.actor.command.aggregate.dto.ActorDTO;
 import com.siuuuuu.commodeami.actor.command.aggregate.entity.Actor;
-import com.siuuuuu.commodeami.actor.command.application.service.ActorService;
+import com.siuuuuu.commodeami.actor.command.application.service.AppActorService;
 import com.siuuuuu.commodeami.movie.command.aggregate.entity.Movie;
 import com.siuuuuu.commodeami.movieactor.command.aggregate.entity.MovieActor;
 import com.siuuuuu.commodeami.movieactor.command.domain.repository.MovieActorRepository;
@@ -20,15 +20,15 @@ import java.util.Optional;
 @Service
 public class MovieCastServiceImpl implements MovieCastService {
 
-    private final ActorService actorService;
+    private final AppActorService appActorService;
     private final MovieActorRepository movieActorRepository;
     private final ObjectMapper objectMapper;
 
     @Autowired
-    public MovieCastServiceImpl(ActorService actorService,
+    public MovieCastServiceImpl(AppActorService appActorService,
                                 MovieActorRepository movieActorRepository,
                                 ObjectMapper mapper) {
-        this.actorService = actorService;
+        this.appActorService = appActorService;
         this.movieActorRepository = movieActorRepository;
         this.objectMapper = mapper;
     }
@@ -46,7 +46,7 @@ public class MovieCastServiceImpl implements MovieCastService {
                 continue;
             }
             // Save or update actor
-            Actor actor = actorService.saveOrUpdateActor(actorDTO);
+            Actor actor = appActorService.saveOrUpdateActor(actorDTO);
 
             // Extract role and casting_order from the cast object
             Map<String, Object> castMap = objectMapper.convertValue(castObj, Map.class);

@@ -36,4 +36,12 @@ public class ScopeController {
     public ResponseDTO<?> findScopeByMovieId(@PathVariable("movieId") Long movieId) {
         return ResponseDTO.ok(scopeService.getScopeByMovieId(movieId));
     }
+
+    // 해당 유저의 특정 영화의 별점 조회
+    @GetMapping("{userId}/{movieId}")
+    public ResponseDTO<?> findScopeByUserIdAndMovieId(@PathVariable("userId") Long userId,
+                                                      @PathVariable("movieId") Long movieId) {
+        return ResponseDTO.ok(scopeService.getScopeByUserIdAndMovieId(userId, movieId));
+    }
+
 }

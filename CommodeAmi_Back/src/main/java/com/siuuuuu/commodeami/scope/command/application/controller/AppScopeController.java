@@ -24,7 +24,7 @@ public class AppScopeController {
     public ResponseDTO<?> createOrUpdateScope(@PathVariable("movieId") Long movieId,
                                               @PathVariable("userId") Long userId,
                                               @RequestBody ScopeDTO scopeDTO) {
-
+        log.info("별점 저장을 위한 userId={}, movieId={}", userId, movieId); // 디버깅 로그
         return ResponseDTO.ok(appScopeService.createOrUpdateScope(movieId, userId, scopeDTO));
     }
 

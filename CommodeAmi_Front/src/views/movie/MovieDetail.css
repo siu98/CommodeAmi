@@ -139,3 +139,31 @@
   .movie-detail .star-display-container p{
     width: 150px;
   }
+
+  .movie-detail .movie-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-right: 20px;
+    margin-top: 10px; 
+  }
+  
+  .movie-detail .movie-buttons button {
+    width: 100px; 
+    height: 30px;
+    font-size: 15px;
+    padding: 5px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-weight: 600;
+    color: white;
+    background-color: #3D6094;
+    align-self: center;
+    margin: 0;
+  }
+  
+  .movie-detail .movie-buttons button:hover {
+    background-color: #2C4870; 
+  }

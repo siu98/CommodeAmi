@@ -1,5 +1,5 @@
 import { useState, useEffect, React } from 'react'
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Navigation from './components/Navigation';
 import Counter from './features/Counter';
@@ -32,8 +32,7 @@ function App() {
   return (
       <Router>
         <Navigation isLoggedIn={isLoggedIn} handleLogout={logout} />
-        <Routes>
-          {/* <Route path="/"  /> */}
+        {/* <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/" element={
@@ -42,13 +41,44 @@ function App() {
               movies={boxOfficeMovies} 
               scrollable 
               sectionId="box-office"
-              // scrollLeft={scrollLeft}
-              // scrollRight={scrollRight}
-              // handleScroll={handleScroll}
             />
           } />
-          {/* <Route path="/dashboard" element={isLoggedIn ? <Dashboard /> : <Login />} /> */}
-          {/* <Route path="/counter" element={<Counter />} /> */}
+  
+          <Route path="/movie/:movieId" element={<MovieDetail isLoggedIn={isLoggedIn} handleLogout={logout} />} />
+        </Routes> */}
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route
+            path="/"
+            element={
+            isLoggedIn ? (
+              <Navigate to="/dashboard" />
+            ) : (
+              <MovieSection 
+                title="박스오피스 순위" 
+                movies={boxOfficeMovies} 
+                scrollable 
+                sectionId="box-office"
+              />
+              )
+            }
+          />
+          <Route
+            path="/dashboard"
+            element={
+              isLoggedIn ? (
+              <MovieSection 
+                title="박스오피스 순위 (로그인 전용)" 
+                movies={boxOfficeMovies} 
+                scrollable 
+                sectionId="dashboard-box-office"
+              />
+              ) : (
+              <Navigate to="/login" />
+              )
+            }
+          />
           <Route path="/movie/:movieId" element={<MovieDetail isLoggedIn={isLoggedIn} handleLogout={logout} />} />
         </Routes>
       </Router>

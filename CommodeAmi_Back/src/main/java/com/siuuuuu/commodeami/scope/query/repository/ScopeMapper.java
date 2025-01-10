@@ -15,4 +15,6 @@ public interface ScopeMapper {
     Scope selectScopesByUserId(@Param("userId") Long userId);
 
     Scope selectScopesByMovieId(@Param("movieId") Long movieId);
+
+    Scope selectScopesByUserIdAndUserId(@Param("userId") Long userId, @Param("movieId") Long movieId);
 }

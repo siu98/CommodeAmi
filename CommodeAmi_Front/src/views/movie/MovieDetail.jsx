@@ -1,11 +1,136 @@
+// import React, { useEffect, useState } from 'react';
+// import { useParams } from 'react-router-dom';
+// import { fetchMovie } from '../../api/movieDetails';
+// import { Button } from 'primereact/button';
+// import './MovieDetail.css'
+// // import StarRating from './StarRating';
+// import StarDisplay from '../../components/StarDisplay';
+
+
+// const MovieDetail = () => {
+//     const { movieId } = useParams();
+//     const [movie, setMovie] = useState(null);
+//     const [error, setError] = useState(null);
+//     const [loading, setLoading] = useState(true);
+//     const [selectedRating, setSelectedRating] = useState(0);
+//     const baseURL = 'https://image.tmdb.org/t/p/original';
+//     const formatDate = (timestamp) => {
+//         const date = new Date(timestamp);
+//         const year = date.getFullYear();
+//         const month = String(date.getMonth() + 1).padStart(2, '0'); // 0부터 시작하므로 +1
+//         const day = String(date.getDate()).padStart(2, '0');
+//         return `${year}-${month}-${day}`; // "2024-10-20"
+//     };
+
+
+//     useEffect(() => {
+//         const getMovieData = async () => {
+//             if (!movieId) {
+//                 setError('Invalid movie ID');
+//                 setLoading(false);
+//                 return;
+//             }
+
+//             try {
+//                 const movieData = await fetchMovie(movieId);
+//                 const response = movieData.data
+
+//                 // `stills`가 문자열이면 배열로 변환
+//                 if (typeof response.stills === 'string') {
+//                     try {
+//                         response.stills = JSON.parse(response.stills);
+//                     } catch (err) {
+//                         console.error('Failed to parse stills:', err);
+//                         response.stills = []; // 변환 실패 시 빈 배열로 설정
+//                     }
+//                 }
+
+//                 setMovie(response);
+//                 console.log("선택된 영화정보", response);
+//                 console.log("movie 찍어보기", movie);
+//                 console.log("선택된 영화의 첫 번째 스틸 컷", response.stills[1]);
+//             } catch (err) {
+//                 console.error('Failed to fetch movie data:', err);
+//                 setError('Failed to fetch movie data');
+//             }
+//         };
+
+//         getMovieData();
+//     }, [movieId]);
+
+//     // if (loading) return <p>Loading...</p>;
+//     // if (error) return <p>{error}</p>;
+
+//     // if (loading) return <p>Loading...</p>;
+//     // if (error) return <p>{error}</p>;
+
+//     if (!movie || !movie.stills || movie.stills.length === 0) {
+//         return <p>No movie or stills data available.</p>;
+//     }
+//     const formattedDate = formatDate(movie.released_at); // 날짜 변환
+//     const formatAudience = (movie.cumulative_audience / 10000).toFixed(1) + '만 명';
+
+//     return (
+//         <div className="movie-detail">
+//             <section className="movie-header">
+//                 <img src={`${baseURL}${movie.stills[0]}`} alt={movie.title} />
+//                 <div className="movie-header-overlay">    
+//                     <h1>{movie.title}</h1>
+//                     <p>{movie.original_title}</p>
+//                     <p>{movie.genre}</p>
+//                     <p>{movie.running_time}분 / {formattedDate} 개봉</p>
+//                     {movie.cumulative_audience ? (
+//                         <p>누적 관객 {formatAudience}</p>
+//                     ) : null}
+                    
+//                 </div> 
+//             </section>
+//             <section className="movie-details">
+//                 <div className="movie-details-content">
+//                     <img src={movie.poster_url} alt={movie.title} />
+//                     <div className="movie-info">
+//                         <div className="movie-buttons">
+//                             <div className="star-display-container">
+//                                 <StarDisplay rating={selectedRating} />
+//                                 <p>평균별점</p>
+//                             </div>
+//                             <Button 
+//                                 label="별점"
+                                
+//                             />
+//                             <Button 
+//                                 label="리뷰"
+//                             />
+//                             <Button 
+//                                 label="관람일자"
+//                             />
+//                         </div>
+//                         <div className="movie-overview">
+//                             <h2>줄거리</h2>
+//                             <p>{movie.plot}</p>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </section>
+//         </div>
+//     );
+// };
+
+// export default MovieDetail;
+
+
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { addRating } from '../../store/slices/authSlice';
 import { fetchMovie } from '../../api/movieDetails';
 import { Button } from 'primereact/button';
-import './MovieDetail.css'
-// import StarRating from './StarRating';
+import { Dialog } from 'primereact/dialog';
+import { InputTextarea } from 'primereact/inputtextarea';
+import './MovieDetail.css';
 import StarDisplay from '../../components/StarDisplay';
-
+import StarRating from '../../components/StarRating';
+import axios from 'axios';
 
 const MovieDetail = () => {
     const { movieId } = useParams();
@@ -13,15 +138,22 @@ const MovieDetail = () => {
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedRating, setSelectedRating] = useState(0);
+    const [dialogVisible, setDialogVisible] = useState(null); // 다이얼로그 상태 관리
+    const [review, setReview] = useState(''); // 리뷰 입력값
+    const [viewingDate, setViewingDate] = useState(''); // 관람일자 입력값
     const baseURL = 'https://image.tmdb.org/t/p/original';
+
+    const dispatch = useDispatch(); // useDispatch를 최상위에서 호출
+    const { accessToken, user, ratings } = useSelector((state) => state.auth); // useSelector를 최상위에서 호출
+    const userId = user?.userId; // user 객체에서 userId 추출
+
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
         const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0'); // 0부터 시작하므로 +1
+        const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-        return `${year}-${month}-${day}`; // "2024-10-20"
+        return `${year}-${month}-${day}`;
     };
-
 
     useEffect(() => {
         const getMovieData = async () => {
@@ -33,48 +165,110 @@ const MovieDetail = () => {
 
             try {
                 const movieData = await fetchMovie(movieId);
-                const response = movieData.data
+                const response = movieData.data;
 
-                // `stills`가 문자열이면 배열로 변환
                 if (typeof response.stills === 'string') {
                     try {
                         response.stills = JSON.parse(response.stills);
                     } catch (err) {
                         console.error('Failed to parse stills:', err);
-                        response.stills = []; // 변환 실패 시 빈 배열로 설정
+                        response.stills = [];
                     }
                 }
 
                 setMovie(response);
-                console.log("선택된 영화정보", response);
-                console.log("movie 찍어보기", movie);
-                console.log("선택된 영화의 첫 번째 스틸 컷", response.stills[1]);
             } catch (err) {
                 console.error('Failed to fetch movie data:', err);
                 setError('Failed to fetch movie data');
+            } finally {
+                setLoading(false);
             }
         };
 
         getMovieData();
     }, [movieId]);
 
-    // if (loading) return <p>Loading...</p>;
-    // if (error) return <p>{error}</p>;
-
-    // if (loading) return <p>Loading...</p>;
-    // if (error) return <p>{error}</p>;
-
     if (!movie || !movie.stills || movie.stills.length === 0) {
         return <p>No movie or stills data available.</p>;
     }
-    const formattedDate = formatDate(movie.released_at); // 날짜 변환
+
+    const formattedDate = formatDate(movie.released_at);
     const formatAudience = (movie.cumulative_audience / 10000).toFixed(1) + '만 명';
+
+    const handleSelectRating = (scope) => {
+        setSelectedRating(scope);
+      };
+    
+    
+      const handleSaveRating = async (movieId, scope) => {
+
+        console.log('movieId:', movieId); // 예: 101
+        console.log('rating:', scope);   // 예: 4.5
+        console.log('userId:', userId);
+
+        try {
+            // 1. 토큰 확인
+            if (!accessToken) {
+                throw new Error('No access token found. Please log in.');
+            }
+    
+            // 2. Redux 상태에서 기존 별점 확인
+            const existingRating = scope[movieId];
+    
+            let response;
+            if (existingRating !== null) {
+                // 3. 기존 별점이 있으면 수정 (PUT 요청)
+                response = await axios.post(
+                    `/api/scope/${movieId}/${userId}`,
+                    { scope },
+                    // { rating, movie: movieId, user: userId },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                );
+            } else {
+                // 4. 기존 별점이 없으면 생성 (POST 요청)
+                response = await axios.post(
+                    `/api/scope/${movieId}/${userId}`,
+                    { scope },
+                    // { rating, movie: movieId, user: userId },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                            'Content-Type': 'application/json',
+                        },
+                    }
+                );
+            }
+    
+            // 5. 서버 요청 성공 시 Redux 상태 업데이트
+            if (response.status === 200 || response.status === 201) {
+                dispatch(addRating({ movieId, scope })); // Redux 상태 업데이트
+                alert(existingRating ? '별점이 수정되었습니다.' : '별점이 생성되었습니다.');
+            } else {
+                alert('별점 저장에 실패했습니다.');
+            }
+        } catch (error) {
+            // 6. 에러 처리
+            console.error('Error saving rating:', error.response ? error.response.data : error.message);
+            if (error.response?.status === 401) {
+                alert('인증 오류: 로그인 상태를 확인하세요.');
+            } else {
+                alert(`별점 저장 중 오류가 발생했습니다: ${error.response ? JSON.stringify(error.response.data) : error.message}`);
+            }
+        }
+    };
+
+    
 
     return (
         <div className="movie-detail">
             <section className="movie-header">
                 <img src={`${baseURL}${movie.stills[0]}`} alt={movie.title} />
-                <div className="movie-header-overlay">    
+                <div className="movie-header-overlay">
                     <h1>{movie.title}</h1>
                     <p>{movie.original_title}</p>
                     <p>{movie.genre}</p>
@@ -82,8 +276,7 @@ const MovieDetail = () => {
                     {movie.cumulative_audience ? (
                         <p>누적 관객 {formatAudience}</p>
                     ) : null}
-                    
-                </div> 
+                </div>
             </section>
             <section className="movie-details">
                 <div className="movie-details-content">
@@ -92,16 +285,11 @@ const MovieDetail = () => {
                         <div className="movie-buttons">
                             <div className="star-display-container">
                                 <StarDisplay rating={selectedRating} />
+                                <p>평균별점</p>
                             </div>
-                            <Button 
-
-                            />
-                            <Button 
-
-                            />
-                            <Button 
-
-                            />
+                            <Button label="별점" onClick={() => setDialogVisible('scope')} />
+                            <Button label="리뷰" onClick={() => setDialogVisible('review')} />
+                            <Button label="관람일자" onClick={() => setDialogVisible('viewingDate')} />
                         </div>
                         <div className="movie-overview">
                             <h2>줄거리</h2>
@@ -110,6 +298,94 @@ const MovieDetail = () => {
                     </div>
                 </div>
             </section>
+
+            {/* 별점 다이얼로그 */}
+            <Dialog
+                header="별점"
+                visible={dialogVisible === 'scope'}
+                onHide={() => setDialogVisible(null)}
+                style={{ width: '50vw' }}
+            >
+            <div className="rating-popup" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                <div className="popup-content">
+                {/* <h2>별점</h2> */}
+                {/* StarRating 컴포넌트를 사용해 별점 표시 */}
+                <StarRating onRatingSelect={handleSelectRating} initialRating={selectedRating} />
+                <div className="popup-buttons" style={{ marginTop: '1rem', display: 'flex', gap: '1rem' }}>
+                    <Button
+                    label="취소"
+                    onClick={() => setDialogVisible(null)} // 다이얼로그 닫기
+                    style={{
+                        padding: '0.5rem 1rem',
+                        backgroundColor: '#ccc',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                    }}
+                />
+               
+                <Button
+                    label="확인"
+                    // onClick={handleSaveRating} // 별점 저장 함수 호출
+                    onClick={() => handleSaveRating(movieId, selectedRating)} 
+                    style={{
+                        padding: '0.5rem 1rem',
+                        backgroundColor: '#007bff',
+                        color: 'white',
+                        border: 'none',
+                        borderRadius: '5px',
+                        cursor: 'pointer',
+                    }}
+                />
+                    
+            </div>
+        </div>
+    </div>
+</Dialog>
+
+            {/* 리뷰 다이얼로그 */}
+            <Dialog
+                // header="리뷰 작성"
+                header={movie.title}
+                visible={dialogVisible === 'review'}
+                onHide={() => setDialogVisible(null)}
+                style={{ width: '50vw' }}
+            >
+                <div className="dialog-content">
+                    {/* <p>리뷰를 입력해주세요:</p> */}
+                    <InputTextarea
+                        value={review}
+                        onChange={(e) => setReview(e.target.value)}
+                        placeholder="리뷰 입력"
+                        rows={5}
+                        cols={50}
+                        style={{ width: '100%', height: '150px' }} // 원하는 크기
+                    />
+                </div>
+                <div className="review-button">
+                    <Button label="취소" />
+
+                    <Button label="확인" />
+                </div>
+            </Dialog>
+
+            {/* 관람일자 다이얼로그 */}
+            <Dialog
+                header="관람일자 입력"
+                visible={dialogVisible === 'viewingDate'}
+                rows={5} cols={30}
+                onHide={() => setDialogVisible(null)}
+                style={{ width: '50vw' }}
+            >
+                <div className="dialog-content">
+                    <p>관람일자를 입력해주세요:</p>
+                    <InputTextarea
+                        value={viewingDate}
+                        onChange={(e) => setViewingDate(e.target.value)}
+                        placeholder="YYYY-MM-DD"
+                    />
+                </div>
+            </Dialog>
         </div>
     );
 };

@@ -2,20 +2,17 @@ package com.siuuuuu.commodeami.actor.command.application.service;
 
 import com.siuuuuu.commodeami.actor.command.aggregate.dto.ActorDTO;
 import com.siuuuuu.commodeami.actor.command.aggregate.entity.Actor;
-import com.siuuuuu.commodeami.actor.command.aggregate.entity.ActorGender;
 import com.siuuuuu.commodeami.actor.command.domain.repository.ActorRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
-public class ActorServiceImpl implements ActorService {
+public class AppActorServiceImpl implements AppActorService {
 
     private final ActorRepository actorRepository;
 
-    public ActorServiceImpl(ActorRepository actorRepository) {
+    public AppActorServiceImpl(ActorRepository actorRepository) {
         this.actorRepository = actorRepository;
     }
 
