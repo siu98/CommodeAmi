@@ -6,9 +6,11 @@ import com.siuuuuu.commodeami.scope.command.aggregate.dto.ScopeDTO;
 import com.siuuuuu.commodeami.scope.command.aggregate.entity.Scope;
 import com.siuuuuu.commodeami.scope.command.domain.repository.ScopeRepository;
 import com.siuuuuu.commodeami.user.command.domain.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class AppScopeServiceImpl implements AppScopeService {
 
@@ -29,7 +31,9 @@ public class AppScopeServiceImpl implements AppScopeService {
     }
 
     @Override
-    public ScopeDTO createOrUpdateScope(Long userId, Long movieId, ScopeDTO scopeDTO) {
+    public ScopeDTO createOrUpdateScope(Long movieId, Long userId, ScopeDTO scopeDTO) {
+        log.info("Processing userId={}, movieId={}", userId, movieId); // 디버깅 로그
+
         // 1. 사용자가 있는지 검증
         if (!userRepository.existsById(userId)) {
             throw new IllegalArgumentException("사용자를 찾을 수 없습니다: userId=" + userId);

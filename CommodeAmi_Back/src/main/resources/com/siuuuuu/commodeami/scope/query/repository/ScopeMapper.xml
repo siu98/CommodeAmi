@@ -55,4 +55,20 @@
         WHERE
             MOVIE_ID = #{MOVIE_ID}
     </select>
+
+    <select id="selectScopesByUserIdAndUserId" resultMap="scopeResultMap">
+        SELECT
+            SCOPE_ID
+            ,SCOPE
+            ,CREATED_AT
+            ,WATCHED_AT
+            ,REVIEW_ID
+            ,USER_ID
+            ,MOVIE_ID
+          FROM
+            TBL_SCOPE
+         WHERE
+            USER_ID = #{userId}
+            AND MOVIE_ID = #{movieId}
+    </select>
 </mapper>

@@ -10,4 +10,6 @@ public interface ScopeService {
     ScopeDTO getScopeByUserId(Long userId);
 
     ScopeDTO getScopeByMovieId(Long movieId);
+
+    ScopeDTO getScopeByUserIdAndMovieId(Long userId, Long movieId);
 }

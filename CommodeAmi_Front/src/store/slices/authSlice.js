@@ -7,6 +7,7 @@ const initialState = {
     user: JSON.parse(localStorage.getItem('user')) || null,
     isInitialized: !!localStorage.getItem('accessToken'),
     isAuthenticated: !!localStorage.getItem('accessToken'),
+    scope: {}, // 영화 ID별 별점 저장 (movieId를 키로 사용)
 };
 
 const authSlice = createSlice({
@@ -18,6 +19,9 @@ const authSlice = createSlice({
             if (action.payload) {
                 axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload}`;
                 const decoded = jwtDecode(action.payload);
+
+                // 디코딩된 JWT 내용 출력
+                console.log('Decoded JWT:', decoded);
 
                 // 토큰 만료 체크
                 if (decoded.exp * 1000 < Date.now()) {
@@ -32,8 +36,9 @@ const authSlice = createSlice({
                     state.user = {
                         email: decoded.sub,
                         userName: decoded.userName,
-                        profilePhoto: decoded.profilePhoto,
-                        userId: decoded.userId,
+                        // profilePhoto: decoded.profilePhoto,
+                        userId: decoded.userid,
+                        // nickName: decoded.nickname,
                         userRole: decoded.auth,
                     };
                     state.isInitialized = true;
@@ -59,15 +64,20 @@ const authSlice = createSlice({
             state.user = null;
             state.isInitialized = false;
             state.isAuthenticated = false;
+            state.scope = {}; // 별점 초기화
 
             // 로컬 스토리지 초기화
             localStorage.removeItem('accessToken');
             localStorage.removeItem('user');
         },
+        addRating(state, action) {
+            const { movieId, scope } = action.payload;
+            state.scope[movieId] = scope; // 별점을 영화 ID별로 저장
+        },
     },
 });
 
-export const { setAccessToken, logout } = authSlice.actions;
+export const { setAccessToken, logout, addRating } = authSlice.actions;
 
 export const login = (email, password) => async (dispatch) => {
     try {
