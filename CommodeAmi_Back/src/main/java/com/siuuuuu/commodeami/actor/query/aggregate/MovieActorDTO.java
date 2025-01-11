@@ -2,6 +2,8 @@ package com.siuuuuu.commodeami.actor.query.aggregate;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.siuuuuu.commodeami.actor.command.aggregate.entity.ActorGender;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Data;
 
 @Data
@@ -14,7 +16,7 @@ public class MovieActorDTO {
     String name;
 
     @JsonProperty("gender")
-    ActorGender gender;
+    String gender;
 
     @JsonProperty("profile_image")
     String profileImage;
@@ -30,5 +32,8 @@ public class MovieActorDTO {
 
     @JsonProperty("casting_order")
     Integer castingOrder;
+
+//    @JsonProperty("movie_id")
+//    Long movieId;
 
 }

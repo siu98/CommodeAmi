@@ -1,130 +1,10 @@
-// import React, { useEffect, useState } from 'react';
-// import { useParams } from 'react-router-dom';
-// import { fetchMovie } from '../../api/movieDetails';
-// import { Button } from 'primereact/button';
-// import './MovieDetail.css'
-// // import StarRating from './StarRating';
-// import StarDisplay from '../../components/StarDisplay';
-
-
-// const MovieDetail = () => {
-//     const { movieId } = useParams();
-//     const [movie, setMovie] = useState(null);
-//     const [error, setError] = useState(null);
-//     const [loading, setLoading] = useState(true);
-//     const [selectedRating, setSelectedRating] = useState(0);
-//     const baseURL = 'https://image.tmdb.org/t/p/original';
-//     const formatDate = (timestamp) => {
-//         const date = new Date(timestamp);
-//         const year = date.getFullYear();
-//         const month = String(date.getMonth() + 1).padStart(2, '0'); // 0부터 시작하므로 +1
-//         const day = String(date.getDate()).padStart(2, '0');
-//         return `${year}-${month}-${day}`; // "2024-10-20"
-//     };
-
-
-//     useEffect(() => {
-//         const getMovieData = async () => {
-//             if (!movieId) {
-//                 setError('Invalid movie ID');
-//                 setLoading(false);
-//                 return;
-//             }
-
-//             try {
-//                 const movieData = await fetchMovie(movieId);
-//                 const response = movieData.data
-
-//                 // `stills`가 문자열이면 배열로 변환
-//                 if (typeof response.stills === 'string') {
-//                     try {
-//                         response.stills = JSON.parse(response.stills);
-//                     } catch (err) {
-//                         console.error('Failed to parse stills:', err);
-//                         response.stills = []; // 변환 실패 시 빈 배열로 설정
-//                     }
-//                 }
-
-//                 setMovie(response);
-//                 console.log("선택된 영화정보", response);
-//                 console.log("movie 찍어보기", movie);
-//                 console.log("선택된 영화의 첫 번째 스틸 컷", response.stills[1]);
-//             } catch (err) {
-//                 console.error('Failed to fetch movie data:', err);
-//                 setError('Failed to fetch movie data');
-//             }
-//         };
-
-//         getMovieData();
-//     }, [movieId]);
-
-//     // if (loading) return <p>Loading...</p>;
-//     // if (error) return <p>{error}</p>;
-
-//     // if (loading) return <p>Loading...</p>;
-//     // if (error) return <p>{error}</p>;
-
-//     if (!movie || !movie.stills || movie.stills.length === 0) {
-//         return <p>No movie or stills data available.</p>;
-//     }
-//     const formattedDate = formatDate(movie.released_at); // 날짜 변환
-//     const formatAudience = (movie.cumulative_audience / 10000).toFixed(1) + '만 명';
-
-//     return (
-//         <div className="movie-detail">
-//             <section className="movie-header">
-//                 <img src={`${baseURL}${movie.stills[0]}`} alt={movie.title} />
-//                 <div className="movie-header-overlay">    
-//                     <h1>{movie.title}</h1>
-//                     <p>{movie.original_title}</p>
-//                     <p>{movie.genre}</p>
-//                     <p>{movie.running_time}분 / {formattedDate} 개봉</p>
-//                     {movie.cumulative_audience ? (
-//                         <p>누적 관객 {formatAudience}</p>
-//                     ) : null}
-                    
-//                 </div> 
-//             </section>
-//             <section className="movie-details">
-//                 <div className="movie-details-content">
-//                     <img src={movie.poster_url} alt={movie.title} />
-//                     <div className="movie-info">
-//                         <div className="movie-buttons">
-//                             <div className="star-display-container">
-//                                 <StarDisplay rating={selectedRating} />
-//                                 <p>평균별점</p>
-//                             </div>
-//                             <Button 
-//                                 label="별점"
-                                
-//                             />
-//                             <Button 
-//                                 label="리뷰"
-//                             />
-//                             <Button 
-//                                 label="관람일자"
-//                             />
-//                         </div>
-//                         <div className="movie-overview">
-//                             <h2>줄거리</h2>
-//                             <p>{movie.plot}</p>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </section>
-//         </div>
-//     );
-// };
-
-// export default MovieDetail;
-
-
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { addRating } from '../../store/slices/authSlice';
-import { fetchMovie } from '../../api/movieDetails';
+import { fetchMovie, fetchActors } from '../../api/movieDetails';
 import { Button } from 'primereact/button';
+import { Image } from 'primereact/image';
 import { Dialog } from 'primereact/dialog';
 import { InputTextarea } from 'primereact/inputtextarea';
 import './MovieDetail.css';
@@ -134,13 +14,16 @@ import axios from 'axios';
 
 const MovieDetail = () => {
     const { movieId } = useParams();
-    const [movie, setMovie] = useState(null);
+    const [movie, setMovie] = useState([]);
+    const [actors, setActors] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
     const [selectedRating, setSelectedRating] = useState(0);
     const [dialogVisible, setDialogVisible] = useState(null); // 다이얼로그 상태 관리
     const [review, setReview] = useState(''); // 리뷰 입력값
     const [viewingDate, setViewingDate] = useState(''); // 관람일자 입력값
+
+    const [movieActors, setMovieActors] = useState([]);
     const baseURL = 'https://image.tmdb.org/t/p/original';
 
     const dispatch = useDispatch(); // useDispatch를 최상위에서 호출
@@ -155,18 +38,18 @@ const MovieDetail = () => {
         return `${year}-${month}-${day}`;
     };
 
-    useEffect(() => {
+        useEffect(() => {
         const getMovieData = async () => {
             if (!movieId) {
                 setError('Invalid movie ID');
                 setLoading(false);
                 return;
             }
-
+    
             try {
                 const movieData = await fetchMovie(movieId);
                 const response = movieData.data;
-
+    
                 if (typeof response.stills === 'string') {
                     try {
                         response.stills = JSON.parse(response.stills);
@@ -175,8 +58,9 @@ const MovieDetail = () => {
                         response.stills = [];
                     }
                 }
-
+    
                 setMovie(response);
+                // console.log("setMovie 확인: ", setMovie(response));
             } catch (err) {
                 console.error('Failed to fetch movie data:', err);
                 setError('Failed to fetch movie data');
@@ -184,16 +68,57 @@ const MovieDetail = () => {
                 setLoading(false);
             }
         };
-
+    
         getMovieData();
     }, [movieId]);
 
+
+    // 배우 데이터를 가져오는 추가 작업
+    useEffect(() => {
+        if (!movieId) return; // movieId가 없으면 실행하지 않음
+        const getActorData = async () => {
+            try {
+                const actorData = await fetchActors(movieId);
+                const response = actorData.data;
+                console.log("actors 확인: ", actorData);
+                setActors(response); // 배우 정보를 상태에 저장
+            } catch (err) {
+                console.error('Failed to fetch actor data:', err);
+                setError('Failed to fetch actor data');
+            }
+        };
+    
+        getActorData(); // 배우 데이터를 가져오는 함수 호출
+    
+    }, [movieId]);
+
+
+
     if (!movie || !movie.stills || movie.stills.length === 0) {
         return <p>No movie or stills data available.</p>;
+        
     }
+
 
     const formattedDate = formatDate(movie.released_at);
     const formatAudience = (movie.cumulative_audience / 10000).toFixed(1) + '만 명';
+
+    // const getActorDetails = (actorId) => {
+    //     return actors.find(actor => actor.id === actorId);
+    //   };
+    
+    // const getCharacterDetails = (actorId) => {
+    //     return movieActors.find(ma => ma.actor === actorId && ma.movie === movie.id);
+    // };
+
+    // const filteredCredits = movie.filter(actorId => {
+    //     const actor = getActorDetails(actorId);
+    //     return actor && (actor.known_for_department === 'Acting' || actor.known_for_department === 'Directing');
+    //   });
+
+  const handleShowAllActors = () => {
+    setShowAllActorsPopup(true);
+  };
 
     const handleSelectRating = (scope) => {
         setSelectedRating(scope);
@@ -305,43 +230,43 @@ const MovieDetail = () => {
                 visible={dialogVisible === 'scope'}
                 onHide={() => setDialogVisible(null)}
                 style={{ width: '50vw' }}
-            >
-            <div className="rating-popup" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                <div className="popup-content">
-                {/* <h2>별점</h2> */}
-                {/* StarRating 컴포넌트를 사용해 별점 표시 */}
-                <StarRating onRatingSelect={handleSelectRating} initialRating={selectedRating} />
-                <div className="popup-buttons" style={{ marginTop: '1rem', display: 'flex', gap: '1rem' }}>
-                    <Button
-                    label="취소"
-                    onClick={() => setDialogVisible(null)} // 다이얼로그 닫기
-                    style={{
-                        padding: '0.5rem 1rem',
-                        backgroundColor: '#ccc',
-                        border: 'none',
-                        borderRadius: '5px',
-                        cursor: 'pointer',
-                    }}
-                />
+                >
+                <div className="rating-popup" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <div className="popup-content">
+                    {/* <h2>별점</h2> */}
+                    {/* StarRating 컴포넌트를 사용해 별점 표시 */}
+                    <StarRating onRatingSelect={handleSelectRating} initialRating={selectedRating} />
+                    <div className="popup-buttons" style={{ marginTop: '1rem', display: 'flex', gap: '1rem' }}>
+                        <Button
+                        label="취소"
+                        onClick={() => setDialogVisible(null)} // 다이얼로그 닫기
+                        style={{
+                            padding: '0.5rem 1rem',
+                            backgroundColor: '#ccc',
+                            border: 'none',
+                            borderRadius: '5px',
+                            cursor: 'pointer',
+                        }}
+                    />
                
-                <Button
-                    label="확인"
-                    // onClick={handleSaveRating} // 별점 저장 함수 호출
-                    onClick={() => handleSaveRating(movieId, selectedRating)} 
-                    style={{
-                        padding: '0.5rem 1rem',
-                        backgroundColor: '#007bff',
-                        color: 'white',
-                        border: 'none',
-                        borderRadius: '5px',
-                        cursor: 'pointer',
-                    }}
-                />
+                    <Button
+                        label="확인"
+                        // onClick={handleSaveRating} // 별점 저장 함수 호출
+                        onClick={() => handleSaveRating(movieId, selectedRating)} 
+                        style={{
+                            padding: '0.5rem 1rem',
+                            backgroundColor: '#007bff',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '5px',
+                            cursor: 'pointer',
+                        }}
+                    />
                     
-            </div>
-        </div>
-    </div>
-</Dialog>
+                    </div>
+                    </div>
+                    </div>
+            </Dialog>
 
             {/* 리뷰 다이얼로그 */}
             <Dialog
@@ -376,7 +301,7 @@ const MovieDetail = () => {
                 rows={5} cols={30}
                 onHide={() => setDialogVisible(null)}
                 style={{ width: '50vw' }}
-            >
+                >
                 <div className="dialog-content">
                     <p>관람일자를 입력해주세요:</p>
                     <InputTextarea
@@ -386,7 +311,51 @@ const MovieDetail = () => {
                     />
                 </div>
             </Dialog>
+            
+            <section className="movie-cast">
+                {actors.length > 0 ? (
+                <>
+                    <h2>출연 {actors.length}</h2>
+                    <div className="cast-list">
+                        {actors.slice(0, 8).map(actor => (
+                            <div className="cast-item" key={actor.actor_id}>
+                                <img src={`${baseURL}${actor.profile_image}`} />
+
+                                <p>{actor.name}</p>
+                            </div>
+                        ))}
+                    </div>
+                    {actors.length > 8 && (
+                        <Button label="더보기" className="more-button" onClick={handleShowAllActors} />
+                    )}
+                </>
+                ) : (
+                <p>Loading actors...</p>
+                )}
+            </section>
+            <section className="movie-stills">
+                <h2>스틸컷{movie.stills.length}</h2>
+                <div className="still-list">
+                    {movie.stills.slice(0, 4).map((still, index) => (
+                    <Image
+                        src={`${baseURL}${still}`}
+                        alt={`Still ${index + 1}`}
+                        key={index}
+                        // onClick={() => handleStillClick(`${baseURL}${still}`)}
+                        style={{ cursor: 'pointer' }}
+                        preview
+                    />
+            ))}
+                </div>
+            </section>
+
+
+
+
+
         </div>
+
+        
     );
 };
 

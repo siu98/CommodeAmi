@@ -5,6 +5,7 @@ import com.siuuuuu.commodeami.actor.query.aggregate.ActorDTO;
 import com.siuuuuu.commodeami.actor.query.aggregate.MovieActor;
 import com.siuuuuu.commodeami.actor.query.aggregate.MovieActorDTO;
 import com.siuuuuu.commodeami.actor.query.repository.ActorMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ActorServiceImpl implements ActorService {
 
@@ -36,6 +38,7 @@ public class ActorServiceImpl implements ActorService {
     @Override
     public List<MovieActorDTO> getActorsByMovieId(Long movieId) {
         List<MovieActor> movieActors = actorMapper.selectActorsByMovieId(movieId);
+        log.info("배우 쿼리결과 확인: " + movieActors );
         List<MovieActorDTO> movieActorDTOS =
                 movieActors.stream().map(movieActor -> modelMapper.map(movieActor, MovieActorDTO.class)).collect(Collectors.toList());
         return movieActorDTOS;
