@@ -167,3 +167,59 @@
   .movie-detail .movie-buttons button:hover {
     background-color: #2C4870; 
   }
+
+  .movie-detail .cast-item {
+    text-align: center;
+  }
+  
+  .movie-detail .cast-item img {
+    width: 117px;
+    height: auto;
+  }
+  .movie-cast {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: -30px;
+  }
+  
+  .movie-cast .cast-list {
+    display: flex;
+    gap: 50px;
+    max-height: 400px;
+    overflow-y: auto;
+    justify-content: center;
+  }
+  
+  .movie-stills{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .movie-stills .still-list {
+    display: flex;
+    overflow-x: auto;
+    justify-content: center;
+    padding: 10px 0;
+  }
+  
+  .movie-stills .still-list img {
+    margin-right: 10px;
+    width: 300px;
+    height: auto;
+  }
+  
+  .movie-stills .more-button {
+    width: 80px; 
+    height: 30px;
+    font-size: 15px; 
+    padding: 10px; 
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    border-radius: 8px;
+    font-weight: 600;
+    color: white;
+    background-color: #3D6094; 
+    align-self: center; 
+  }

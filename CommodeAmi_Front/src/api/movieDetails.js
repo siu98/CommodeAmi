@@ -5,7 +5,7 @@ export const fetchMovie = async (movieId) => {
     try {
         const response = await axios.get(`/api/movie/${movieId}`);
         const movieData = response.data;
-        console.log(movieData); 
+        console.log("fetchMovie 호충 확인", movieData); 
         // origin_country가 문자열로 오면 배열로 변환
         if (movieData.originalCountry) {
             let originCountries;
@@ -34,10 +34,17 @@ export const fetchMovie = async (movieId) => {
 };
 
 // 배우 정보 API 호출
-export const fetchActors = async () => {
+export const fetchActors = async (movieId) => {
     try {
-        const response = await axios.get(`/api/actors/`);
-        return response.data;
+        if (!movieId) {
+            throw new Error('movieId가 없습니다.');
+        }
+        console.log("Fetching actors with movieId:", movieId);
+        const response = await axios.get(`/api/actor/${movieId}`);
+        
+        const actorData = response.data;
+        console.log("배우정보 API 응답:", actorData); // API에서 직접 가져온 데이터
+        return actorData; // 응답 데이터 반환
     } catch (error) {
         console.error('Error fetching actors:', error);
         throw error;

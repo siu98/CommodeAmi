@@ -75,7 +75,8 @@ function App() {
                 sectionId="dashboard-box-office"
               />
               ) : (
-              <Navigate to="/login" />
+              <Navigate to="/" />
+              // <Navigate to="/login" />
               )
             }
           />

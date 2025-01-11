@@ -51,6 +51,7 @@ public class JwtFilter extends OncePerRequestFilter {
         return path.startsWith("/api/user/login")
                 || path.startsWith("/api/user/regist")
                 || path.startsWith("/api/movie")
+                || path.startsWith("/api/actor")
 
         // swagger 관련 모든 경로 추후 추가
                 || path.startsWith("/swagger-ui")

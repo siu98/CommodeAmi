@@ -8,12 +8,12 @@ public class MovieActor {
 
     Long actorId;
     String name;
-    ActorGender gender;
+    String gender;
     String profileImage;
     String knownForDepartment;
     String originalName;
     String role;
     Integer castingOrder;
-
+//    Long movieId;
 
 }
