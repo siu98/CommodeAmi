@@ -6,6 +6,7 @@ import { fetchMovie, fetchActors } from '../../api/movieDetails';
 import { Button } from 'primereact/button';
 import { Image } from 'primereact/image';
 import { Dialog } from 'primereact/dialog';
+import { Carousel } from 'primereact/carousel';
 import { InputTextarea } from 'primereact/inputtextarea';
 import './MovieDetail.css';
 import StarDisplay from '../../components/StarDisplay';
@@ -336,7 +337,7 @@ const MovieDetail = () => {
             <section className="movie-stills">
                 <h2>스틸컷{movie.stills.length}</h2>
                 <div className="still-list">
-                    {movie.stills.slice(0, 4).map((still, index) => (
+                    {/* {movie.stills.slice(0, 4).map((still, index) => (
                     <Image
                         src={`${baseURL}${still}`}
                         alt={`Still ${index + 1}`}
@@ -345,7 +346,25 @@ const MovieDetail = () => {
                         style={{ cursor: 'pointer' }}
                         preview
                     />
-            ))}
+            ))} */}
+
+<Carousel
+        value={movie.stills.slice(0, 4)} // 최대 4개만 표시
+        numVisible={4}
+        numScroll={4}
+        // circular 
+        autoplayInterval={10000}
+        itemTemplate={(still, index) => (
+            <div className="still-list" key={index}>
+                <Image
+                    src={`${baseURL}${still}`}
+                    alt={`Still ${index + 1}`}
+                    preview
+                    style={{ cursor: 'pointer', width: '100%' }}
+                />
+            </div>
+        )}
+    />
                 </div>
             </section>
 

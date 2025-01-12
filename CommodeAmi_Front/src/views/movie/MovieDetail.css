@@ -223,3 +223,28 @@
     background-color: #3D6094; 
     align-self: center; 
   }
+
+  .movie-stills .p-carousel-container {
+    width: 100%; /* 슬라이더가 부모 너비에 맞게 */
+    max-width: 900px; /* 최대 너비 제한 */
+}
+
+.movie-stills .p-carousel-content {
+    justify-content: center; /* 슬라이더 중앙 정렬 */
+}
+
+.movie-stills .p-carousel-item {
+    padding: 5px; /* 슬라이드 간 간격 */
+}
+
+.movie-stills img {
+    width: 100%; /* 이미지 너비를 슬라이드 크기에 맞게 */
+    max-width: 300px; /* 최대 너비 */
+    height: auto;
+    border-radius: 5px; /* 이미지 모서리 둥글게 */
+    transition: transform 0.3s ease; /* 호버 효과 부드럽게 */
+}
+
+.movie-stills img:hover {
+    transform: scale(1.05); /* 호버 시 확대 */
+}
