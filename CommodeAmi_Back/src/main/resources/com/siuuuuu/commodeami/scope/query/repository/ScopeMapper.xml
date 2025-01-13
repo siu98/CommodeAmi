@@ -38,7 +38,7 @@
          FROM
             TBL_SCOPE
         WHERE
-            USER_ID = #{USER_ID}
+            USER_ID = #{userId}
     </select>
 
     <select id="selectScopesByMovieId" resultMap="scopeResultMap">

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { addRating } from '../../store/slices/authSlice';
+// import { addRating } from '../../store/slices/authSlice';
 import { fetchMovie, fetchActors } from '../../api/movieDetails';
+import { fetchMovieScope, setLoading, setError, setScope } from '../../store/slices/scopeSlice';
 import { Button } from 'primereact/button';
 import { Image } from 'primereact/image';
 import { Dialog } from 'primereact/dialog';
@@ -17,8 +18,6 @@ const MovieDetail = () => {
     const { movieId } = useParams();
     const [movie, setMovie] = useState([]);
     const [actors, setActors] = useState([]);
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [selectedRating, setSelectedRating] = useState(0);
     const [dialogVisible, setDialogVisible] = useState(null); // 다이얼로그 상태 관리
     const [review, setReview] = useState(''); // 리뷰 입력값
@@ -28,8 +27,10 @@ const MovieDetail = () => {
     const baseURL = 'https://image.tmdb.org/t/p/original';
 
     const dispatch = useDispatch(); // useDispatch를 최상위에서 호출
-    const { accessToken, user, ratings } = useSelector((state) => state.auth); // useSelector를 최상위에서 호출
+    const { accessToken, user } = useSelector((state) => state.auth); // useSelector를 최상위에서 호출
+    const { scope, loading, error } = useSelector((state) => state.scope);
     const userId = user?.userId; // user 객체에서 userId 추출
+    const movieRating = scope?.[movieId] || 0;
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
@@ -109,10 +110,63 @@ const MovieDetail = () => {
     
     }, [movieId]);
 
+    useEffect(() => {
+        if (accessToken && userId && movieId) {
+            console.log('Fetching movie scope with access token.');
+            dispatch(fetchMovieScope(userId, movieId));
+        } else {
+            console.warn('User is not logged in or required data is missing.');
+        }
+    }, [accessToken, userId, movieId, dispatch]);
+    
+    
+
+    // const fetchMovieRating = async (movieId) => {
+    //     try {
+    //         const response = await axios.get(`/api/scope/${userId}/${movieId}`, {
+    //             headers: {
+    //                 Authorization: `Bearer ${accessToken}`,
+    //             },
+    //         });
+    
+    //         if (response.status === 200) {
+    //             console.log("별점 response확인: ", response.data);
+    //             const ratingValue = response.data.scope; // 서버에서 별점 데이터 가져오기
+                
+    //             dispatch(addRating({ movieId, ratingValue })); // Redux 상태 업데이트
+    //             console.log('Updated Redux Scope:', { movieId, scope: ratingValue });
+    //         }
+    //     } catch (error) {
+    //         console.error('Failed to fetch movie rating:', error.message);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     const fetchRating = async () => {
+    //         if (!movieId || !userId) {
+    //             console.error('Missing movieId or userId:', { movieId, userId });
+    //             return;
+    //         }
+    
+    //         console.log('Fetching rating for movieId:', movieId);
+    //         await fetchMovieRating(movieId);
+    //     };
+    
+    //     fetchRating();
+    // }, [movieId, userId]); // movieId 또는 userId가 변경될 때 호출
+
+        // **로딩 또는 오류 처리**를 렌더링 초반부에 추가합니다.
+    if (loading) {
+        return <p>로딩 중...</p>;
+    }
+    
+    if (error) {
+        return <p>오류가 발생했습니다: {error}</p>;
+    }
 
 
     if (!movie || !movie.stills || movie.stills.length === 0) {
-        return <p>No movie or stills data available.</p>;
+        return <p>영화 정보를 불러오는 중입니다.</p>;
         
     }
 
@@ -140,69 +194,162 @@ const MovieDetail = () => {
     const handleSelectRating = (scope) => {
         setSelectedRating(scope);
       };
-    
-    
-      const handleSaveRating = async (movieId, scope) => {
 
-        console.log('movieId:', movieId); // 예: 101
-        console.log('rating:', scope);   // 예: 4.5
-        console.log('userId:', userId);
 
+      const handleSaveRating = async (movieId, ratingValue) => {
         try {
             // 1. 토큰 확인
             if (!accessToken) {
+                alert('로그인이 필요합니다.');
                 throw new Error('No access token found. Please log in.');
             }
     
-            // 2. Redux 상태에서 기존 별점 확인
-            const existingRating = scope[movieId];
+            // 2. 요청 데이터 준비
+            const requestData = { scope: ratingValue };
     
-            let response;
-            if (existingRating !== null) {
-                // 3. 기존 별점이 있으면 수정 (PUT 요청)
-                response = await axios.post(
-                    `/api/scope/${movieId}/${userId}`,
-                    { scope },
-                    // { rating, movie: movieId, user: userId },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${accessToken}`,
-                            'Content-Type': 'application/json',
-                        },
-                    }
-                );
-            } else {
-                // 4. 기존 별점이 없으면 생성 (POST 요청)
-                response = await axios.post(
-                    `/api/scope/${movieId}/${userId}`,
-                    { scope },
-                    // { rating, movie: movieId, user: userId },
-                    {
-                        headers: {
-                            Authorization: `Bearer ${accessToken}`,
-                            'Content-Type': 'application/json',
-                        },
-                    }
-                );
-            }
+            // 3. Axios POST 요청
+            const response = await axios.post(
+                `/api/scope/${movieId}/${userId}`,
+                requestData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
     
-            // 5. 서버 요청 성공 시 Redux 상태 업데이트
+            // 4. 서버 요청 성공 시 Redux 상태 업데이트
             if (response.status === 200 || response.status === 201) {
-                dispatch(addRating({ movieId, scope })); // Redux 상태 업데이트
-                alert(existingRating ? '별점이 수정되었습니다.' : '별점이 생성되었습니다.');
+                // Redux 상태 업데이트
+                dispatch(setScope({ movieId, scope: ratingValue }));
+    
+                // 성공 메시지 출력
+                const message =
+                    response.status === 201
+                        ? '별점이 생성되었습니다.'
+                        : '별점이 생성되었습니다.';
+                alert(message);
             } else {
                 alert('별점 저장에 실패했습니다.');
             }
         } catch (error) {
-            // 6. 에러 처리
-            console.error('Error saving rating:', error.response ? error.response.data : error.message);
+            // 5. 에러 처리
+            console.error(
+                'Error saving rating:',
+                error.response ? error.response.data : error.message
+            );
+    
             if (error.response?.status === 401) {
                 alert('인증 오류: 로그인 상태를 확인하세요.');
             } else {
-                alert(`별점 저장 중 오류가 발생했습니다: ${error.response ? JSON.stringify(error.response.data) : error.message}`);
+                alert(
+                    `별점 저장 중 오류가 발생했습니다: ${
+                        error.response ? JSON.stringify(error.response.data) : error.message
+                    }`
+                );
             }
         }
     };
+
+    //   const handleSaveRating = async (movieId, ratingValue) => {
+    //     try {
+    //         if (!accessToken) {
+    //             throw new Error('No access token found. Please log in.');
+    //         }
+    
+    //         const response = await axios.post(
+    //             `/api/scope/${movieId}/${userId}`,
+    //             { scope: ratingValue }, // 서버로 보낼 데이터
+    //             {
+    //                 headers: {
+    //                     Authorization: `Bearer ${accessToken}`,
+    //                     'Content-Type': 'application/json',
+    //                 },
+    //             }
+    //         );
+    
+    //         if (response.status === 200 || response.status === 201) {
+    //             // Redux 상태 업데이트
+    //             // dispatch(addRating({ movieId, scope: ratingValue }));
+    //             console.log('Redux after dispatch:', scope); // Redux 상태 확인
+    //             // 별점 저장 후 데이터를 다시 가져옴
+    //             // fetchMovieRating(movieId);
+    //             alert('별점이 저장되었습니다.');
+    //         } else {
+    //             alert('별점 저장에 실패했습니다.');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error saving rating:', error.message);
+    //         alert('별점 저장 중 오류가 발생했습니다.');
+    //     }
+    // };
+    
+    
+    //   const handleSaveRating = async (movieId, scope) => {
+
+    //     console.log('movieId:', movieId); // 예: 101
+    //     console.log('rating:', scope);   // 예: 4.5
+    //     console.log('userId:', userId);
+    //     console.log('Updated Redux Scope:', scope);
+
+    //     try {
+    //         // 1. 토큰 확인
+    //         if (!accessToken) {
+    //             throw new Error('No access token found. Please log in.');
+    //         }
+    
+    //         // 2. Redux 상태에서 기존 별점 확인
+    //         const existingRating = scope[movieId];
+    
+    //         let response;
+    //         if (existingRating !== null) {
+    //             // 3. 기존 별점이 있으면 수정 (PUT 요청)
+    //             response = await axios.post(
+    //                 `/api/scope/${movieId}/${userId}`,
+    //                 { scope },
+    //                 // { rating, movie: movieId, user: userId },
+    //                 {
+    //                     headers: {
+    //                         Authorization: `Bearer ${accessToken}`,
+    //                         'Content-Type': 'application/json',
+    //                     },
+    //                 }
+    //             );
+    //         } else {
+    //             // 4. 기존 별점이 없으면 생성 (POST 요청)
+    //             response = await axios.post(
+    //                 `/api/scope/${movieId}/${userId}`,
+    //                 { scope },
+    //                 // { rating, movie: movieId, user: userId },
+    //                 {
+    //                     headers: {
+    //                         Authorization: `Bearer ${accessToken}`,
+    //                         'Content-Type': 'application/json',
+    //                     },
+    //                 }
+    //             );
+    //         }
+    
+    //         // 5. 서버 요청 성공 시 Redux 상태 업데이트
+    //         if (response.status === 200 || response.status === 201) {
+    //             dispatch(addRating({ movieId, scope })); // Redux 상태 업데이트
+    //             console.log("redux 확인: ", scope);
+    //             alert(existingRating ? '별점이 수정되었습니다.' : '별점이 생성되었습니다.');
+    //         } else {
+    //             alert('별점 저장에 실패했습니다.');
+    //         }
+    //     } catch (error) {
+    //         // 6. 에러 처리
+    //         console.error('Error saving rating:', error.response ? error.response.data : error.message);
+    //         if (error.response?.status === 401) {
+    //             alert('인증 오류: 로그인 상태를 확인하세요.');
+    //         } else {
+    //             alert(`별점 저장 중 오류가 발생했습니다: ${error.response ? JSON.stringify(error.response.data) : error.message}`);
+    //         }
+    //     }
+    // };
+
 
     
 
@@ -226,7 +373,11 @@ const MovieDetail = () => {
                     <div className="movie-info">
                         <div className="movie-buttons">
                             <div className="star-display-container">
-                                <StarDisplay rating={selectedRating} />
+                                {/* <StarDisplay rating={selectedRating} /> */}
+
+                                <StarDisplay rating={movieRating} />
+                                {/* <StarDisplay rating={typeof movieRating === 'number' ? movieRating : 0} /> */}
+                                {console.log("movieRating:", movieRating)}
                                 <p>평균별점</p>
                             </div>
                             <Button label="별점" onClick={() => setDialogVisible('scope')} />

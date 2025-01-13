@@ -26,13 +26,13 @@ public class ScopeController {
     }
 
     // 해당 유저의 별점 모두 조회
-    @GetMapping("{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseDTO<?> findScopeByUserId(@PathVariable("userId") Long userId) {
         return ResponseDTO.ok(scopeService.getScopeByUserId(userId));
     }
 
     // 해당 영화의 별점 모두 조회
-    @GetMapping("{movieId}")
+    @GetMapping("/movie/{movieId}")
     public ResponseDTO<?> findScopeByMovieId(@PathVariable("movieId") Long movieId) {
         return ResponseDTO.ok(scopeService.getScopeByMovieId(movieId));
     }

@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { resetScope } from './scopeSlice'; // scopeSlice 파일 경로에 맞게 설정
 import axios from 'axios';
 import { jwtDecode }from 'jwt-decode';
 
@@ -7,7 +8,6 @@ const initialState = {
     user: JSON.parse(localStorage.getItem('user')) || null,
     isInitialized: !!localStorage.getItem('accessToken'),
     isAuthenticated: !!localStorage.getItem('accessToken'),
-    scope: {}, // 영화 ID별 별점 저장 (movieId를 키로 사용)
 };
 
 const authSlice = createSlice({
@@ -20,23 +20,17 @@ const authSlice = createSlice({
                 axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload}`;
                 const decoded = jwtDecode(action.payload);
 
-                // 디코딩된 JWT 내용 출력
-                console.log('Decoded JWT:', decoded);
-
-                // 토큰 만료 체크
                 if (decoded.exp * 1000 < Date.now()) {
                     state.user = null;
                     state.isInitialized = false;
                     state.isAuthenticated = false;
 
-                    // 로컬 스토리지 초기화
                     localStorage.removeItem('accessToken');
                     localStorage.removeItem('user');
                 } else {
                     state.user = {
                         email: decoded.sub,
                         userName: decoded.userName,
-                        // profilePhoto: decoded.profilePhoto,
                         userId: decoded.userid,
                         nickName: decoded.nickname,
                         userRole: decoded.auth,
@@ -44,7 +38,6 @@ const authSlice = createSlice({
                     state.isInitialized = true;
                     state.isAuthenticated = true;
 
-                    // 로컬 스토리지에 저장
                     localStorage.setItem('accessToken', action.payload);
                     localStorage.setItem('user', JSON.stringify(state.user));
                 }
@@ -54,30 +47,30 @@ const authSlice = createSlice({
                 state.isInitialized = false;
                 state.isAuthenticated = false;
 
-                // 로컬 스토리지 초기화
                 localStorage.removeItem('accessToken');
                 localStorage.removeItem('user');
             }
         },
-        logout(state) {
+        resetState(state) {
             state.accessToken = null;
             state.user = null;
             state.isInitialized = false;
             state.isAuthenticated = false;
-            state.scope = {}; // 별점 초기화
-
-            // 로컬 스토리지 초기화
-            localStorage.removeItem('accessToken');
-            localStorage.removeItem('user');
-        },
-        addRating(state, action) {
-            const { movieId, scope } = action.payload;
-            state.scope[movieId] = scope; // 별점을 영화 ID별로 저장
         },
     },
 });
 
-export const { setAccessToken, logout, addRating } = authSlice.actions;
+export const { setAccessToken, resetState } = authSlice.actions;
+
+// Thunk로 logout 정의
+export const logout = () => (dispatch) => {
+    dispatch(resetState()); // Redux 상태 초기화
+    dispatch(resetScope()); // Scope 상태 초기화
+
+    // 로컬 스토리지 초기화
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('user');
+};
 
 export const login = (email, password) => async (dispatch) => {
     try {
@@ -89,8 +82,6 @@ export const login = (email, password) => async (dispatch) => {
 
         const accessToken = response.headers['authorization']?.replace('Bearer ', '');
         if (!accessToken) throw new Error('No access token received');
-
-        console.log("액세스 토큰:", accessToken); // 토큰 확인
 
         dispatch(setAccessToken(accessToken));
         return true;
