@@ -64,4 +64,28 @@
         WHERE
             MOVIE_ID = #{MOVIE_ID}
     </select>
+
+    <select id="selectMovieByTitle" resultMap="movieResultMap">
+        SELECT
+            MOVIE_ID
+           ,TITLE
+           ,PLOT
+           ,RELEASED_AT
+           ,POSTER_URL
+           ,GENRE
+           ,ORIGINAL_TITLE
+           ,ORIGINAL_COUNTRY
+           ,STILLS
+           ,RUNNING_TIME
+           ,TRAILERS
+           ,YOUTUBE_URL
+           ,CUMULATIVE_AUDIENCE
+           ,BOX_OFFICE_RANK
+           ,API_ID
+         FROM
+           TBL_MOVIE
+        WHERE
+            #{title} IS NOT NULL
+            AND REPLACE(TITLE, ' ', '') LIKE CONCAT('%', REPLACE(#{title}, ' ', ''), '%')
+    </select>
 </mapper>

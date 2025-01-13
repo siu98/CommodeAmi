@@ -4,10 +4,7 @@ import com.siuuuuu.commodeami.common.ResponseDTO;
 import com.siuuuuu.commodeami.movie.query.aggregate.Movie;
 import com.siuuuuu.commodeami.movie.query.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,7 +32,9 @@ public class MovieController {
         return ResponseDTO.ok(movieService.findMovieById(movieId));
     }
 
-    // 영화 제목으로 조회
-
-
+    // 영화 제목으로 조회 (검색)
+    @GetMapping("/search")
+    public ResponseDTO<?> findMovieByName(@RequestParam String title) {
+        return ResponseDTO.ok(movieService.findMovieByTitle(title));
+    }
 }
