@@ -1,0 +1,144 @@
+.profile-dashboard {
+    width: 400px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0 auto; /* 가로 중앙 정렬 */
+  }
+  
+  .profile-header {
+    margin-top: 0; /* 필요 시 여백 제거 */
+  }
+  
+  .profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  .profile-info {
+    flex-grow: 1;
+    /* background-color: #3D6094; */
+  }
+  
+  .profile-info span {
+    font-size: 1.3rem;
+    font-weight: 500;
+    background-color: #3D6094; /* 원하는 색상 */
+    color: white;
+    display: inline; /* 필요한 경우 추가 */
+    /* margin-left: 10px; */
+  }
+  
+  .profile-settings-icon img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .profile-stats {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .profile-stat-item {
+    cursor: pointer; /* 클릭 가능하도록 설정 */
+    background-color: #fff; /* 버튼 배경색 */
+    border: 1px solid #ccc; /* 버튼 테두리 */
+    padding: 10px 20px; /* 버튼 패딩 */
+    margin: 5px; /* 버튼 간격 */
+    display: inline-block; /* 인라인 블록으로 설정 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+  }
+  
+  .profile-stat-item:hover {
+    background-color: #f0f0f0; /* 마우스 오버 시 배경색 변경 */
+  }
+  
+  
+  .profile-stat-item p {
+    margin: 5px 0;
+    text-align: center;
+    color: black;
+  }
+  
+  .profile-analysis {
+    padding: 20px;
+  }
+  
+  .profile-analysis-item {
+    margin-bottom: 20px;
+  }
+  
+  .profile-analysis-item h3 {
+    margin: 0 0 10px;
+    font-size: 14px;
+  }
+  
+  .profile-analysis-item img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .profile-preference-analysis {
+    width: 100%;
+    height: 100px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+  }
+  
+  .profile-content h3 {
+    font-size: 1.5rem;
+  }
+  
+  .profile-content-section {
+    display: none;
+  }
+  
+  .profile-content-section.active {
+    display: block; 
+  }
+  .profile-stat-item {
+    cursor: pointer; 
+    background-color: #fff; 
+    border: 1px solid #ccc; 
+    padding: 10px 20px; 
+    margin: 5px; 
+    display: inline-block; 
+  }
+  .profile-stat-item:hover {
+    background-color: #f0f0f0; 
+  }
+  
+  .profile-movie-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .profile-movie-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .profile-movie-item img {
+    flex: 1 1 30%;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .profile-movie-item p {
+    margin: 5px 0 0;
+    font-size: 12px;
+  }
+  
+  
