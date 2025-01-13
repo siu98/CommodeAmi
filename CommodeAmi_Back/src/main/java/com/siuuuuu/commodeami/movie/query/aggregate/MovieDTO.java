@@ -46,6 +46,9 @@ public class MovieDTO {
     @JsonProperty("running_time")
     private Integer runningTime;
 
+    @JsonProperty("trailers")
+    private String trailers;
+
     @JsonProperty("youtube_url")
     private String youtubeUrl;
 

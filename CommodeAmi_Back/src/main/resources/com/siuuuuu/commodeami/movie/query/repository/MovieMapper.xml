@@ -14,6 +14,7 @@
         <result property="originalCountry" column="original_country" />
         <result property="stills" column="stills" />
         <result property="runningTime" column="running_time" />
+        <result property="trailers" column="trailers" />
         <result property="youtubeUrl" column="youtube_url" />
         <result property="cumulativeAudience" column="cumulative_audience" />
         <result property="boxOfficeRank" column="box_office_rank" />
@@ -32,6 +33,7 @@
            ,ORIGINAL_COUNTRY
            ,STILLS
            ,RUNNING_TIME
+           ,TRAILERS
            ,YOUTUBE_URL
            ,CUMULATIVE_AUDIENCE
            ,BOX_OFFICE_RANK
@@ -52,6 +54,7 @@
            ,ORIGINAL_COUNTRY
            ,STILLS
            ,RUNNING_TIME
+           ,TRAILERS
            ,YOUTUBE_URL
            ,CUMULATIVE_AUDIENCE
            ,BOX_OFFICE_RANK
