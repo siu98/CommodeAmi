@@ -4,8 +4,8 @@ import convertCountry from '../components/ConvertCountry';
 export const fetchMovie = async (movieId) => {
     try {
         const response = await axios.get(`/api/movie/${movieId}`);
-        const movieData = response.data;
-        console.log("fetchMovie 호충 확인", movieData); 
+        const movieData = response.data; 
+        
         // origin_country가 문자열로 오면 배열로 변환
         if (movieData.originalCountry) {
             let originCountries;
@@ -26,6 +26,12 @@ export const fetchMovie = async (movieId) => {
             // 국가 코드 매핑
             movieData.originalCountry = originCountries.map(convertCountry);
         }
+
+        // console.log("Trailers 확인: ", JSON.parse(movi);
+
+        // 변환이 완료된 후에 로그 출력
+        console.log("fetchMovie 호출 확인", movieData);
+
         return movieData;
     } catch (error) {
         console.error('Error fetching movie data:', error);

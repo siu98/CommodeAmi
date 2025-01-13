@@ -46,6 +46,7 @@ public class MovieServiceImpl implements MovieService {
         movieDTO.setOriginalCountry(movie.getOriginalCountry());
         movieDTO.setStills(movie.getStills());
         movieDTO.setRunningTime(movie.getRunningTime());
+        movieDTO.setTrailers(movie.getTrailers());
         movieDTO.setYoutubeUrl(movie.getYoutubeUrl());
         movieDTO.setCumulativeAudience(movie.getCumulativeAudience());
         movieDTO.setBoxOfficeRank(movie.getBoxOfficeRank());

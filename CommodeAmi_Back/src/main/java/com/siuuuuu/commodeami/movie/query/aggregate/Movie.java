@@ -21,6 +21,7 @@ public class Movie {
     private String originalCountry;
     private String stills;
     private Integer runningTime;
+    private String trailers;
     private String youtubeUrl;
     private Long cumulativeAudience;
     private Integer boxOfficeRank;

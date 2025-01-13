@@ -59,6 +59,22 @@ const MovieDetail = () => {
                         response.stills = [];
                     }
                 }
+                if (typeof response.trailers === 'string') {
+                    try {
+                        response.trailers = JSON.parse(response.trailers);
+                    } catch (err) {
+                        console.error('Failed to parse trailers:', err);
+                        response.trailers = [];
+                    }
+                }
+
+                // 트레일러 URL에서 key 값을 추출하여 YouTube embed URL로 변환
+                if (Array.isArray(response.trailers)) {
+                    response.trailers = response.trailers.map(trailer => {
+                    const key = extractYouTubeKey(trailer);
+                    return `https://www.youtube.com/embed/${key}?autoplay=0`;
+                    });
+                }
     
                 setMovie(response);
                 // console.log("setMovie 확인: ", setMovie(response));
@@ -348,34 +364,57 @@ const MovieDetail = () => {
                     />
             ))} */}
 
-<Carousel
-        value={movie.stills.slice(0, 4)} // 최대 4개만 표시
-        numVisible={4}
-        numScroll={4}
-        // circular 
-        autoplayInterval={10000}
-        itemTemplate={(still, index) => (
-            <div className="still-list" key={index}>
-                <Image
-                    src={`${baseURL}${still}`}
-                    alt={`Still ${index + 1}`}
-                    preview
-                    style={{ cursor: 'pointer', width: '100%' }}
+                <Carousel
+                    value={movie.stills.slice(0, 4)} // 최대 4개만 표시
+                    numVisible={4}
+                    numScroll={4}
+                    // circular 
+                    autoplayInterval={10000}
+                    itemTemplate={(still, index) => (
+                    <div className="still-list" key={index}>
+                        <Image
+                            src={`${baseURL}${still}`}
+                            alt={`Still ${index + 1}`}
+                            preview
+                            style={{ cursor: 'pointer', width: '100%' }}
+                        />
+                    </div>
+                    )}
                 />
             </div>
-        )}
-    />
-                </div>
-            </section>
+        </section>
+        <section className="movie-trailers">
+            <h2>트레일러</h2>
+            <div className="trailer-list">
+                {Array.isArray(movie.trailers) && movie.trailers.length > 0 ? (
+                    movie.trailers.map((trailer, index) => (
+                        <iframe 
+                            key={index}
+                            width="300"
+                            height="169"
+                            src={trailer}
+                            title={`Movie Trailer ${index + 1}`}
+                            frameBorder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        ></iframe>
+                    ))
+                ) : (
+                    <p>트레일러가 없습니다.</p>
+                )}
+            </div>
+        </section>
 
-
-
-
-
-        </div>
+    </div>
 
         
     );
 };
 
 export default MovieDetail;
+
+
+function extractYouTubeKey(url) {
+    const urlObj = new URL(url);
+    return urlObj.searchParams.get('v');
+  }
