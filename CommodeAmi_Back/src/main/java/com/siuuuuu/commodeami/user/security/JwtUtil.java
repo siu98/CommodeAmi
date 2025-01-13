@@ -71,10 +71,12 @@ public class JwtUtil {
         claims.put("userName", user.getUserName());
         claims.put("userId", user.getUserId());
         claims.put("profile", user.getProfile());
+        claims.put("nickName", user.getNickName());
 
         claims.put("auth", user.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.toList()));
+        log.info("Claims before token generation: " + claims);
 
         return buildToken(claims, accessExpiration);
     }

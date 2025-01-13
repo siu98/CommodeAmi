@@ -8,6 +8,7 @@ import LoginPage from './views/user/LoginPage';
 import SignupPage from './views/user/SignupPage';
 import MovieSection from './views/movie/MovieSection';
 import MovieDetail from './views/movie/MovieDetail';
+import MyPage from './views/mypage/MyPage';
 import { fetchBoxOfficeMovies } from './api/movies';
 
 import './App.css'
@@ -79,6 +80,16 @@ function App() {
               // <Navigate to="/login" />
               )
             }
+          />
+          <Route
+            path="/mypage"
+            element={
+              isLoggedIn ? (
+                <MyPage />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
           />
           <Route path="/movie/:movieId" element={<MovieDetail isLoggedIn={isLoggedIn} handleLogout={logout} />} />
         </Routes>

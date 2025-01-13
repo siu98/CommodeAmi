@@ -38,7 +38,7 @@ const authSlice = createSlice({
                         userName: decoded.userName,
                         // profilePhoto: decoded.profilePhoto,
                         userId: decoded.userid,
-                        // nickName: decoded.nickname,
+                        nickName: decoded.nickname,
                         userRole: decoded.auth,
                     };
                     state.isInitialized = true;
