@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,9 +65,12 @@ public class ScopeServiceImpl implements ScopeService {
         Scope scope = scopeMapper.selectScopesByUserIdAndUserId(userId, movieId);
 
         if (scope == null) {
-            throw new IllegalArgumentException("별점을 찾을 수 없습니다.");
+//            throw new IllegalArgumentException("별점을 찾을 수 없습니다.");
+            return null;
         }
+
 
         return modelMapper.map(scope, ScopeDTO.class);
     }
+
 }
