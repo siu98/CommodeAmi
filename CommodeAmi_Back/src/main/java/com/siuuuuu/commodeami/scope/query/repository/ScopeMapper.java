@@ -12,7 +12,7 @@ public interface ScopeMapper {
 
     List<Scope> selectAllScopes();
 
-    Scope selectScopesByUserId(@Param("userId") Long userId);
+    List<Scope> selectScopesByUserId(@Param("userId") Long userId);
 
     Scope selectScopesByMovieId(@Param("movieId") Long movieId);
 

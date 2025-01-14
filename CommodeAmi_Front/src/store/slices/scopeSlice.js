@@ -62,4 +62,35 @@ export const fetchMovieScope = (userId, movieId) => async (dispatch, getState) =
     }
 };
 
+export const fetchUserScopes = () => async (dispatch, getState) => {
+    const { accessToken, user } = getState().auth; // Redux 상태에서 user와 accessToken 가져오기
+
+    if (!accessToken || !user?.userId) {
+        console.warn("Access token or userId is missing. Skipping fetchUserScopes.");
+        return; // 액세스 토큰 또는 userId가 없으면 API 호출하지 않음
+    }
+
+    const userId = user.userId; // Redux 상태에서 userId 가져오기
+
+    try {
+        // 별점 데이터를 가져오기 위한 API 호출
+        const response = await axios.get(`/api/scope/user/${userId}`, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+
+        const scopes = response?.data?.data || {}; // { movieId: 별점 } 형태
+        console.log("사용자 별점 데이터:", scopes);
+
+        // Redux 상태 업데이트
+        Object.entries(scopes).forEach(([movieId, scope]) => {
+            dispatch(setScope({ movieId, scope }));
+        });
+    } catch (error) {
+        console.error("Failed to fetch user scopes:", error.message || error);
+    }
+};
+
+
 export default scopeSlice.reducer;

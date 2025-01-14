@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import EvaluationPage from './EvaluationPage';
 import './MyPage.css';
-import axios from 'axios';
+
 
 const MyPage = () => {
+    const [movies, setMovies] = useState([]);
     const user = useSelector((state) => state.auth.user);
     
     return (
@@ -16,6 +18,7 @@ const MyPage = () => {
                 </div>
                 <div className="profile-content">
                     <h3>평가</h3>
+                    <EvaluationPage movies={movies} />
                     <h3>리뷰</h3>
                     <h3>티켓</h3>
                 </div>
