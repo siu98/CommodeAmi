@@ -34,17 +34,19 @@ public class ScopeServiceImpl implements ScopeService {
     }
 
     @Override
-    public ScopeDTO getScopeByUserId(Long userId) {
+    public List<ScopeDTO> getScopeByUserId(Long userId) {
         // Mapper를 사용해 사용자가 매긴 별점 조회
-        Scope scope = scopeMapper.selectScopesByUserId(userId);
+        List<Scope> scopes = scopeMapper.selectScopesByUserId(userId);
 
         // 정보가 없을 시 예외처리
-        if (scope == null) {
+        if (scopes == null || scopes.isEmpty()) {
             throw new IllegalArgumentException("별점을 찾을 수 없습니다.");
         }
 
-        // entity -> DTO 변환
-        return modelMapper.map(scope, ScopeDTO.class);
+        // Entity -> DTO 변환 (리스트 처리)
+        return scopes.stream()
+                .map(scope -> modelMapper.map(scope, ScopeDTO.class))
+                .collect(Collectors.toList());
     }
 
     @Override
