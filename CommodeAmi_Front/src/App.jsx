@@ -6,6 +6,7 @@ import Counter from './features/Counter';
 import { useAuth } from './hooks/useAuth';
 import LoginPage from './views/user/LoginPage';
 import SignupPage from './views/user/SignupPage';
+import SearchResults from './views/search/SearchResult';
 import MovieSection from './views/movie/MovieSection';
 import MovieDetail from './views/movie/MovieDetail';
 import MyPage from './views/mypage/MyPage';
@@ -77,7 +78,7 @@ function App() {
               />
               ) : (
               <Navigate to="/" />
-              // <Navigate to="/login" />
+
               )
             }
           />
@@ -86,6 +87,16 @@ function App() {
             element={
               isLoggedIn ? (
                 <MyPage />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+          />
+          <Route
+            path="/search"
+            element={
+              isLoggedIn ? (
+                <SearchResults />
             ) : (
               <Navigate to="/" />
             )
