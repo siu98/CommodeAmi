@@ -1,0 +1,25 @@
+.search-results {
+    padding: 20px;
+  }
+  
+  .movie-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  .movie-card {
+    cursor: pointer;
+    text-align: center;
+  }
+  
+  .movie-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .movie-card p {
+    margin-top: 10px;
+    font-size: 14px;
+  }

@@ -8,6 +8,7 @@ import com.siuuuuu.commodeami.movie.query.repository.MovieMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -60,9 +61,11 @@ public class MovieServiceImpl implements MovieService {
     public List<MovieDTO> findMovieByTitle(String title) {
         List<Movie> movies = movieMapper.selectMovieByTitle(title);
 
+    // 검색 결과가 없을 때 빈 리스트 반환
         if (movies == null || movies.isEmpty()) {
-            throw new CommonException(ErrorCode.NOT_FOUND_REFRESH_TOKEN);
+            return Collections.emptyList();
         }
+
 
         return movies.stream().map(movie -> {
             MovieDTO movieDTO = new MovieDTO();
