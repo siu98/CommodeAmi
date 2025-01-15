@@ -8,4 +8,6 @@ public interface ReviewService {
     List<ReviewDTO> getAllReviews();
 
     ReviewDTO getReviewByUserId(Long userId);
+
+    ReviewDTO getReviewByUserIdAndMovieId(Long userId, Long movieId);
 }
