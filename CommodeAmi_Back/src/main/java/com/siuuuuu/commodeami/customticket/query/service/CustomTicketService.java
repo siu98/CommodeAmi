@@ -7,5 +7,5 @@ import java.util.List;
 public interface CustomTicketService {
     List<CustomTicketDTO> getAllCustomTickets();
 
-    CustomTicketDTO getCustomTicketByUserId(Long userId);
+    List<CustomTicketDTO> getCustomTicketByUserId(Long userId);
 }

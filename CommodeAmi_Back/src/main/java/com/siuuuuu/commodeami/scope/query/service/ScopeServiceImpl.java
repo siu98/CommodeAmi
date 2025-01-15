@@ -4,6 +4,7 @@ package com.siuuuuu.commodeami.scope.query.service;
 import com.siuuuuu.commodeami.scope.query.aggregate.Scope;
 import com.siuuuuu.commodeami.scope.query.aggregate.ScopeDTO;
 import com.siuuuuu.commodeami.scope.query.repository.ScopeMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 public class ScopeServiceImpl implements ScopeService {
 
@@ -55,7 +57,8 @@ public class ScopeServiceImpl implements ScopeService {
         Scope scope = scopeMapper.selectScopesByMovieId(movieId);
 
         if (scope == null) {
-            throw new IllegalArgumentException("별점을 찾을 수 없습니다.");
+//            throw new IllegalArgumentException("별점을 찾을 수 없습니다.");
+            log.info("별점이 없습니디.");
         }
 
         return modelMapper.map(scope, ScopeDTO.class);
