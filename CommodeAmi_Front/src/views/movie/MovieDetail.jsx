@@ -18,6 +18,7 @@ const MovieDetail = () => {
     const { movieId } = useParams();
     const [movie, setMovie] = useState([]);
     const [actors, setActors] = useState([]);
+    const [reviews, setReviews] = useState([]);
     const [selectedRating, setSelectedRating] = useState(0);
     const [dialogVisible, setDialogVisible] = useState(null); // 다이얼로그 상태 관리
     const [review, setReview] = useState(''); // 리뷰 입력값
@@ -253,6 +254,29 @@ const MovieDetail = () => {
         }
     };
 
+    const handleSaveReview = async () => {
+        // 1. 별점 유무 확인 
+        if (!ratingValue) {
+            alert("별점을 먼저 선택해주세요.");
+            return;
+        }
+
+        // 2. 별점 있을 때 리뷰 저장 및 수정 시작 
+
+        try {
+            const response = await axios.post(`/api/review/${movieId}/${userId}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json',
+                    },
+                }
+            )
+        } catch {
+
+        }
+    }
+
     //   const handleSaveRating = async (movieId, ratingValue) => {
     //     try {
     //         if (!accessToken) {
@@ -389,6 +413,31 @@ const MovieDetail = () => {
                             <h2>줄거리</h2>
                             <p>{movie.plot}</p>
                         </div>
+                        <section className="movie-reviews">
+                            {reviews.filter(review => review.review && review.review.trim() !== '').length > 0 && (
+                             <>
+                                <h2>리뷰 {reviews.filter(review => review.review && review.review.trim() !== '').length}</h2>
+                                <div className="review-list">
+                                    {reviews
+                                        .filter(review => review.review && review.review.trim() !== '')
+                                        .slice(0, 3)
+                                        .map(review => (
+                                        <div className="review-item" key={review.review_id}>
+                                            <div className="review-header">
+                                                <span className="review-username">{review.nickname}</span>
+                                                <span className="review-rating">⭐{review.rating}</span>
+                                            </div>
+                                            <p>{review.review}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                                {reviews.filter(review => review.review && review.review.trim() !== '').length > 3 && (
+                                <button className="more-button" onClick={handleMoreReviewsClick}>더보기</button>
+                                )}
+
+                            </>
+                            )}
+                        </section>
                     </div>
                 </div>
             </section>
@@ -459,7 +508,17 @@ const MovieDetail = () => {
                 <div className="review-button">
                     <Button label="취소" />
 
-                    <Button label="확인" />
+                    <Button label="확인" 
+                        onClick={() => handleSaveReview(movieId, selectedRating)} 
+                        style={{
+                            padding: '0.5rem 1rem',
+                            backgroundColor: '#007bff',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '5px',
+                            cursor: 'pointer',
+                        }}
+                    />
                 </div>
             </Dialog>
 
