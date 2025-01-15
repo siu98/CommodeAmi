@@ -19,5 +19,8 @@ public class CustomTicketDTO {
     @JsonProperty("hologram_color2")
     String hologramColor2;
 
+    @JsonProperty("comment")
+    String comment;
+
     Long userId;
 }

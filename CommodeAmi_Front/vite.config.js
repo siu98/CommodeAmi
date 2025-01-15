@@ -29,6 +29,6 @@ export default defineConfig({
     },
   },
   optimizeDeps: {
-    include: ['jwt-decode']
+    include: ['jwt-decode', 'react', 'react-dom']
   },
 })

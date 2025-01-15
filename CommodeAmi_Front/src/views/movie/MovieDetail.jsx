@@ -31,6 +31,7 @@ const MovieDetail = () => {
     const { scope, loading, error } = useSelector((state) => state.scope);
     const userId = user?.userId; // user 객체에서 userId 추출
     const movieRating = scope?.[movieId] || 0;
+    console.log("movieDetail에서 userId 호출: ", userId);
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);

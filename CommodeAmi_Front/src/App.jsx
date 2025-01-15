@@ -1,111 +1,135 @@
-import { useState, useEffect, React } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import Navigation from './components/Navigation';
-import Counter from './features/Counter';
-import { useAuth } from './hooks/useAuth';
-import LoginPage from './views/user/LoginPage';
-import SignupPage from './views/user/SignupPage';
-import SearchResults from './views/search/SearchResult';
-import MovieSection from './views/movie/MovieSection';
-import MovieDetail from './views/movie/MovieDetail';
-import MyPage from './views/mypage/MyPage';
-import { fetchBoxOfficeMovies } from './api/movies';
+  import { useState, useEffect, React } from 'react'
+  import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+  import { useDispatch, useSelector } from 'react-redux';
+  import Navigation from './components/Navigation';
+  import Counter from './features/Counter';
+  import { useAuth } from './hooks/useAuth';
+  import LoginPage from './views/user/LoginPage';
+  import SignupPage from './views/user/SignupPage';
+  import SearchResults from './views/search/SearchResult';
+  import MovieSection from './views/movie/MovieSection';
+  import MovieDetail from './views/movie/MovieDetail';
+  import MyPage from './views/mypage/MyPage';
+  import CustomTicket from './views/customticket/CustomTicket';
+  // import FileUpload from './components/FileUpload';
 
-import './App.css'
+  import { fetchBoxOfficeMovies } from './api/movies';
 
-function App() {
-  const { isLoggedIn, logout } = useAuth();
-  const [boxOfficeMovies, setBoxOfficeMovies] = useState([]);
+  import './App.css'
 
-  useEffect(() => {
-    const getMovies = async () => {
-      try {
-        const movies = await fetchBoxOfficeMovies();
-        setBoxOfficeMovies(movies);
-      } catch (error) {
-        console.error('Failed to fetch movies:', error);
-      }
-    };
+  function App() {
+    const { isLoggedIn, logout } = useAuth();
+    const [boxOfficeMovies, setBoxOfficeMovies] = useState([]);
 
-    getMovies();
-  }, []);
-  
-  return (
-      <Router>
-        <Navigation isLoggedIn={isLoggedIn} handleLogout={logout} />
-        {/* <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/" element={
-            <MovieSection 
-              title="박스오피스 순위" 
-              movies={boxOfficeMovies} 
-              scrollable 
-              sectionId="box-office"
-            />
-          } />
-  
-          <Route path="/movie/:movieId" element={<MovieDetail isLoggedIn={isLoggedIn} handleLogout={logout} />} />
-        </Routes> */}
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route
-            path="/"
-            element={
-            isLoggedIn ? (
-              <Navigate to="/dashboard" />
-            ) : (
+    useEffect(() => {
+      const getMovies = async () => {
+        try {
+          const movies = await fetchBoxOfficeMovies();
+          setBoxOfficeMovies(movies);
+        } catch (error) {
+          console.error('Failed to fetch movies:', error);
+        }
+      };
+
+      getMovies();
+    }, []);
+    
+    return (
+        <Router>
+          <Navigation isLoggedIn={isLoggedIn} handleLogout={logout} />
+          {/* <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/" element={
               <MovieSection 
                 title="박스오피스 순위" 
                 movies={boxOfficeMovies} 
                 scrollable 
                 sectionId="box-office"
               />
-              )
-            }
-          />
-          <Route
-            path="/dashboard"
-            element={
+            } />
+    
+            <Route path="/movie/:movieId" element={<MovieDetail isLoggedIn={isLoggedIn} handleLogout={logout} />} />
+          </Routes> */}
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route
+              path="/"
+              element={
               isLoggedIn ? (
-              <MovieSection 
-                title="박스오피스 순위 (로그인 전용)" 
-                movies={boxOfficeMovies} 
-                scrollable 
-                sectionId="dashboard-box-office"
-              />
+                <Navigate to="/dashboard" />
               ) : (
-              <Navigate to="/" />
+                <MovieSection 
+                  title="박스오피스 순위" 
+                  movies={boxOfficeMovies} 
+                  scrollable 
+                  sectionId="box-office"
+                />
+                )
+              }
+            />
+            <Route
+              path="/dashboard"
+              element={
+                isLoggedIn ? (
+                <MovieSection 
+                  title="박스오피스 순위 (로그인 전용)" 
+                  movies={boxOfficeMovies} 
+                  scrollable 
+                  sectionId="dashboard-box-office"
+                />
+                ) : (
+                <Navigate to="/" />
 
+                )
+              }
+            />
+            <Route
+              path="/mypage"
+              element={
+                isLoggedIn ? (
+                  <MyPage />
+              ) : (
+                <Navigate to="/" />
               )
             }
-          />
+            />
+            <Route
+              path="/search"
+              element={
+                isLoggedIn ? (
+                  <SearchResults />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+            />
+{/*   
           <Route
-            path="/mypage"
-            element={
-              isLoggedIn ? (
-                <MyPage />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-          />
-          <Route
-            path="/search"
-            element={
-              isLoggedIn ? (
-                <SearchResults />
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-          />
-          <Route path="/movie/:movieId" element={<MovieDetail isLoggedIn={isLoggedIn} handleLogout={logout} />} />
-        </Routes>
-      </Router>
-  );
-}
+              path="/mypage/customticket"
+              element={
+                isLoggedIn ? (
+                  <FileUpload />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+            /> */}
+            <Route
+              path="/mypage/customtickets"
+              element={
+                isLoggedIn ? (
+                  <CustomTicket />
+              ) : (
+                <Navigate to="/" />
+              )
+            }
+            /> 
+            <Route path="/movie/:movieId" element={<MovieDetail isLoggedIn={isLoggedIn} handleLogout={logout} />} />
+          </Routes>
+        </Router>
+    );
+  }
 
-export default App
+  export default App

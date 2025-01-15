@@ -28,13 +28,13 @@
         SELECT
             CUSTOM_TICKET_ID
            ,TICKET_IMAGE
-           ,HOHOGRAM_COLOR1
+           ,HOLOGRAM_COLOR1
            ,HOLOGRAM_COLOR2
            ,COMMENT
            ,USER_ID
           FROM
            TBL_CUSTOM_TICKET
          WHERE
-           USER_ID = #{USER_ID}
+           USER_ID = #{userId}
     </select>
 </mapper>

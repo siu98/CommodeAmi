@@ -11,5 +11,5 @@ public interface CustomTicketMapper {
 
     List<CustomTicket> selectAllCustomTickets();
 
-    CustomTicket selectCustomTicketsByUserId(@Param("userId") Long userId);
+    List<CustomTicket> selectCustomTicketsByUserId(@Param("userId") Long userId);
 }
