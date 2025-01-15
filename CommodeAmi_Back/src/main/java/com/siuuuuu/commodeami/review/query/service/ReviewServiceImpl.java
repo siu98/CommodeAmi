@@ -43,4 +43,16 @@ public class ReviewServiceImpl implements ReviewService {
         // entity -> DTO 변환
         return modelMapper.map(review, ReviewDTO.class);
     }
+
+    @Override
+    public ReviewDTO getReviewByUserIdAndMovieId(Long userId, Long movieId) {
+        Review review = reviewMapper.selectReviewByUserIdAndMovieId(userId, movieId);
+
+        if (review == null) {
+            return null;
+        }
+
+        return modelMapper.map(review, ReviewDTO.class);
+    }
+
 }
