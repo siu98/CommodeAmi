@@ -2,7 +2,171 @@
   "hash": "344bcc1a",
   "configHash": "4f79012f",
   "lockfileHash": "850cd3c2",
-  "browserHash": "bed49464",
-  "optimized": {},
-  "chunks": {}
+  "browserHash": "7f738a09",
+  "optimized": {
+    "react": {
+      "src": "../../node_modules/react/index.js",
+      "file": "react.js",
+      "fileHash": "6f8fce12",
+      "needsInterop": true
+    },
+    "react-dom/client": {
+      "src": "../../node_modules/react-dom/client.js",
+      "file": "react-dom_client.js",
+      "fileHash": "84f9bce2",
+      "needsInterop": true
+    },
+    "react-redux": {
+      "src": "../../node_modules/react-redux/dist/react-redux.mjs",
+      "file": "react-redux.js",
+      "fileHash": "d4c1a3cf",
+      "needsInterop": false
+    },
+    "@reduxjs/toolkit": {
+      "src": "../../node_modules/@reduxjs/toolkit/dist/redux-toolkit.modern.mjs",
+      "file": "@reduxjs_toolkit.js",
+      "fileHash": "89fb937d",
+      "needsInterop": false
+    },
+    "react-router-dom": {
+      "src": "../../node_modules/react-router-dom/dist/index.mjs",
+      "file": "react-router-dom.js",
+      "fileHash": "f0ac49bd",
+      "needsInterop": false
+    },
+    "axios": {
+      "src": "../../node_modules/axios/index.js",
+      "file": "axios.js",
+      "fileHash": "42f82761",
+      "needsInterop": false
+    },
+    "jwt-decode": {
+      "src": "../../node_modules/jwt-decode/build/esm/index.js",
+      "file": "jwt-decode.js",
+      "fileHash": "424aa081",
+      "needsInterop": false
+    },
+    "primereact/carousel": {
+      "src": "../../node_modules/primereact/carousel/carousel.esm.js",
+      "file": "primereact_carousel.js",
+      "fileHash": "57ef58b2",
+      "needsInterop": false
+    },
+    "primereact/inputtext": {
+      "src": "../../node_modules/primereact/inputtext/inputtext.esm.js",
+      "file": "primereact_inputtext.js",
+      "fileHash": "26d72f1c",
+      "needsInterop": false
+    },
+    "primereact/button": {
+      "src": "../../node_modules/primereact/button/button.esm.js",
+      "file": "primereact_button.js",
+      "fileHash": "8c557821",
+      "needsInterop": false
+    },
+    "primereact/divider": {
+      "src": "../../node_modules/primereact/divider/divider.esm.js",
+      "file": "primereact_divider.js",
+      "fileHash": "6ed352f2",
+      "needsInterop": false
+    },
+    "primereact/toast": {
+      "src": "../../node_modules/primereact/toast/toast.esm.js",
+      "file": "primereact_toast.js",
+      "fileHash": "4dc8dd7e",
+      "needsInterop": false
+    },
+    "primereact/dialog": {
+      "src": "../../node_modules/primereact/dialog/dialog.esm.js",
+      "file": "primereact_dialog.js",
+      "fileHash": "1b2847dc",
+      "needsInterop": false
+    },
+    "primereact/image": {
+      "src": "../../node_modules/primereact/image/image.esm.js",
+      "file": "primereact_image.js",
+      "fileHash": "942e637f",
+      "needsInterop": false
+    },
+    "primereact/inputtextarea": {
+      "src": "../../node_modules/primereact/inputtextarea/inputtextarea.esm.js",
+      "file": "primereact_inputtextarea.js",
+      "fileHash": "d23dd0cc",
+      "needsInterop": false
+    },
+    "primereact/calendar": {
+      "src": "../../node_modules/primereact/calendar/calendar.esm.js",
+      "file": "primereact_calendar.js",
+      "fileHash": "624a57c7",
+      "needsInterop": false
+    },
+    "primereact/colorpicker": {
+      "src": "../../node_modules/primereact/colorpicker/colorpicker.esm.js",
+      "file": "primereact_colorpicker.js",
+      "fileHash": "18ab39e8",
+      "needsInterop": false
+    },
+    "primereact/fileupload": {
+      "src": "../../node_modules/primereact/fileupload/fileupload.esm.js",
+      "file": "primereact_fileupload.js",
+      "fileHash": "fe79f7b4",
+      "needsInterop": false
+    },
+    "react-icons/fa": {
+      "src": "../../node_modules/react-icons/fa/index.mjs",
+      "file": "react-icons_fa.js",
+      "fileHash": "d16a14c5",
+      "needsInterop": false
+    }
+  },
+  "chunks": {
+    "chunk-XXDEX5YE": {
+      "file": "chunk-XXDEX5YE.js"
+    },
+    "chunk-RCZRNDUU": {
+      "file": "chunk-RCZRNDUU.js"
+    },
+    "chunk-TMK4NCLB": {
+      "file": "chunk-TMK4NCLB.js"
+    },
+    "chunk-ZIRVAYP7": {
+      "file": "chunk-ZIRVAYP7.js"
+    },
+    "chunk-6UPPG74H": {
+      "file": "chunk-6UPPG74H.js"
+    },
+    "chunk-35EBYV65": {
+      "file": "chunk-35EBYV65.js"
+    },
+    "chunk-I2GTSQ5B": {
+      "file": "chunk-I2GTSQ5B.js"
+    },
+    "chunk-SOTKZXRR": {
+      "file": "chunk-SOTKZXRR.js"
+    },
+    "chunk-BJ2S7D5N": {
+      "file": "chunk-BJ2S7D5N.js"
+    },
+    "chunk-UP6LQVYV": {
+      "file": "chunk-UP6LQVYV.js"
+    },
+    "chunk-F4O6PWCE": {
+      "file": "chunk-F4O6PWCE.js"
+    },
+    "chunk-I4S6DILE": {
+      "file": "chunk-I4S6DILE.js"
+    },
+    "chunk-Z7PJLARP": {
+      "file": "chunk-Z7PJLARP.js"
+    },
+    "chunk-FOR5NZFI": {
+      "file": "chunk-FOR5NZFI.js"
+    },
+    "chunk-TWJRYSII": {
+      "file": "chunk-TWJRYSII.js"
+    },
+    "chunk-DC5AMYBS": {
+      "file": "chunk-DC5AMYBS.js"
+    }
+  }
 }
