@@ -7,6 +7,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -26,6 +27,7 @@ public class Scope {
     @Column(name="scope")
     private Double scope;
 
+    @CreationTimestamp
     @Column(name="created_at")
     private LocalDateTime createdAt;
 
