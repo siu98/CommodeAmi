@@ -53,4 +53,17 @@
           AND MOVIE_ID = #{movieId}
     </select>
 
+    <select id="selectReviewByMovieId" resultMap="reviewResultMap">
+        SELECT
+            REVIEW_ID
+           ,REVIEW
+           ,CREATED_AT
+           ,USER_ID
+           ,MOVIE_ID
+         FROM
+            TBL_REVIEW
+        WHERE
+            MOVIE_ID = #{movieId}
+    </select>
+
 </mapper>

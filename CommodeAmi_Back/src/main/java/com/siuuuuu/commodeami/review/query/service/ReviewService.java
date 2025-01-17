@@ -10,4 +10,6 @@ public interface ReviewService {
     ReviewDTO getReviewByUserId(Long userId);
 
     ReviewDTO getReviewByUserIdAndMovieId(Long userId, Long movieId);
+
+    List<ReviewDTO> getReviewByMovieId(Long movieId);
 }

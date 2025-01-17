@@ -55,4 +55,12 @@ public class ReviewServiceImpl implements ReviewService {
         return modelMapper.map(review, ReviewDTO.class);
     }
 
+    @Override
+    public List<ReviewDTO> getReviewByMovieId(Long movieId) {
+        List<Review> reviews = reviewMapper.selectReviewByMovieId(movieId);
+        List<ReviewDTO> revieDTOs =
+                reviews.stream().map(review -> modelMapper.map(review, ReviewDTO.class)).collect(Collectors.toList());
+        return revieDTOs;
+    }
+
 }
