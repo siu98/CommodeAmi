@@ -14,6 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/user")
@@ -53,16 +55,18 @@ public class AppUserController {
 
     // 로그아웃
     @PostMapping("/logout")
-    public ResponseDTO<?> loggout() {
+    public ResponseDTO<?> logout() {
 
         return ResponseDTO.ok("로그아웃 되었습니다.");
     }
 
     // 인증 코드 전송
     @PostMapping("/send-verification")
-    public ResponseDTO<?> sendVerificationEmaiil(@RequestParam String email) {
+    public ResponseDTO<?> sendVerificationEmail(@RequestParam String email) {
+
         userService.checkIfEmailAlreadyUsed(email);
         emailVerificationService.sendVerificationCode(email);
+        log.info("Received email: {}", email);
         return ResponseDTO.ok("이메일 인증 코드가 전송되었습니다.");
     }
 
