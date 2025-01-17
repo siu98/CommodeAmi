@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { fetchMovie, fetchActors } from '../../api/movieDetails';
 import { fetchMovieScope, setLoading, setError, setScope } from '../../store/slices/scopeSlice';
 import { fetchMovieReview, setReview } from '../../store/slices/reviewSlice';
+import { fetchReviewByMovieId } from '../../api/reviews';
 import { Button } from 'primereact/button';
 import { Image } from 'primereact/image';
 import { Dialog } from 'primereact/dialog';
@@ -20,6 +21,7 @@ const MovieDetail = () => {
     const [movie, setMovie] = useState([]);
     const [actors, setActors] = useState([]);
     const [reviews, setReviews] = useState([]);
+    const [movieReviews, setMovieReviews] = useState([]);
     const [selectedRating, setSelectedRating] = useState(0);
     const [localReview, setLocalReview] = useState('');
     const [dialogVisible, setDialogVisible] = useState(null); // 다이얼로그 상태 관리
@@ -36,7 +38,6 @@ const MovieDetail = () => {
     const userId = user?.userId; // user 객체에서 userId 추출
     const movieRating = scope?.[movieId] || 0;
     const movieReview = review?.[movieId] || { review: '' }; // 기본값 설정
-    // console.log("movieDetail에서 userId 호출: ", userId);
 
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
@@ -130,12 +131,42 @@ const MovieDetail = () => {
             dispatch(fetchMovieReview(userId, movieId));
         }
     }, [accessToken, userId, movieId, dispatch]);
+
+    // useEffect(() => {
+    //     if (accessToken && movieId) {
+    //         dispatch(fetchReviewByMovieId(movieId));
+    //     }
+    // }, [accessToken, movieId, dispatch]);
     
     useEffect(() => {
         if (movieReview?.review) {
             setLocalReview(movieReview.review);
         }
     }, [movieReview]); // Redux 상태가 변경될 때 로컬 상태를 업데이트
+
+    useEffect(() => {
+        const getReviews = async () => {
+            if (!movieId || !accessToken) return;
+
+            // setLoading(true);
+
+            try {
+                const reviews = await fetchReviewByMovieId(movieId, accessToken);
+                const reviewsArray = Array.isArray(reviews) ? reviews : Object.values(reviews); // 배열로 변환
+                // setMovieReviews(reviews?.reviews || []); // 필요 데이터만 저장
+                console.log("리뷰 데이터 배열 형태:", reviewsArray);
+            setMovieReviews(reviewsArray); // 상태 업데이트
+            } catch (err) {
+                console.error("리뷰를 가져오는 중 오류 발생:", err);
+                setError("리뷰를 가져오지 못했습니다.");
+            } 
+            // finally {
+            //     setLoading(false);
+            // }
+        };
+
+        getReviews();
+    }, [movieId, accessToken]);
 
     // **로딩 또는 오류 처리**를 렌더링 초반부에 추가합니다.
     if (loading) {
@@ -304,6 +335,7 @@ const MovieDetail = () => {
 
     return (
         <div className="movie-detail">
+            <main>
             <section className="movie-header">
                 <img src={`${baseURL}${movie.stills[0]}`} alt={movie.title} />
                 <div className="movie-header-overlay">
@@ -333,16 +365,17 @@ const MovieDetail = () => {
                             <Button label="리뷰" onClick={() => setDialogVisible('review')} />
                             <Button label="관람일자" onClick={() => setDialogVisible('viewingDate')} />
                         </div>
-                        <div className="movie-overview">
+                        {/* <div className="movie-overview"> */}
+                        <div className={`movie-overview ${movieRating > 0 || (year && month && day) ? 'with-score' : ''}`}>
                             <h2>줄거리</h2>
                             <p>{movie.plot}</p>
                         </div>
-                        <section className="movie-reviews">
-                            {reviews.filter(review => review.review && review.review.trim() !== '').length > 0 && (
+                        {/* <section className="movie-reviews">
+                            {movieReviews.filter(review => review.review && review.review.trim() !== '').length > 0 && (
                              <>
-                                <h2>리뷰 {reviews.filter(review => review.review && review.review.trim() !== '').length}</h2>
+                                <h2>리뷰 {movieReviews.filter(review => review.review && review.review.trim() !== '').length}</h2>
                                 <div className="review-list">
-                                    {reviews
+                                    {movieReviews
                                         .filter(review => review.review && review.review.trim() !== '')
                                         .slice(0, 3)
                                         .map(review => (
@@ -355,13 +388,43 @@ const MovieDetail = () => {
                                         </div>
                                     ))}
                                 </div>
-                                {reviews.filter(review => review.review && review.review.trim() !== '').length > 3 && (
+                                {movieReviews.filter(review => review.review && review.review.trim() !== '').length > 3 && (
                                 <button className="more-button" onClick={handleMoreReviewsClick}>더보기</button>
                                 )}
 
                             </>
                             )}
-                        </section>
+                        </section> */}
+                        <section className="movie-reviews">
+    {movieReviews && movieReviews.length > 0 ? (
+        <>
+            <h2>리뷰 {movieReviews.length}</h2>
+            <div className="review-list">
+                {movieReviews
+                    .slice(0, 3) // 최대 3개의 리뷰만 표시
+                    .map((review) => (
+                        <div className="review-item" key={review.review_id}>
+                            <div className="review-header">
+                                <span className="review-username">작성자: {review.nickname}</span>
+                                <span className="review-rating">⭐{review.scope}</span>
+                                {/* <span className="review-rating">
+                                    작성일: {new Date(review.created_at).toLocaleDateString()}
+                                </span> */}
+                            </div>
+                            <p>{review.review}</p>
+                        </div>
+                    ))}
+            </div>
+            {movieReviews.length > 3 && (
+                <button className="more-button" onClick={handleMoreReviewsClick}>
+                    더보기
+                </button>
+            )}
+        </>
+    ) : (
+        <p>리뷰가 없습니다!</p>
+    )}
+</section>
                     </div>
                 </div>
             </section>
@@ -545,7 +608,7 @@ const MovieDetail = () => {
                 )}
             </div>
         </section>
-
+        </main>
     </div>
 
         

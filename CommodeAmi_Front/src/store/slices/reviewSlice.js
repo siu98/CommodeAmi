@@ -58,35 +58,35 @@ export const fetchMovieReview = (userId, movieId) => async (dispatch, getState) 
     }
 };
 
-export const fetchUserReviews = () => async (dispatch, getState) => {
-    const { accessToken, user } = getState().auth;
+// export const fetchUserReviews = () => async (dispatch, getState) => {
+//     const { accessToken, user } = getState().auth;
 
-    if (!accessToken || !user?.userId) {
-        console.warn("Access token or userId is missing. Skipping fetchUserReviews.");
-        return; // 액세스 토큰 또는 userId가 없으면 API 호출하지 않음
-    }
+//     if (!accessToken || !user?.userId) {
+//         console.warn("Access token or userId is missing. Skipping fetchUserReviews.");
+//         return; // 액세스 토큰 또는 userId가 없으면 API 호출하지 않음
+//     }
 
-    const userId = user.userId;
+//     const userId = user.userId;
 
-    try {
-        const response = await axios.get(`/api/review/${userId}`, 
-            {
-                headers: {
-                    Authorization: `Bearer ${accessToken}`,
-                },
-            }
-        );
+//     try {
+//         const response = await axios.get(`/api/review/user/${userId}`, 
+//             {
+//                 headers: {
+//                     Authorization: `Bearer ${accessToken}`,
+//                 },
+//             }
+//         );
 
-        const reviews = response?.data?.data || {};
-        console.log("사용자 리뷰 데이터:", reviews);
+//         const reviews = response?.data?.data || {};
+//         console.log("사용자 리뷰 데이터:", reviews);
 
-        // Redux 상태 업데이트
-        Object.entries(reviews).forEach(([movieId, review]) => {
-            dispatch(setReview({ movieId, review }));
-        });
-    } catch (error) {
-        console.error("Failed to fetch user reviews:", error.message || error);    
-    }
-}
+//         // Redux 상태 업데이트
+//         Object.entries(reviews).forEach(([movieId, review]) => {
+//             dispatch(setReview({ movieId, review }));
+//         });
+//     } catch (error) {
+//         console.error("Failed to fetch user reviews:", error.message || error);    
+//     }
+// }
 
 export default reviewSlice.reducer;

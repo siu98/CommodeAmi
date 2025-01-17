@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { Toast } from 'primereact/toast';
 import { Dialog } from 'primereact/dialog';
 import { Button } from 'primereact/button';
@@ -9,6 +10,7 @@ import './SignupPage.css';
 
 function SignupPage({ showDialog, setShowDialog }) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const toast = useRef(null); 
     const authState = useSelector((state) => state.auth);
     const [formData, setFormData] = useState({
@@ -108,6 +110,7 @@ function SignupPage({ showDialog, setShowDialog }) {
             });
             console.log(a);
             setShowDialog(false);
+            navigate("/");
         } catch (error) {
             const errorMessage = error.response?.data || '회원가입에 실패했습니다. 다시 시도해주세요.';
             toast.current.show({
