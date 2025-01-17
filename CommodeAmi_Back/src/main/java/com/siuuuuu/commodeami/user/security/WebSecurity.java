@@ -65,6 +65,8 @@ public class WebSecurity {
         http.authorizeHttpRequests((auth) ->
                 auth.requestMatchers(new AntPathRequestMatcher("/api/user/regist")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/user/login")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/user/send-verification")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/user/verify-code")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/movie/**")).permitAll() // 이 경로는 인증 없이 접근 가능
                         .requestMatchers(new AntPathRequestMatcher("/api/actor/**")).permitAll()
                 // Swagger UI 경로 후에 추가 예정

@@ -109,12 +109,12 @@ function Navigation() {
                                 
                                 />
                             </div>
-                            <Link to="/signup" className="link-button">
+                            <div className="link-button">
                                 <Button 
                                     label="회원가입" 
                                     onClick={()=> setShowSignupDialog(true)}
                                 />
-                            </Link>
+                            </div>
                         </>
                     ) : (
                         <>

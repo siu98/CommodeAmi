@@ -92,7 +92,7 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public boolean checkIfEmailAlreadyUsed(String email) {
         User foundUser = userRepository.findByEmail(email);
-        if (foundUser == null) {
+        if (foundUser != null) {
             throw new CommonException(ErrorCode.DUPLICATE_EMAIL_EXISTS);
         }
         return false;
