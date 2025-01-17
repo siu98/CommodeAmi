@@ -14,4 +14,6 @@ public interface ReviewMapper {
     Review selectReviewByUserId(@Param("userId") Long userId);
 
     Review selectReviewByUserIdAndMovieId(@Param("userId") Long userId, @Param("movieId") Long movieId);
+
+    List<Review> selectReviewByMovieId(@Param("movieId") Long movieId);
 }
