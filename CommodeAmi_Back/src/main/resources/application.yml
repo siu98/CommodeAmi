@@ -23,19 +23,24 @@ spring:
     redis:
       host: localhost
       port: 6379
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: Asia/Seoul
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: parancandy@gmail.com
+    password: hskx wziz djno lwmr
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+
 logging:
   level:
     com:
-      siuuuuu:
+      siuuuuu_o3o:
         commodeami: DEBUG #로깅 레벨 설정
-
-app:
-  cors:
-    allowed-origins: http://localhost:5173
-  frontend-url: http://localhost:8080
 
 springdoc:
   swagger-ui:
