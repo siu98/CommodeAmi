@@ -32,16 +32,17 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewDTO getReviewByUserId(Long userId) {
-        Review review = reviewMapper.selectReviewByUserId(userId);
-
+    public List<ReviewDTO> getReviewByUserId(Long userId) {
+        List<Review> reviews = reviewMapper.selectReviewByUserId(userId);
+        List<ReviewDTO> userReviewDTOs =
+                reviews.stream().map(review -> modelMapper.map(review, ReviewDTO.class)).collect(Collectors.toList());
         // 리뷰가 없을 시 예외처리
-        if (review == null) {
+        if (reviews == null) {
             throw new IllegalArgumentException("리뷰를 찾을 수 없습니다.");
         }
 
         // entity -> DTO 변환
-        return modelMapper.map(review, ReviewDTO.class);
+        return userReviewDTOs;
     }
 
     @Override
@@ -58,9 +59,9 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<ReviewDTO> getReviewByMovieId(Long movieId) {
         List<Review> reviews = reviewMapper.selectReviewByMovieId(movieId);
-        List<ReviewDTO> revieDTOs =
+        List<ReviewDTO> movieReviewDTOs =
                 reviews.stream().map(review -> modelMapper.map(review, ReviewDTO.class)).collect(Collectors.toList());
-        return revieDTOs;
+        return movieReviewDTOs;
     }
 
 }

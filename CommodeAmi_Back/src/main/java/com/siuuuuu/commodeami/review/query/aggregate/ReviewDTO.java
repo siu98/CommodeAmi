@@ -30,4 +30,13 @@ public class ReviewDTO {
 
     @JsonProperty("user_id")
     private Long userId;
+
+    @JsonProperty("nickname")
+    private String nickname;
+
+    @JsonProperty("scope")
+    private Double scope;
+
+    @JsonProperty("title")
+    private String title;
 }

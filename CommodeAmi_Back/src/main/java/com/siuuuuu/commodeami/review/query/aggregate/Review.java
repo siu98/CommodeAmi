@@ -16,4 +16,7 @@ public class Review {
     String review;
     Long userId;
     Long movieId;
+    String nickname;
+    Double scope;
+    String title;
 }
