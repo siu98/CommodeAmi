@@ -22,11 +22,11 @@ public class MovieAPIClient {
     @Value("${tmdb.api.url}")
     private String tmdbApiUrl;
 
-    @Value("${kobis.api.key}")
-    private String kobisApiKey;
-
-    @Value("${kobis.api.url}")
-    private String kobisApiUrl;
+//    @Value("${kobis.api.key}")
+//    private String kobisApiKey;
+//
+//    @Value("${kobis.api.url}")
+//    private String kobisApiUrl;
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;

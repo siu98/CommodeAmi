@@ -9,4 +9,5 @@ public interface AverageScopeService {
     List<AverageScopeDTO> getAllAverageScopes();
 
     AverageScopeDTO getAverageScopeByMovieId(Long movieId);
+
 }
