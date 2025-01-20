@@ -44,10 +44,8 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 1rem;
-    /* font-size: 16px; */
     margin-left: 20rem;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    /* transition: border-color 0.3s; */
 }
 
 .search-bar .p-inputtext:focus {
@@ -73,11 +71,11 @@
 }
 
 .auth-buttons .link-button .p-button:hover {
-    background-color: #0056b3;
+    background-color: #3D6094;
 }
 
 .auth-buttons .logout-button .p-button {
-    background-color: #dc3545;
+    background-color: #3D6094;
     border: none;
     color: white;
     padding: 8px 16px;
@@ -87,7 +85,7 @@
 }
 
 .auth-buttons .logout-button .p-button:hover {
-    background-color: #c82333;
+    background-color: #3D6094;
 }
 
 .divide-line {

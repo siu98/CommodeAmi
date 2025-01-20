@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-// import { addRating } from '../../store/slices/authSlice';
 import { fetchMovie, fetchActors } from '../../api/movieDetails';
 import { fetchMovieScope, setLoading, setError, setScope } from '../../store/slices/scopeSlice';
 import { fetchMovieReview, setReview } from '../../store/slices/reviewSlice';
@@ -277,24 +276,6 @@ const MovieDetail = () => {
 
 
     const handleSaveReview = async () => {
-        // 1. 별점 유무 확인 
-        // if (!selectedRating || selectedRating === 0) {
-        //     alert("별점을 먼저 선택해주세요.");
-        //     return;
-        // }
-        // if (!scope[movieId] || scope[movieId] === 0) {
-        //     alert('별점을 먼저 선택해주세요.');
-        //     return;
-        // }
-
-        // // scopeId가 없는 경우 처리
-        // if (!selectedRating || selectedRating === 0) {
-        //     alert('별점을 먼저 선택해주세요.');
-        //     return;
-        // }
-
-        // const existingRating = scope[movieId];
-
         if (!movieRating) {
             alert('별점을 먼저 선택해주세요.');
             return;
@@ -365,8 +346,7 @@ const MovieDetail = () => {
                             <Button label="리뷰" onClick={() => setDialogVisible('review')} />
                             <Button label="관람일자" onClick={() => setDialogVisible('viewingDate')} />
                         </div>
-                        {/* <div className="movie-overview"> */}
-                        <div className={`movie-overview ${movieRating > 0 || (year && month && day) ? 'with-score' : ''}`}>
+                        <div className="movie-overview">
                             <h2>줄거리</h2>
                             <p>{movie.plot}</p>
                         </div>
@@ -538,7 +518,7 @@ const MovieDetail = () => {
                 <>
                     <h2>출연 {actors.length}</h2>
                     <div className="cast-list">
-                        {actors.slice(0, 8).map(actor => (
+                        {actors.slice(0, 9).map(actor => (
                             <div className="cast-item" key={actor.actor_id}>
                                 <img src={`${baseURL}${actor.profile_image}`} />
 
@@ -546,9 +526,13 @@ const MovieDetail = () => {
                             </div>
                         ))}
                     </div>
+
                     {actors.length > 8 && (
-                        <Button label="더보기" className="more-button" onClick={handleShowAllActors} />
+                                            // <div className="more-button">
+                        <button label="더보기"  className="more-button" onClick={handleShowAllActors}>더보기</button>
+                        // </div>
                     )}
+
                 </>
                 ) : (
                 <p>Loading actors...</p>
@@ -569,7 +553,7 @@ const MovieDetail = () => {
             ))} */}
 
                 <Carousel
-                    value={movie.stills.slice(0, 4)} // 최대 4개만 표시
+                    value={movie.stills} 
                     numVisible={4}
                     numScroll={4}
                     // circular 
@@ -589,8 +573,31 @@ const MovieDetail = () => {
         </section>
         <section className="movie-trailers">
             <h2>트레일러</h2>
-            <div className="trailer-list">
-                {Array.isArray(movie.trailers) && movie.trailers.length > 0 ? (
+            {Array.isArray(movie.trailers) && movie.trailers.length > 0 ? (
+        <Carousel
+            value={movie.trailers} // 트레일러 배열 전달
+            numVisible={3} // 한 번에 한 개의 트레일러 표시
+            numScroll={3} // 한 번에 스크롤할 트레일러 수
+            autoplayInterval={10000} // 자동 재생 간격
+            itemTemplate={(trailer, index) => (
+                <div className="trailer-item" key={index}>
+                    <iframe
+                        width="400" 
+                        height="220" // 고정 높이 설정
+                        src={trailer} // 트레일러 URL
+                        title={`Movie Trailer ${index + 1}`}
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    ></iframe>
+                </div>
+            )}
+        />
+    ) : (
+        <p>트레일러가 없습니다.</p>
+    )}
+            {/* <div className="trailer-list"> */}
+                {/* {Array.isArray(movie.trailers) && movie.trailers.length > 0 ? (
                     movie.trailers.map((trailer, index) => (
                         <iframe 
                             key={index}
@@ -605,8 +612,9 @@ const MovieDetail = () => {
                     ))
                 ) : (
                     <p>트레일러가 없습니다.</p>
-                )}
-            </div>
+                )} */}
+
+            {/* </div> */}
         </section>
         </main>
     </div>

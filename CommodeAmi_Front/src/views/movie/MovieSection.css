@@ -7,31 +7,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
-    font-size: 24px;
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+    margin-left: 1.2rem;
   }
   
-  /* .scroll-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-   */
-
-  /* .movie-list-wrapper {
-    overflow-x: auto;
-    display: flex;
-    gap: 10px;
-    scroll-behavior: smooth;
-    padding: 10px 0;
-  } */
- 
   .movie-list-wrapper {
     display: flex;
-    flex-wrap: wrap; /* 화면 크기에 따라 줄바꿈 */
-    gap: 10px; /* 아이템 간 간격 */
-    justify-content: center; /* 아이템 가운데 정렬 */
-    width: 100%; /* 부모 컨테이너 크기를 벗어나지 않도록 설정 */
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    width: 100%; 
     padding: 10px 0;
     box-sizing: border-box;
 }
@@ -78,7 +64,6 @@
   
   .movie-list .movie-card .movie-rank {
     position: absolute;
-    /* top: 8px; */
     top: 0;
     left: 8px;
     background-color: rgba(0, 0, 0, 0.7);
@@ -114,14 +99,6 @@
     justify-content: center;
   }
   
-  /* .scroll-button.left {
-    left: 0;
-  }
-  
-  .scroll-button.right {
-    right: 0;
-  } */
-  
   .movie-card-wrapper {
     position: relative;
     display: flex;
@@ -130,7 +107,6 @@
   }
 
   .movie-poster {
-    /* width: 100%; */
     height: auto;
   }
   
@@ -152,4 +128,3 @@
     z-index: 1;
     font-weight: bold;
   }
-  

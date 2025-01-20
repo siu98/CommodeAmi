@@ -25,16 +25,6 @@ function SearchResult() {
         return;
       }
 
-    //   if (query) {
-    //     try {
-    //       const data = await fetchSearchMovies(query);
-    //       setResults(data);
-    //     } catch (error) {
-    //       console.error('Error fetching search results:', error);
-    //     }
-    //   }
-    // };
-
     try {
       const data = await fetchSearchMovies(query);
       if (data && data.length > 0) {
@@ -56,7 +46,7 @@ function SearchResult() {
 
 return (
   <div className="search-results">
-    <h2>검색 결과: "{query}"</h2>
+    <h2>"{query}" 검색 결과 {results.length}</h2>
     {results.length === 0 ? (
       <p>검색 결과가 없습니다.</p>
     ) : (
