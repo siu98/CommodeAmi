@@ -40,24 +40,6 @@ function Navigation() {
         setError(''); // 에러 메시지도 초기화
         navigate('/'); // 로그아웃 후 메인 페이지로 이동
     };
-    // const handleSearch = async () => {
-    //     if (!value.trim()) {
-    //         alert('검색어를 입력하세요.');
-    //         return;
-    //     }
-    
-    //     try {
-    //         console.log("Search started with value:", value); // 검색 시작 로깅
-    //         const results = await searchMovies(value);
-    //         console.log("Search results:", results); // 검색 결과 로깅
-    //         setMovies(results || []); // 검색 결과 저장
-    //         setShowResults(true); // 검색 결과 표시
-    //     } catch (error) {
-    //         console.error("Search failed:", error.response || error.message || error);
-    //         alert('영화 검색 중 오류가 발생했습니다.');
-    //         setMovies([]);
-    //     }
-    // };
 
     const handleSearch = () => {
         if (!value.trim()) {
@@ -78,14 +60,6 @@ function Navigation() {
                         <h1>commode ami</h1>
                     </Link>
                 </div>
-                {/* <div className="search-bar">
-                    <InputText
-                        value={value}
-                        placeholder="검색어를 입력하세요"
-                        onChange={(e) => setValue(e.target.value)}
-                    />
-                </div> */}
-                {/* 검색 바 */}
                 <div className="search-bar">
                     <InputText
                         value={value}
@@ -132,8 +106,6 @@ function Navigation() {
                 <Divider />
             </div>
 
-            {/* LoginPage 컴포넌트에 showDialog 전달 */}
-            {/* <LoginPage showDialog={showDialog} setShowDialog={setShowDialog} /> */}
             <LoginPage
                 showDialog={showDialog}
                 setShowDialog={setShowDialog}

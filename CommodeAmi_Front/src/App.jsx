@@ -37,20 +37,6 @@
     return (
         <Router>
           <Navigation isLoggedIn={isLoggedIn} handleLogout={logout} />
-          {/* <Routes>
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/" element={
-              <MovieSection 
-                title="박스오피스 순위" 
-                movies={boxOfficeMovies} 
-                scrollable 
-                sectionId="box-office"
-              />
-            } />
-    
-            <Route path="/movie/:movieId" element={<MovieDetail isLoggedIn={isLoggedIn} handleLogout={logout} />} />
-          </Routes> */}
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignupPage />} />
@@ -74,7 +60,7 @@
               element={
                 isLoggedIn ? (
                 <MovieSection 
-                  title="박스오피스 순위 (로그인 전용)" 
+                  title="박스오피스 순위" 
                   movies={boxOfficeMovies} 
                   scrollable 
                   sectionId="dashboard-box-office"
@@ -105,17 +91,6 @@
               )
             }
             />
-{/*   
-          <Route
-              path="/mypage/customticket"
-              element={
-                isLoggedIn ? (
-                  <FileUpload />
-              ) : (
-                <Navigate to="/" />
-              )
-            }
-            /> */}
             <Route
               path="/mypage/customtickets"
               element={

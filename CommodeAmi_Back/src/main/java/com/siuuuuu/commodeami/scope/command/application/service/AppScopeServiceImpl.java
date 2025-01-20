@@ -1,7 +1,5 @@
 package com.siuuuuu.commodeami.scope.command.application.service;
 
-import com.siuuuuu.commodeami.averagescope.command.application.controller.AppAverageScopeController;
-import com.siuuuuu.commodeami.averagescope.command.application.service.AppAverageScopeService;
 import com.siuuuuu.commodeami.movie.command.domain.repository.MovieRepository;
 import com.siuuuuu.commodeami.review.command.domain.repository.ReviewRepository;
 import com.siuuuuu.commodeami.scope.command.aggregate.dto.ScopeDTO;
@@ -20,106 +18,17 @@ public class AppScopeServiceImpl implements AppScopeService {
     private final UserRepository userRepository;
     private final MovieRepository movieRepository;
     private final ReviewRepository reviewRepository;
-    private final AppAverageScopeService appAverageScopeService;
 
     @Autowired
     public AppScopeServiceImpl(ScopeRepository scopeRepository,
                                UserRepository userRepository,
                                MovieRepository movieRepository,
-                               ReviewRepository reviewRepository,
-                               AppAverageScopeService appAverageScopeService) {
+                               ReviewRepository reviewRepository) {
         this.scopeRepository = scopeRepository;
         this.userRepository = userRepository;
         this.movieRepository = movieRepository;
         this.reviewRepository = reviewRepository;
-        this.appAverageScopeService = appAverageScopeService;
     }
-
-//    @Override
-//    public ScopeDTO createOrUpdateScope(Long movieId, Long userId, ScopeDTO scopeDTO) {
-//        log.info("Processing userId={}, movieId={}", userId, movieId); // 디버깅 로그
-//
-//        // 1. 사용자가 있는지 검증
-//        if (!userRepository.existsById(userId)) {
-//            throw new IllegalArgumentException("사용자를 찾을 수 없습니다: userId=" + userId);
-//        }
-//
-//        // 2. 영화가 있는지 검증
-//        if (!movieRepository.existsById(movieId)) {
-//            throw new IllegalArgumentException("영화를 찾을 수 없습니다: movieId=" + movieId);
-//        }
-//
-//        // 3. 기존 별점 조회
-////        Optional<ScopeDTO> existingScopeOpt = scopeRepository.findByUserIdAndMovieId(userId, movieId);
-//        Scope existingScope = scopeRepository.findScopeByUserIdAndMovieId(userId, movieId);
-//
-//        // 4-1. 기존 별점이 있을 때
-//        if (existingScope != null) {
-//            // 별점 수정
-//            existingScope.setScope(scopeDTO.getScope());
-//            existingScope.setCreatedAt(scopeDTO.getCreatedAt());
-//            existingScope.setWatchedAt(scopeDTO.getWatchedAt()); // 관람일자 업데이트 (null일 경우 그대로 유지)
-//
-//            // DTO -> entity 변환
-//            Scope updatedScope = new Scope();
-//            updatedScope.setScopeId(existingScope.getScopeId());
-//            updatedScope.setScope(existingScope.getScope());
-//            updatedScope.setCreatedAt(existingScope.getCreatedAt());
-//            updatedScope.setWatchedAt(existingScope.getWatchedAt());
-//            updatedScope.setUser(userRepository.findById(userId)
-//                    .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다.")));
-//            updatedScope.setMovie(movieRepository.findById(movieId)
-//                    .orElseThrow(() -> new IllegalArgumentException("영화를 찾을 수 없습니다.")));
-////            updatedScope.setReview(existingScope.getReviewId() != null
-////                    ? reviewRepository.findById(existingScope.getReviewId()).orElse(null)
-////                    : null);
-//
-//
-//            // 저장
-//            scopeRepository.save(updatedScope);
-////            return existingScopeDTO;
-//            return new ScopeDTO(
-//                    updatedScope.getScopeId(),
-//                    updatedScope.getScope(),
-//                    updatedScope.getCreatedAt(),
-//                    updatedScope.getWatchedAt(),
-//                    updatedScope.getUser().getUserId(),
-//                    updatedScope.getMovie().getMovieId()
-////                    updatedScope.getReview() != null ? updatedScope.getReview().getReviewId() : null
-//            );
-//        } else {
-//            // 4-2. 기존 별점이 없을 때
-//            Scope newScope = new Scope();
-//            newScope.setScope(scopeDTO.getScope());
-//            newScope.setCreatedAt(scopeDTO.getCreatedAt());
-//            newScope.setUser(userRepository.findById(userId)
-//                    .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다.")));
-//            newScope.setMovie(movieRepository.findById(movieId)
-//                    .orElseThrow(() -> new IllegalArgumentException("영화를 찾을 수 없습니다.")));
-////            newScope.setReview(scopeDTO.getReviewId() != null
-////                    ? reviewRepository.findById(scopeDTO.getReviewId()).orElse(null)
-////                    : null);
-//
-//            // 저장
-//            Scope savedScope = scopeRepository.save(newScope);
-//
-////            updateAverageScope(movieId, savedScope.getScope(), existingScope != null);
-//
-//            // entity -> DTO 변환
-//            return new ScopeDTO(
-//                    savedScope.getScopeId(),
-//                    savedScope.getScope(),
-//                    savedScope.getCreatedAt(),
-//                    savedScope.getWatchedAt(), // 관람일자 반환
-//                    savedScope.getUser().getUserId(),
-//                    savedScope.getMovie().getMovieId()
-////                    savedScope.getReview() != null ? savedScope.getReview().getReviewId() : null
-////                    savedScope.getReview() != null ? savedScope.getReview().getReviewId() : null,
-//
-//
-//            );
-//        }
-//    }
 
     @Override
     public ScopeDTO createOrUpdateScope(Long movieId, Long userId, ScopeDTO scopeDTO) {
@@ -136,54 +45,143 @@ public class AppScopeServiceImpl implements AppScopeService {
         }
 
         // 3. 기존 별점 조회
+//        Optional<ScopeDTO> existingScopeOpt = scopeRepository.findByUserIdAndMovieId(userId, movieId);
         Scope existingScope = scopeRepository.findScopeByUserIdAndMovieId(userId, movieId);
 
+        // 4-1. 기존 별점이 있을 때
         if (existingScope != null) {
-            // 기존 별점 수정
-            double updatedScope = scopeDTO.getScope(); // 수정된 별점
-            existingScope.setScope(updatedScope);
+            // 별점 수정
+            existingScope.setScope(scopeDTO.getScope());
             existingScope.setCreatedAt(scopeDTO.getCreatedAt());
-            existingScope.setWatchedAt(scopeDTO.getWatchedAt());
+            existingScope.setWatchedAt(scopeDTO.getWatchedAt()); // 관람일자 업데이트 (null일 경우 그대로 유지)
 
-            scopeRepository.save(existingScope);
+            // DTO -> entity 변환
+            Scope updatedScope = new Scope();
+            updatedScope.setScopeId(existingScope.getScopeId());
+            updatedScope.setScope(existingScope.getScope());
+            updatedScope.setCreatedAt(existingScope.getCreatedAt());
+            updatedScope.setWatchedAt(existingScope.getWatchedAt());
+            updatedScope.setUser(userRepository.findById(userId)
+                    .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다.")));
+            updatedScope.setMovie(movieRepository.findById(movieId)
+                    .orElseThrow(() -> new IllegalArgumentException("영화를 찾을 수 없습니다.")));
+//            updatedScope.setReview(existingScope.getReviewId() != null
+//                    ? reviewRepository.findById(existingScope.getReviewId()).orElse(null)
+//                    : null);
 
-            // 평균 별점 갱신 (isUpdate = true)
-            appAverageScopeService.saveOrUpdateAverageScope(movieId, updatedScope, userId, true);
 
+            // 저장
+            scopeRepository.save(updatedScope);
+//            return existingScopeDTO;
             return new ScopeDTO(
-                    existingScope.getScopeId(),
-                    updatedScope,
-                    existingScope.getCreatedAt(),
-                    existingScope.getWatchedAt(),
-                    userId,
-                    movieId
+                    updatedScope.getScopeId(),
+                    updatedScope.getScope(),
+                    updatedScope.getCreatedAt(),
+                    updatedScope.getWatchedAt(),
+                    updatedScope.getUser().getUserId(),
+                    updatedScope.getMovie().getMovieId()
+//                    updatedScope.getReview() != null ? updatedScope.getReview().getReviewId() : null
             );
         } else {
-            // 새로운 별점 추가
+            // 4-2. 기존 별점이 없을 때
             Scope newScope = new Scope();
             newScope.setScope(scopeDTO.getScope());
             newScope.setCreatedAt(scopeDTO.getCreatedAt());
-            newScope.setWatchedAt(scopeDTO.getWatchedAt());
             newScope.setUser(userRepository.findById(userId)
                     .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다.")));
             newScope.setMovie(movieRepository.findById(movieId)
                     .orElseThrow(() -> new IllegalArgumentException("영화를 찾을 수 없습니다.")));
+//            newScope.setReview(scopeDTO.getReviewId() != null
+//                    ? reviewRepository.findById(scopeDTO.getReviewId()).orElse(null)
+//                    : null);
 
+            // 저장
             Scope savedScope = scopeRepository.save(newScope);
 
-            // 평균 별점 갱신 (isUpdate = false)
-            appAverageScopeService.saveOrUpdateAverageScope(movieId, savedScope.getScope(), userId,false);
+//            updateAverageScope(movieId, savedScope.getScope(), existingScope != null);
 
+            // entity -> DTO 변환
             return new ScopeDTO(
                     savedScope.getScopeId(),
                     savedScope.getScope(),
                     savedScope.getCreatedAt(),
-                    savedScope.getWatchedAt(),
-                    userId,
-                    movieId
+                    savedScope.getWatchedAt(), // 관람일자 반환
+                    savedScope.getUser().getUserId(),
+                    savedScope.getMovie().getMovieId()
+//                    savedScope.getReview() != null ? savedScope.getReview().getReviewId() : null
+//                    savedScope.getReview() != null ? savedScope.getReview().getReviewId() : null,
+
+
             );
         }
     }
+
+//    @Override
+//    public ScopeDTO createOrUpdateScope(Long movieId, Long userId, ScopeDTO scopeDTO) {
+//        log.info("Processing userId={}, movieId={}", userId, movieId);
+//
+//        // 1. 사용자와 영화 검증
+//        if (!userRepository.existsById(userId)) {
+//            throw new IllegalArgumentException("사용자를 찾을 수 없습니다: userId=" + userId);
+//        }
+//        if (!movieRepository.existsById(movieId)) {
+//            throw new IllegalArgumentException("영화를 찾을 수 없습니다: movieId=" + movieId);
+//        }
+//
+//        // 2. 기존 별점 조회
+//        Scope existingScope = scopeRepository.findScopeByUserIdAndMovieId(userId, movieId);
+//        double oldScope = 0; // 기존 별점 기본값
+//
+//        if (existingScope != null) {
+//            // 기존 별점 수정
+//            oldScope = existingScope.getScope(); // 기존 별점 값 가져오기
+//            double updatedScope = scopeDTO.getScope(); // 수정된 별점
+//
+//            // 업데이트
+//            existingScope.setScope(updatedScope);
+//            existingScope.setCreatedAt(scopeDTO.getCreatedAt());
+//            existingScope.setWatchedAt(scopeDTO.getWatchedAt());
+//            scopeRepository.save(existingScope);
+//
+//            // 평균 별점 갱신
+//            appAverageScopeService.saveOrUpdateAverageScope(movieId, updatedScope, oldScope, true);
+//
+//            return new ScopeDTO(
+//                    existingScope.getScopeId(),
+//                    updatedScope,
+//                    existingScope.getCreatedAt(),
+//                    existingScope.getWatchedAt(),
+//                    userId,
+//                    movieId
+//            );
+//        } else {
+//            // 새로운 별점 추가
+//            double newScopeValue = scopeDTO.getScope();
+//            Scope newScope = new Scope();
+//            newScope.setScope(newScopeValue);
+//            newScope.setCreatedAt(scopeDTO.getCreatedAt());
+//            newScope.setWatchedAt(scopeDTO.getWatchedAt());
+//            newScope.setUser(userRepository.findById(userId)
+//                    .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다.")));
+//            newScope.setMovie(movieRepository.findById(movieId)
+//                    .orElseThrow(() -> new IllegalArgumentException("영화를 찾을 수 없습니다.")));
+//
+//            Scope savedScope = scopeRepository.save(newScope);
+//
+//            // 평균 별점 갱신
+//            appAverageScopeService.saveOrUpdateAverageScope(movieId, newScopeValue, oldScope, false);
+//
+//            return new ScopeDTO(
+//                    savedScope.getScopeId(),
+//                    savedScope.getScope(),
+//                    savedScope.getCreatedAt(),
+//                    savedScope.getWatchedAt(),
+//                    userId,
+//                    movieId
+//            );
+//        }
+//    }
+
     @Override
     public ScopeDTO deleteScope(Long scopeId) {
         // 1. Scope 존재 여부 확인

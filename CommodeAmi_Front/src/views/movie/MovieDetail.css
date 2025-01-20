@@ -161,10 +161,25 @@ main {
   
   .movie-cast .cast-list {
     display: flex;
-    gap: 50px;
+    gap: 43px;
     max-height: 400px;
     overflow-y: auto;
     justify-content: center;
+  }
+
+  .movie-cast .more-button {
+    width: 80px; 
+    height: 30px;
+    font-size: 15px; 
+    padding: 10px; 
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    border-radius: 8px;
+    font-weight: 600;
+    color: white;
+    background-color: #3D6094; 
+    align-self: center; 
   }
   
   .movie-stills{
@@ -180,8 +195,8 @@ main {
   }
   
   .movie-stills .still-list img {
-    margin-right: 10px;
-    width: 300px;
+    /* margin-right: 10px; */
+    /* width: 300px; */
     height: auto;
   }
   
@@ -201,8 +216,8 @@ main {
   }
 
   .movie-stills .p-carousel-container {
-    width: 100%; /* 슬라이더가 부모 너비에 맞게 */
-    max-width: 900px; /* 최대 너비 제한 */
+    width: 100%; 
+    /* max-width: 900px; */
 }
 
 .movie-stills .p-carousel-content {
