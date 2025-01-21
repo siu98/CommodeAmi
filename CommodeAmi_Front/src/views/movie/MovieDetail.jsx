@@ -23,6 +23,7 @@ const MovieDetail = () => {
     const [movieReviews, setMovieReviews] = useState([]);
     const [selectedRating, setSelectedRating] = useState(0);
     const [localReview, setLocalReview] = useState('');
+    const [showAllActorsPopup, setShowAllActorsPopup] = useState(false);
     const [dialogVisible, setDialogVisible] = useState(null); // 다이얼로그 상태 관리
     // const [review, setReview] = useState('');
     const [viewingDate, setViewingDate] = useState(''); // 관람일자 입력값
@@ -200,6 +201,10 @@ const MovieDetail = () => {
 
     const handleShowAllActors = () => {
         setShowAllActorsPopup(true);
+    };
+
+    const handleClosePopup = () => {
+        setShowAllActorsPopup(false); // 팝업 닫기
     };
 
     const handleSelectRating = (scope) => {
@@ -418,39 +423,18 @@ const MovieDetail = () => {
                 >
                 <div className="rating-popup" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                     <div className="popup-content">
-                    {/* <h2>별점</h2> */}
-                    {/* StarRating 컴포넌트를 사용해 별점 표시 */}
-                    <StarRating onRatingSelect={handleSelectRating} initialRating={selectedRating} />
-                    <div className="popup-buttons" style={{ marginTop: '1rem', display: 'flex', gap: '1rem' }}>
-                        <Button
-                        label="취소"
-                        onClick={() => setDialogVisible(null)} // 다이얼로그 닫기
-                        style={{
-                            padding: '0.5rem 1rem',
-                            backgroundColor: '#ccc',
-                            border: 'none',
-                            borderRadius: '5px',
-                            cursor: 'pointer',
-                        }}
-                    />
+                        <StarRating onRatingSelect={handleSelectRating} initialRating={selectedRating} />
+                        <div className="popup-buttons">
                
-                    <Button
-                        label="확인"
-                        // onClick={handleSaveRating} // 별점 저장 함수 호출
-                        onClick={() => handleSaveRating(movieId, selectedRating)} 
-                        style={{
-                            padding: '0.5rem 1rem',
-                            backgroundColor: '#007bff',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '5px',
-                            cursor: 'pointer',
-                        }}
-                    />
+                            <Button
+                                label="확인"
+                                // onClick={handleSaveRating} // 별점 저장 함수 호출
+                                onClick={() => handleSaveRating(movieId, selectedRating)} 
+                            />
                     
+                        </div>
                     </div>
-                    </div>
-                    </div>
+                </div>
             </Dialog>
 
             {/* 리뷰 다이얼로그 */}
@@ -464,12 +448,6 @@ const MovieDetail = () => {
                 <div className="dialog-content">
                     {/* <p>리뷰를 입력해주세요:</p> */}
                     <InputTextarea
-                        // value={review}
-                        // value={movieReview.review || ''}
-                        // onChange={(e) => setReview(e.target.value)}
-                        // onChange={(e) =>
-                        //     dispatch(setReview({ movieId, review: e.target.value })) // Redux 액션 호출
-                        // }
                         value={localReview}
                         onChange={(e) => setLocalReview(e.target.value)}
                         placeholder="리뷰 입력"
@@ -479,38 +457,32 @@ const MovieDetail = () => {
                     />
                 </div>
                 <div className="review-button">
-                    {/* <Button label="취소" /> */}
-
                     <Button label="확인" 
                         onClick={() => handleSaveReview(movieId, selectedRating)} 
-                        style={{
-                            padding: '0.5rem 1rem',
-                            backgroundColor: '#007bff',
-                            color: 'white',
-                            border: 'none',
-                            borderRadius: '5px',
-                            cursor: 'pointer',
-                        }}
                     />
                 </div>
             </Dialog>
 
             {/* 관람일자 다이얼로그 */}
             <Dialog
-                header="관람일자 입력"
+                header="관람일자를 입력해주세요"
                 visible={dialogVisible === 'viewingDate'}
                 rows={5} cols={30}
                 onHide={() => setDialogVisible(null)}
                 style={{ width: '50vw' }}
                 >
                 <div className="dialog-content">
-                    <p>관람일자를 입력해주세요:</p>
                     <InputTextarea
                         value={viewingDate}
                         onChange={(e) => setViewingDate(e.target.value)}
                         placeholder="YYYY-MM-DD"
                     />
                 </div>
+                {/* <div className="review-button">
+                    <Button label="확인" 
+                        onClick={() => handleSaveReview(movieId, selectedRating)} 
+                    />
+                </div> */}
             </Dialog>
             
             <section className="movie-cast">
@@ -532,6 +504,27 @@ const MovieDetail = () => {
                         <button label="더보기"  className="more-button" onClick={handleShowAllActors}>더보기</button>
                         // </div>
                     )}
+
+                    {/* Dialog 구현 */}
+                    <Dialog
+                        header="출연 배우 목록"
+                        visible={showAllActorsPopup}
+                        style={{ width: '50vw' }}
+                        onHide={handleClosePopup}
+                    >
+                        <div className="cast-popup">
+                            {actors.map(actor => (
+                                <div className="cast-item" key={actor.actor_id}>
+                                    <img
+                                        src={`${baseURL}${actor.profile_image}`}
+                                        alt={actor.name}
+                                        // style={{ width: '100px', height: '150px', objectFit: 'cover' }}
+                                    />
+                                    <p>{actor.name}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </Dialog>
 
                 </>
                 ) : (
