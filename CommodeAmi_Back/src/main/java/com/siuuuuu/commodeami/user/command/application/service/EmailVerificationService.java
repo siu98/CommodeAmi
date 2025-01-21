@@ -35,7 +35,7 @@ public class EmailVerificationService {
 
     // 임시 비밀번호 생성
     public String generateTemporaryPassword() {
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$!%*#?&";
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder tempPassword = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < 10; i++) { // 10자리 임시 비밀번호
