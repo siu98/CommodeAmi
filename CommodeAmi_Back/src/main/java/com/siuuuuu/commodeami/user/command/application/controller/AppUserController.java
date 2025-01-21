@@ -53,6 +53,14 @@ public class AppUserController {
         return ResponseDTO.ok("비밀번호가 변경되었습니다.");
     }
 
+    // 비밀번호 찾기
+    @PostMapping("/reset")
+    public ResponseDTO<?> resetPassword(@RequestParam String email) {
+        log.info("비밀번호 첮가 요청 들어옴: {}", email);
+        userService.generateAndSendTemporaryPassword(email);
+        return ResponseDTO.ok("임시 비밀번호가 이메일로 전송되었습니다.");
+    }
+
     // 로그아웃
     @PostMapping("/logout")
     public ResponseDTO<?> logout() {

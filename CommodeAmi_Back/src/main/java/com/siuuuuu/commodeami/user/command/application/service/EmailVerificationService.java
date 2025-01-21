@@ -33,6 +33,17 @@ public class EmailVerificationService {
         return String.valueOf(code);
     }
 
+    // 임시 비밀번호 생성
+    public String generateTemporaryPassword() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$!%*#?&";
+        StringBuilder tempPassword = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) { // 10자리 임시 비밀번호
+            tempPassword.append(chars.charAt(random.nextInt(chars.length())));
+        }
+        return tempPassword.toString();
+    }
+
     // 인증 코드 생성 및 Redis에 저장(5분 TTL)
     public String sendVerificationCode(String email) {
 
@@ -57,6 +68,32 @@ public class EmailVerificationService {
 //        log.info("code: {}", code);
 //        javaMailSender.send(emailMessage);
 //    }
+
+    // 임시 비밀번호 전송
+    public void sendTemporaryPassword(String email, String tempPassword) {
+        try {
+            MimeMessage mimeMessage = javaMailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true, "UTF-8");
+
+            helper.setTo(email);
+            helper.setSubject("[Commode Ami] 임시 비밀번호 안내");
+
+            // HTML 이메일 내용
+            String htmlContent = "<div style='font-family: Arial, sans-serif; line-height: 1.6;'>" +
+                    "<h2 style='color: #4CAF50;'>임시 비밀번호: <span style='color: #000;'>" + tempPassword + "</span></h2>" +
+                    "<p style='font-size: 16px;'>임시 비밀번호를 사용하여 로그인한 후 반드시 비밀번호를 변경해주세요.</p>" +
+                    "<p style='font-size: 14px; color: #555;'>CommodeAmi 팀</p>" +
+                    "</div>";
+
+            helper.setText(htmlContent, true); // HTML 이메일
+            javaMailSender.send(mimeMessage);
+
+            log.info("Temporary password email sent to: {}", email);
+        } catch (Exception e) {
+            log.error("Failed to send temporary password to {}", email, e);
+            throw new RuntimeException("Failed to send email", e);
+        }
+    }
 
     public void sendVerificationEmail(String email, String code) {
         try {
