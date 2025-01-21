@@ -66,7 +66,7 @@ public class AppUserServiceImpl implements AppUserService {
             throw new CommonException(ErrorCode.INVALID_PASSWORD);
         }
 
-        if (!bCryptPasswordEncoder.matches(newPwd, exstingUser.getPassword())) {
+        if (bCryptPasswordEncoder.matches(newPwd, exstingUser.getPassword())) {
             log.info("새 비밀번호가 현재 비밀번호와 깉은 경우");
             throw new CommonException(ErrorCode.EXIST_PASSWORD);
         }

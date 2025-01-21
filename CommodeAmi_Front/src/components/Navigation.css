@@ -60,7 +60,7 @@
     gap: 2rem;
 }
 
-.auth-buttons .link-button .p-button {
+.auth-buttons .p-button {
     padding: 8px 16px;
     font-size: 0.9rem;
     background-color: #3D6094;
@@ -70,7 +70,7 @@
     transition: background-color 0.3s;
 }
 
-.auth-buttons .link-button .p-button:hover {
+.auth-buttons .p-button:hover {
     background-color: #3D6094;
 }
 
