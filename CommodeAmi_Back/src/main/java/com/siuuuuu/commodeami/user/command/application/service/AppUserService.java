@@ -7,6 +7,8 @@ public interface AppUserService  {
 
     void updatePassword(Long userId, String currentPwd, String newPwd);
 
+    void generateAndSendTemporaryPassword(String email);
+
     void updateLastAccessTime(String email);
 
     boolean checkIfEmailAlreadyUsed(String email);
