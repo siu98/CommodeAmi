@@ -12,25 +12,23 @@
 
     <select id="selectAllAverageScopes" resultMap="averageScopeResultMap">
         SELECT
-            AVG(s.SCOPE) AS averageScope,
-            COUNT(s.SCOPE) AS scopeCount,
-            s.MOVIE_ID AS movieId
+            AVERAGE_SCOPE_ID
+           ,AVERAGE_SCOPE
+           ,NUMBER_OF_PEOPLE
+           ,MOVIE_ID
          FROM
-            TBL_SCOPE s
-         GROUP BY
-            s.MOVIE_ID
+            TBL_AVERAGE_SCOPE
     </select>
 
     <select id="selectAverageScopeByMovieId" resultMap="averageScopeResultMap">
         SELECT
-            AVG(s.SCOPE) AS averageScope,
-            COUNT(s.SCOPE) AS scopeCount,
-            s.MOVIE_ID AS movieId
+            AVERAGE_SCOPE_ID
+           ,AVERAGE_SCOPE
+           ,NUMBER_OF_PEOPLE
+           ,MOVIE_ID
          FROM
-            TBL_SCOPE s
+            TBL_AVERAGE_SCOPE
         WHERE
-            s.MOVIE_ID = #{movieId}
-         GROUP BY
-            s.MOVIE_ID
+            MOVIE_ID = #{movieId}
     </select>
 </mapper>
