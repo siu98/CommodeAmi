@@ -55,6 +55,7 @@ public class JwtFilter extends OncePerRequestFilter {
                 || path.startsWith("/api/user/send-verification")
                 || path.startsWith("/api/user/verify-code")
                 || path.startsWith("/api/user/reset")
+                || path.startsWith("/api/average-scope")
 
         // swagger 관련 모든 경로 추후 추가
                 || path.startsWith("/swagger-ui")
