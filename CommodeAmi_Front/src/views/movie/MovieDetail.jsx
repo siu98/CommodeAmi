@@ -5,6 +5,7 @@ import { fetchMovie, fetchActors } from '../../api/movieDetails';
 import { fetchMovieScope, setLoading, setError, setScope } from '../../store/slices/scopeSlice';
 import { fetchMovieReview, setReview } from '../../store/slices/reviewSlice';
 import { fetchReviewByMovieId } from '../../api/reviews';
+import { fetchAverageScope } from '../../api/averageScope'; 
 import { Button } from 'primereact/button';
 import { Image } from 'primereact/image';
 import { Dialog } from 'primereact/dialog';
@@ -23,6 +24,8 @@ const MovieDetail = () => {
     const [movieReviews, setMovieReviews] = useState([]);
     const [selectedRating, setSelectedRating] = useState(0);
     const [localReview, setLocalReview] = useState('');
+    const [averageScope, setAverageScope] = useState(null); // 평균별점 상태
+    const [numberOfPeople, setNumberOfPeople] = useState(null); // 평가 인원 수 상태
     const [showAllActorsPopup, setShowAllActorsPopup] = useState(false);
     const [dialogVisible, setDialogVisible] = useState(null); // 다이얼로그 상태 관리
     // const [review, setReview] = useState('');
@@ -167,6 +170,30 @@ const MovieDetail = () => {
 
         getReviews();
     }, [movieId, accessToken]);
+
+    useEffect(() => {
+        const getAverageScope = async () => {
+            try {
+                const response = await fetchAverageScope(movieId);
+                console.log('fetchAverageScope API 응답확인:', response);
+                
+                if (response.success && response.data) {
+                    setAverageScope(response.data.average_scope); // 평균별점 설정
+                    setNumberOfPeople(response.data.number_of_people); // 평가 인원 수 설정
+                } else {
+                    console.warn('API 응답이 예상과 다릅니다:', response);
+                }
+            } catch (err) {
+                console.error('Failed to fetch average scope:', err);
+            }
+        };
+    
+        if (movieId) {
+            getAverageScope();
+        }
+    }, [movieId]);
+    
+
 
     // **로딩 또는 오류 처리**를 렌더링 초반부에 추가합니다.
     if (loading) {
@@ -345,7 +372,10 @@ const MovieDetail = () => {
                                 {/* <StarDisplay rating={movieRating.scope} /> */}
                                 {/* <StarDisplay rating={typeof movieRating === 'number' ? movieRating : 0} /> */}
                                 {console.log("movieRating:", movieRating)}
-                                <p>평균별점</p>
+                                <p>
+                                    평균별점: {averageScope || 'N/A'}
+                                    {numberOfPeople !== null && ` (${numberOfPeople}명)`}
+                                </p>
                             </div>
                             <Button label="별점" onClick={() => setDialogVisible('scope')} />
                             <Button label="리뷰" onClick={() => setDialogVisible('review')} />
