@@ -9,7 +9,7 @@
 
 ## 🛠️기술스택
 ### 1. Backend
-| Python |  Django |  
+| JAVA |  SpringBoot |  
 | :-----------------------------------:| :-----------------------------------: |
 | ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=Python&logoColor=white) |  ![Django](https://img.shields.io/badge/Django-092E20?style=flat-square&logo=Django&logoColor=white) |
 
@@ -20,7 +20,7 @@
 
 
 ### 3. Database
-| SQLite |
+| MariaDB |
 | :-----------------------------------:|
 | ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=SQLite&logoColor=white) |
 
