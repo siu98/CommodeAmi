@@ -11,7 +11,7 @@
 ### 1. Backend
 | JAVA |  SpringBoot |  
 | :-----------------------------------:| :-----------------------------------: |
-| ![Python](https://img.shields.io/badge/Python-3776AB?style=flat-square&logo=Python&logoColor=white) |  ![Django](https://img.shields.io/badge/Django-092E20?style=flat-square&logo=Django&logoColor=white) |
+| ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) |  ![springboot](https://img.shields.io/badge/springboot-6DB33F?style=flat-square&logo=springboot&logoColor=white) |
 
 ### 2. Frontend
 | HTML 5 | CSS 3 | JavaScript | Node.js | React |
