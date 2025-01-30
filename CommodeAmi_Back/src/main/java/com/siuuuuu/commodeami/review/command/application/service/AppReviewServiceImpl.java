@@ -33,7 +33,7 @@ public class AppReviewServiceImpl implements AppReviewService {
     }
 
     @Override
-    public ReviewDTO createReview(Long userId, Long movieId, ReviewDTO reviewDTO) {
+    public ReviewDTO createReview(Long movieId, Long userId, ReviewDTO reviewDTO) {
 
         // 1, 사용자가 있는지 검증
         if (!userRepository.existsById(userId)) {

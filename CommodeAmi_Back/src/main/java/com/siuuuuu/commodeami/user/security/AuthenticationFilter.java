@@ -97,6 +97,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
         accessClaims.put("userName", customUser.getUserName());
         accessClaims.put ("userid", customUser.getUserId());
         accessClaims.put("profile", customUser.getProfile());
+        accessClaims.put("nickname", customUser.getNickName());
 
         // refreshToken에는 아이디만 넣기
         Claims refreshClaims = Jwts.claims().setSubject(email);

@@ -10,14 +10,28 @@
         <result property="watchedAt" column="watched_at" />
         <result property="userId" column="user_id" />
         <result property="movieId" column="movie_id" />
+        <result property="nickname" column="nickname" />
+        <result property="scope" column="scope" />
+        <result property="title" column="title" />
     </resultMap>
+
+<!--    <resultMap id="movieReviewResultMap" type="com.siuuuuu.commodeami.review.query.aggregate.MovieReview">-->
+<!--        <id property="reviewId" column="review_id" />-->
+<!--        <result property="review" column="review" />-->
+<!--        <result property="createdAt" column="created_at" />-->
+<!--        <result property="watchedAt" column="watched_at" />-->
+<!--        <result property="userId" column="user_id" />-->
+<!--        <result property="movieId" column="movie_id" />-->
+<!--        <result property="nickname" column="nickname" />-->
+<!--        <result property="scope" column="scope" />-->
+<!--    </resultMap>-->
 
     <select id="selectAllReviews" resultMap="reviewResultMap">
         SELECT
             REVIEW_ID
            ,REVIEW
            ,CREATED_AT
-           ,WATCHED_AT
+<!--           ,WATCHED_AT-->
            ,USER_ID
            ,MOVIE_ID
          FROM
@@ -26,16 +40,58 @@
 
     <select id="selectReviewByUserId" resultMap="reviewResultMap">
         SELECT
+        R.REVIEW_ID
+        ,R.REVIEW
+        ,R.CREATED_AT
+        ,R.USER_ID
+        ,R.MOVIE_ID
+        ,U.NICKNAME
+        ,S.SCOPE
+        ,M.TITLE -- TBL_MOVIE에서 title 추가
+        FROM
+        TBL_REVIEW R
+        JOIN
+        TBL_USER U ON R.USER_ID = U.USER_ID
+        JOIN
+        TBL_SCOPE S ON R.USER_ID = S.USER_ID AND R.MOVIE_ID = S.MOVIE_ID
+        JOIN
+        TBL_MOVIE M ON R.MOVIE_ID = M.MOVIE_ID -- TBL_MOVIE를 R.MOVIE_ID와 조인
+        WHERE
+        R.USER_ID = #{userId}
+    </select>
+
+    <select id="selectReviewByUserIdAndMovieId" resultMap="reviewResultMap">
+        SELECT
             REVIEW_ID
            ,REVIEW
            ,CREATED_AT
-           ,WATCHED_AT
+<!--           ,WATCHED_AT-->
            ,USER_ID
            ,MOVIE_ID
          FROM
             TBL_REVIEW
         WHERE
-            USER_ID = #{USER_ID}
+            USER_ID = #{userId}
+          AND MOVIE_ID = #{movieId}
+    </select>
+
+    <select id="selectReviewByMovieId" resultMap="reviewResultMap">
+        SELECT
+            R.REVIEW_ID
+           ,R.REVIEW
+           ,R.CREATED_AT
+           ,R.USER_ID
+           ,R.MOVIE_ID
+           ,U.NICKNAME
+           ,S.SCOPE
+         FROM
+            TBL_REVIEW R
+         JOIN
+            TBL_USER U ON R.USER_ID = U.USER_ID
+         JOIN
+            TBL_SCOPE S ON R.USER_ID = S.USER_ID AND R.MOVIE_ID = S.MOVIE_ID
+        WHERE
+            R.MOVIE_ID = #{movieId}
     </select>
 
 </mapper>

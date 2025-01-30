@@ -5,6 +5,7 @@ import com.siuuuuu.commodeami.common.exception.ErrorCode;
 import com.siuuuuu.commodeami.user.command.aggregate.dto.UserDTO;
 import com.siuuuuu.commodeami.user.command.aggregate.entity.User;
 import com.siuuuuu.commodeami.user.command.domain.repository.UserRepository;
+import jakarta.validation.constraints.Email;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Slf4j
 @Service
@@ -20,11 +22,15 @@ public class AppUserServiceImpl implements AppUserService {
 
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final EmailVerificationService emailVerificationService;
 
     @Autowired
-    public AppUserServiceImpl(UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public AppUserServiceImpl(UserRepository userRepository,
+                              BCryptPasswordEncoder bCryptPasswordEncoder,
+                              EmailVerificationService emailVerificationService){
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.emailVerificationService = emailVerificationService;
     }
 
     @Override
@@ -66,7 +72,7 @@ public class AppUserServiceImpl implements AppUserService {
             throw new CommonException(ErrorCode.INVALID_PASSWORD);
         }
 
-        if (!bCryptPasswordEncoder.matches(newPwd, exstingUser.getPassword())) {
+        if (bCryptPasswordEncoder.matches(newPwd, exstingUser.getPassword())) {
             log.info("새 비밀번호가 현재 비밀번호와 깉은 경우");
             throw new CommonException(ErrorCode.EXIST_PASSWORD);
         }
@@ -74,6 +80,26 @@ public class AppUserServiceImpl implements AppUserService {
         newPwd = bCryptPasswordEncoder.encode(newPwd);
         exstingUser.setPassword(newPwd);
         userRepository.save(exstingUser);
+    }
+
+    @Override
+    @Transactional
+    public void generateAndSendTemporaryPassword(String email) {
+        User user = userRepository.findByEmail(email);
+//                .orElseThrow(() -> new CommonException(ErrorCode.NOT_FOUND_USER));
+
+        // 임시 비밀번호 생성
+        String tempPassword = emailVerificationService.generateTemporaryPassword();
+
+        // 사용자 비밀번호 업데이트
+        String encodedPassword = bCryptPasswordEncoder.encode(tempPassword);
+        user.setPassword(encodedPassword);
+        userRepository.save(user);
+
+        // 이메일로 임시 비밀번호 전송
+        emailVerificationService.sendTemporaryPassword(email, tempPassword);
+
+        log.info("임시 비밀번호가 생성되고 이메일로 전송되었습니다: {}", email);
     }
 
     @Override
@@ -87,6 +113,15 @@ public class AppUserServiceImpl implements AppUserService {
 
 //        existingUser.setLastAccessTime(Timestamp.valueOf(LocalDateTime.now()));
         userRepository.save(existingUser);
+    }
+
+    @Override
+    public boolean checkIfEmailAlreadyUsed(String email) {
+        User foundUser = userRepository.findByEmail(email);
+        if (foundUser != null) {
+            throw new CommonException(ErrorCode.DUPLICATE_EMAIL_EXISTS);
+        }
+        return false;
     }
 
 }

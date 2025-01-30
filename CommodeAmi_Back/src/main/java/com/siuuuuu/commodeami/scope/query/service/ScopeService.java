@@ -7,7 +7,9 @@ import java.util.List;
 public interface ScopeService {
     List<ScopeDTO> getAllScopes();
 
-    ScopeDTO getScopeByUserId(Long userId);
+    List<ScopeDTO> getScopeByUserId(Long userId);
 
     ScopeDTO getScopeByMovieId(Long movieId);
+
+    ScopeDTO getScopeByUserIdAndMovieId(Long userId, Long movieId);
 }

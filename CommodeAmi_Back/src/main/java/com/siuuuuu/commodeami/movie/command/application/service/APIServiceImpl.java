@@ -1,20 +1,15 @@
 package com.siuuuuu.commodeami.movie.command.application.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.siuuuuu.commodeami.actor.command.aggregate.dto.ActorDTO;
-import com.siuuuuu.commodeami.actor.command.aggregate.entity.Actor;
-import com.siuuuuu.commodeami.actor.command.application.service.ActorService;
+import com.siuuuuu.commodeami.actor.command.application.service.AppActorService;
 import com.siuuuuu.commodeami.actor.command.domain.repository.ActorRepository;
 import com.siuuuuu.commodeami.movie.command.aggregate.dto.GenreDTO;
 import com.siuuuuu.commodeami.movie.command.aggregate.dto.MovieDetailDTO;
-import com.siuuuuu.commodeami.movie.command.aggregate.dto.MovieStillDTO;
 import com.siuuuuu.commodeami.movie.command.aggregate.dto.PopularMovieDTO;
 import com.siuuuuu.commodeami.movie.command.aggregate.entity.Movie;
 import com.siuuuuu.commodeami.movie.command.domain.repository.MovieRepository;
-import com.siuuuuu.commodeami.movieactor.command.aggregate.entity.MovieActor;
 import com.siuuuuu.commodeami.movieactor.command.domain.repository.MovieActorRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -24,7 +19,6 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -45,19 +39,19 @@ public class APIServiceImpl implements APIService {
     private final MovieCastService movieCastService;
 
 //    @Autowired
-    private final ActorService actorService;
+    private final AppActorService appActorService;
 
 
     public APIServiceImpl(MovieRepository movieRepository,
                           ActorRepository actorRepository,
                           MovieActorRepository movieActorRepository,
                           MovieCastService movieCastService,
-                          ActorService actorService) {
+                          AppActorService appActorService) {
         this.movieRepository = movieRepository;
         this.actorRepository = actorRepository;
         this.movieActorRepository = movieActorRepository;
         this.movieCastService = movieCastService;
-        this.actorService = actorService;
+        this.appActorService = appActorService;
     }
 
 //    @Scheduled(cron = "0 0 1 * * ?")
@@ -66,7 +60,7 @@ public class APIServiceImpl implements APIService {
 //    @Transactional
     public List<PopularMovieDTO> fetchPopularMovies() {
         log.info("Fetching popular movies from TMDB API...");
-        int totalPagesToFetch = 20; // 가져올 페이지 수 설정 (필요에 따라 조정 가능)
+        int totalPagesToFetch = 500; // 가져올 페이지 수 설정 (필요에 따라 조정 가능)
         List<PopularMovieDTO> allPopularMovies = new ArrayList<>();
 
         try {

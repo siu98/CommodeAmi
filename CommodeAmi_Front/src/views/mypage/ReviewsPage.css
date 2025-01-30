@@ -1,0 +1,31 @@
+.profile-review-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px; 
+  }
+  
+  .profile-review-item {
+    flex: 1 1 300px; 
+    max-width: 400px; 
+    border: 1px solid #ccc; 
+    padding: 16px; 
+    box-sizing: border-box; 
+    border-radius: 10px;
+  }
+  
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .review-header h4 {
+    margin: 0;
+    font-size: 0.8em;
+  }
+  
+  .date-watched {
+    margin: 0;
+    font-size: 0.5em;
+    color: #666;
+  }

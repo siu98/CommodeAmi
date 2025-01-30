@@ -14,11 +14,33 @@
         <result property="originalCountry" column="original_country" />
         <result property="stills" column="stills" />
         <result property="runningTime" column="running_time" />
+        <result property="trailers" column="trailers" />
         <result property="youtubeUrl" column="youtube_url" />
         <result property="cumulativeAudience" column="cumulative_audience" />
         <result property="boxOfficeRank" column="box_office_rank" />
         <result property="apiId" column="api_id" />
     </resultMap>
+
+    <select id="selectAllMovie" resultMap="movieResultMap">
+        SELECT
+            MOVIE_ID
+           ,TITLE
+           ,PLOT
+           ,RELEASED_AT
+           ,POSTER_URL
+           ,GENRE
+           ,ORIGINAL_TITLE
+           ,ORIGINAL_COUNTRY
+           ,STILLS
+           ,RUNNING_TIME
+           ,TRAILERS
+           ,YOUTUBE_URL
+           ,CUMULATIVE_AUDIENCE
+           ,BOX_OFFICE_RANK
+           ,API_ID
+         FROM
+            TBL_MOVIE
+    </select>
 
     <select id="selectMovieById" resultMap="movieResultMap">
         SELECT
@@ -32,6 +54,7 @@
            ,ORIGINAL_COUNTRY
            ,STILLS
            ,RUNNING_TIME
+           ,TRAILERS
            ,YOUTUBE_URL
            ,CUMULATIVE_AUDIENCE
            ,BOX_OFFICE_RANK
@@ -40,5 +63,29 @@
             TBL_MOVIE
         WHERE
             MOVIE_ID = #{MOVIE_ID}
+    </select>
+
+    <select id="selectMovieByTitle" resultMap="movieResultMap">
+        SELECT
+            MOVIE_ID
+           ,TITLE
+           ,PLOT
+           ,RELEASED_AT
+           ,POSTER_URL
+           ,GENRE
+           ,ORIGINAL_TITLE
+           ,ORIGINAL_COUNTRY
+           ,STILLS
+           ,RUNNING_TIME
+           ,TRAILERS
+           ,YOUTUBE_URL
+           ,CUMULATIVE_AUDIENCE
+           ,BOX_OFFICE_RANK
+           ,API_ID
+         FROM
+           TBL_MOVIE
+        WHERE
+            #{title} IS NOT NULL
+            AND REPLACE(TITLE, ' ', '') LIKE CONCAT('%', REPLACE(#{title}, ' ', ''), '%')
     </select>
 </mapper>

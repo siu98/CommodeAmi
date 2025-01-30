@@ -3,9 +3,10 @@ DROP TABLE IF EXISTS `TBL_MOVIE_ACTOR`;
 DROP TABLE IF EXISTS `TBL_ACTOR`;
 DROP TABLE IF EXISTS `TBL_AVERAGE_SCOPE`;
 DROP TABLE IF EXISTS `TBL_REVIEW`;
+DROP TABLE IF EXISTS `TBL_SCOPE`;
 DROP TABLE IF EXISTS `TBL_MOVIE`;
 DROP TABLE IF EXISTS `TBL_USER`;
-DROP TABLE IF EXISTS `TBL_SCOPE`;
+
 
 CREATE TABLE TBL_USER (
     user_id BIGINT AUTO_INCREMENT PRIMARY KEY,
@@ -30,6 +31,7 @@ CREATE TABLE TBL_MOVIE (
     original_country VARCHAR(255),
     stills TEXT,
     running_time INT,
+    trailers TEXT,
     youtube_url TEXT,
     cumulative_audience BIGINT,
     box_office_rank INT,
@@ -37,11 +39,13 @@ CREATE TABLE TBL_MOVIE (
 ) ENGINE=InnoDB;
 
 CREATE TABLE TBL_ACTOR (
-    actor_id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255),
-    gender VARCHAR(50),
-    profile_image TEXT,
-    original_name VARCHAR(255)
+                           -- actor_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+                           actor_id BIGINT PRIMARY KEY, -- AUTO_INCREMENT 제거
+                           name VARCHAR(255),
+                           gender VARCHAR(50),
+                           profile_image TEXT,
+                           original_name VARCHAR(255),
+                           known_for_department VARCHAR(255)
 ) ENGINE=InnoDB;
 
 CREATE TABLE TBL_AVERAGE_SCOPE (
@@ -67,8 +71,10 @@ CREATE TABLE TBL_MOVIE_ACTOR (
     role VARCHAR(255),
     actor_id BIGINT,
     movie_id BIGINT,
+    casting_order INT(11),
     CONSTRAINT fk_movie_actor_actor FOREIGN KEY (actor_id) REFERENCES TBL_ACTOR(actor_id) ON DELETE CASCADE,
-    CONSTRAINT fk_movie_actor_movie FOREIGN KEY (movie_id) REFERENCES TBL_MOVIE(movie_id) ON DELETE CASCADE
+    CONSTRAINT fk_movie_actor_movie FOREIGN KEY (movie_id) REFERENCES TBL_MOVIE(movie_id) ON DELETE CASCADE,
+    CONSTRAINT unique_movie_actor UNIQUE (movie_id, actor_id) -- 복합 고유 키
 ) ENGINE=InnoDB;
 
 CREATE TABLE TBL_SCOPE (

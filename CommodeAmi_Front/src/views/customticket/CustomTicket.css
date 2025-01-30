@@ -1,0 +1,118 @@
+.ticket-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 55px;
+  }
+  
+  .create-btn {
+    margin-bottom: 3%;
+  }
+
+  button.create-btn {
+    padding: 5px 10px;
+    font-size: 1rem;
+    background-color: #3D6094;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  
+  .ticket-card {
+    text-align: center;
+    perspective: 1000px;
+    cursor: pointer;
+    transition: transform 0.3s ease-out;
+  }
+  
+  .flipper {
+    position: relative;
+    width: 220px;
+    height: 310px;
+    transition: 0.6s;
+    transform-style: preserve-3d;
+  }
+  
+  .flipped {
+    transform: rotateY(180deg);
+  }
+  
+  .front,
+  .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+  }
+  
+  .back {
+    background-color: #f4f4f4;
+    transform: rotateY(180deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .back-content {
+    text-align: center;
+  }
+  
+  .back-content p {
+    color: black;
+    opacity: 0.7;
+    font-size: 1.0rem;
+  }
+  
+  .card-image {
+    width: 220px;
+    height: 310px;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 10px;
+  }
+  
+  .overlay1 {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    filter: brightness(1.1) opacity(0.8);
+    mix-blend-mode: color-dodge;
+    background-size: 200% 200%;
+    transition: all 0.1s;
+    cursor: pointer;
+  }
+  
+  .image-actions {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+  }
+  
+  .edit-btn,
+  .delete-btn {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    cursor: pointer;
+    padding: 3px 5px;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .delete-btn {
+    color: #f44336;
+  }
+  
+  .delete-btn:hover {
+    background-color: rgba(255, 255, 255, 1);
+  }
+  
+  .top-right-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+  }
+  

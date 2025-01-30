@@ -27,7 +27,7 @@ public enum ErrorCode {
     INVALID_PASSWORD_LENGTH(40017, HttpStatus.BAD_REQUEST, "최소 8자 이상 20자 이하로 구성해야합니다."),
     INVALID_PASSWORD_REPEAT(40018, HttpStatus.BAD_REQUEST, "동일한 문자를 3번 이상 연속해서 사용할 수 없습니다."),
     INVALID_REPEAT_SCHEDULE_START_END(40021,HttpStatus.BAD_REQUEST,"일정 시작일보다 종료일이 앞설 수 없습니다."),
-
+    INVALID_VERIFICATION_CODE(40022, HttpStatus.BAD_REQUEST, "잘못된 인증번호입니다. 인증번호를 다시 확인해주세요"),
 
     //401
     INVALID_HEADER_VALUE(40100, HttpStatus.UNAUTHORIZED, "올바르지 않은 헤더값입니다."),
@@ -45,7 +45,7 @@ public enum ErrorCode {
     LOGOUT_ACCESS_TOKEN(400113, HttpStatus.BAD_REQUEST, "로그아웃된 accessToken입니다."),
     NOT_FOUND_REFRESH_TOKEN(40314, HttpStatus.UNAUTHORIZED, "refreshToken이 존재하지 않습니다."),
     NOT_FOUND_COOKIE(40315, HttpStatus.BAD_REQUEST, "쿠키가 없습니다."),
-
+    DUPLICATE_EMAIL_EXISTS(4010015,HttpStatus.UNAUTHORIZED,"이미 존재하는 이메일입니다."),
 
     //403
     FORBIDDEN_ROLE(40300, HttpStatus.FORBIDDEN, "권한이 존재하지 않습니다."),

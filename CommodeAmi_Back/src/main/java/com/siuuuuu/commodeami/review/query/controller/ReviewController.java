@@ -27,8 +27,21 @@ public class ReviewController {
     }
 
     // 해당 유저의 리뷰 모두 조회
-    @GetMapping("{userId}")
+    @GetMapping("user/{userId}")
     public ResponseDTO<?> findAllReviewsByUserId(@PathVariable("userId") Long userId) {
         return ResponseDTO.ok(reviewService.getReviewByUserId(userId));
+    }
+
+    // 해당 유저의 특정 영화의 리뷰 조회
+    @GetMapping("{userId}/{movieId}")
+    public ResponseDTO<?> findReviewByUserIdAndMovieId(@PathVariable("userId") Long userId,
+                                                       @PathVariable("movieId") Long movieId) {
+        return ResponseDTO.ok(reviewService.getReviewByUserIdAndMovieId(userId, movieId));
+    }
+
+    // 해당 영화의 리뷰 모두 조회
+    @GetMapping("movie/{movieId}")
+    public ResponseDTO<?> findReviewByMovieId(@PathVariable("movieId") Long movieId) {
+        return ResponseDTO.ok(reviewService.getReviewByMovieId(movieId));
     }
 }

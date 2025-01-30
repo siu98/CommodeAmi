@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/averagescope")
+@RequestMapping("/api/average-scope")
 public class AverageScopeController {
 
     private final AverageScopeService averageScopeService;
@@ -26,7 +26,7 @@ public class AverageScopeController {
     }
 
     // 해당 영화의 평균별점 조회
-    @GetMapping("{movieId}")
+    @GetMapping("/{movieId}")
     public ResponseDTO<?> findAverageScopeByMovieId(@PathVariable("movieId") Long movieId) {
         return ResponseDTO.ok(averageScopeService.getAverageScopeByMovieId(movieId));
     }
