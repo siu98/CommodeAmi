@@ -16,7 +16,7 @@
         SELECT
             CUSTOM_TICKET_ID
            ,TICKET_IMAGE
-           ,HOHOGRAM_COLOR1
+           ,HOLOGRAM_COLOR1
            ,HOLOGRAM_COLOR2
            ,COMMENT
            ,USER_ID
