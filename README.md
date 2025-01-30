@@ -9,23 +9,23 @@
 
 ## 🛠️기술스택
 ### 1. Backend
-| JAVA |  SpringBoot |  
-| :-----------------------------------:| :-----------------------------------: |
-| ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) |  ![springboot](https://img.shields.io/badge/springboot-6DB33F?style=flat-square&logo=springboot&logoColor=white) |
+| JAVA |  SpringBoot | Spring Security | Hibernate | Redis | Postman |
+| :-----------------------------------:| :-----------------------------------: | :--------------------: | :---------------------: | :---------------------: | :---------------------: |
+| ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=flat-square&logo=openjdk&logoColor=white) |  ![springboot](https://img.shields.io/badge/springboot-6DB33F?style=flat-square&logo=springboot&logoColor=white) | ![SpringSecurity](https://img.shields.io/badge/SpringSecurity-6DB33F?style=flat-square&logo=SpringSecurity&logoColor=white) | ![Hibernate](https://img.shields.io/badge/Hibernate-59666C?style=flat-square&logo=Hibernate&logoColor=white) | ![Redis](https://img.shields.io/badge/Redis-FF4438?style=flat-square&logo=Redis&logoColor=white) | ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=flat-square&logo=Postman&logoColor=white)
 
 ### 2. Frontend
-| HTML 5 | CSS 3 | JavaScript | Node.js | React |
-| :-----------------------------------:| :-----------------------------------: | :-----------------------------------: | :-----------------------------------: | :-----------------------------------: |
-| ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white) | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white) | ![JAVASCRIPT](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white) | ![Node.js](https://img.shields.io/badge/Node.js-5FA04E?style=flat-square&logo=Node.js&logoColor=white) | ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white) |
+| HTML 5 | CSS 3 | JavaScript | Node.js | React | PrimeReact |
+| :-----------------------------------:| :-----------------------------------: | :-----------------------------------: | :-----------------------------------: | :-----------------------------------: | :-----------------------: |
+| ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white) | ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white) | ![JAVASCRIPT](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white) | ![Node.js](https://img.shields.io/badge/Node.js-5FA04E?style=flat-square&logo=Node.js&logoColor=white) | ![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white) |  ![PrimeReact](https://img.shields.io/badge/PrimeReact-03C4E8?style=flat-square&logo=PrimeReact&logoColor=white) |
 
 
 ### 3. Database
 | MariaDB |
 | :-----------------------------------:|
-| ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=flat-square&logo=SQLite&logoColor=white) |
+| ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=flat-square&logo=MariaDB&logoColor=white) |
 
 ## 📋전체 프로젝트 일정
-**프로젝트 일정: 2024년 3월 15일 ~ 2024년 6월 17일**
+**프로젝트 일정: 2025년 1월 8일 ~ 2025년 1월 24일**
 
 
 ### 목차
@@ -82,32 +82,22 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
 
 <details>
   <summary>회원</summary>
-   <img src="https://github.com/user-attachments/assets/d4673852-71c7-45d4-85ee-d938b6b39dad" alt="회원">
+   <img alt="회원" src="https://github.com/user-attachments/assets/7cabf855-7fae-458d-99d8-82998411c34f" >
  </details>
 
 <details>
   <summary>영화</summary>
-   <img src="https://github.com/user-attachments/assets/47d02e98-9d6e-4207-bd02-b61e8f40df17" alt="영화">
- </details>
-
-  <details>
-  <summary>배우</summary>
-   <img src="https://github.com/user-attachments/assets/8121117a-87e0-4db5-8d29-ef4ac621535f" alt="배우">
+     <img src="https://github.com/user-attachments/assets/d1be310d-931d-480f-b787-75c9c0b5f57f" alt="영화" >
  </details>
 
  <details>
   <summary>리뷰</summary>
-   <img src="https://github.com/user-attachments/assets/6ade5f85-2ab2-469a-9b9f-70133cd97794" alt="리뷰">
- </details>
-
-  <details>
-  <summary>별점</summary>
-   <img src="https://github.com/user-attachments/assets/695ac6e0-4d10-4141-a4f2-c571e4150425" alt="별점">
+      <img src="https://github.com/user-attachments/assets/b4369072-1a24-4c8a-ba05-b04f715188ce"  alt="리뷰" >
  </details>
 
   <details>
   <summary>커스텀 티켓</summary>
-   <img src="https://github.com/user-attachments/assets/ba3cf781-a053-4604-9e9f-40efd8bcdbbb" alt="커스텀 티켓">
+     <img src="https://github.com/user-attachments/assets/4b0c4e94-78a4-4af7-a6e2-f6dfc6c821e5"  alt="커스텀 티켓">
  </details>
 
 ## 🍀3. DB 모델링
