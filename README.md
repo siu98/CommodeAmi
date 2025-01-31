@@ -32,10 +32,12 @@
 
 - [1. 프로젝트 개요](#1-프로젝트-개요)
 - [2. 요구사항 명세서](#2-요구사항-명세서)
-- [3. DB 모델링 ](#3-DB-모델링)
-- [4. UI 설계 ](#4-UI-설계)
-- [5. 프론트엔드 및 백엔드 테스트 결과 ](#5-프론트엔드-및-백엔드-테스트-결과)
-- [6. 느낀점 및 성과 ](#6-느낀점-및-성과)
+- [3. WBS ](#3-WBS)
+- [4. DB 모델링 ](#4-DB-모델링)
+- [5. UI 설계 ](#5-UI-설계)
+- [6. 백엔드 테스트 결과 ](#6-백엔드-테스트-결과)
+- [7. 프론트엔드 테스트 결과 ](#7-프론트엔드-테스트-결과)
+- [8. 느낀점 및 성과 ](#8-느낀점-및-성과)
 
 ---
 
@@ -99,7 +101,9 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
      <img src="https://github.com/user-attachments/assets/4b0c4e94-78a4-4af7-a6e2-f6dfc6c821e5"  alt="커스텀 티켓">
  </details>
 
-## 🍀3. DB 모델링
+## 🍀3. WBS
+
+## 🍀4. DB 모델링
 
 <details>
   <summary>회원</summary>
@@ -126,7 +130,7 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
    <img src="https://github.com/user-attachments/assets/efb7f131-2077-47f1-b2c1-078adcca8457" alt="커스텀 티켓">
  </details>
 
- ## 🍀4. UI 설계
+ ## 🍀5. UI 설계
  
 <details>
   <summary>메인화면</summary>
@@ -180,7 +184,7 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
    <img src="https://github.com/user-attachments/assets/c920633e-f6c2-4541-9470-741c043be875" alt="마이페이지">
  </details>
 
- ## 🍀5. 프론트엔드 및 백엔드 테스트 결과 
+ ## 🍀6. 백엔드 테스트 결과 
 
  ### 5.1 회원
  
@@ -301,9 +305,10 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
     <summary>영화 검색</summary>
      <img src="https://github.com/user-attachments/assets/3021a5dc-c6cb-4116-a06a-0f3b4c0a3ced" alt="영화 검색">
   </details>
-  
 
-## 🍀6. 느낀점 및 성과
+## 🍀7. 프론트엔드 테스트 결과 
+
+## 🍀8. 느낀점 및 성과
 #### 김시우
 > 캡스톤 디자인이라는 과목 덕분에 처음으로 웹프로젝트를 진행하게 되었다. 이번에는 프론트를 맡아 진행하면서 흥미를 느끼고 뚜렸한 진로가 없었던 나에게 정할 수 있게 된 계기가 된 것같다. 이 후 현재 프로젝트의 문제점을 보완하고 백엔드의 경우에는 Java를 사용하여 고도화를 함으로써 풀스택을 도전해보고 싶다.
 
