@@ -107,27 +107,34 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
 
 <details>
   <summary>회원</summary>
-   <img src="https://github.com/user-attachments/assets/deed946a-9de4-4cd1-af08-7ddf6b729324" alt="회원">
+   <img src="https://github.com/user-attachments/assets/ed291e2a-f017-4961-ad33-0350032a9ed8" alt="회원">
  </details>
 
 <details>
   <summary>영화</summary>
-   <img src="https://github.com/user-attachments/assets/7bc41e2d-38a5-48b6-8e84-8fa748c65fb4" alt="영화">
+   <img src="https://github.com/user-attachments/assets/f350ffe6-f939-4783-af86-fa8c26949588" alt="영화">
+        <img src="https://github.com/user-attachments/assets/a1dc44ca-de06-4392-ae58-b6d01b1b7ce9" alt="베역">
+        <img src="https://github.com/user-attachments/assets/34031acb-9c6d-43f1-bbfa-6971b9a1f554" alt="배우">
  </details>
 
  <details>
   <summary>리뷰</summary>
-   <img src="https://github.com/user-attachments/assets/64c35381-5c93-4764-8236-d9a123e90a4a" alt="리뷰">
+   <img src="https://github.com/user-attachments/assets/55a38dc8-e28c-4e3a-bdc6-c4192e2a1861" alt="리뷰">
  </details>
 
    <details>
   <summary>별점</summary>
-   <img src="https://github.com/user-attachments/assets/9bd2f285-b607-4979-92ef-7f1943dcff4b" alt="별점">
+   <img src="https://github.com/user-attachments/assets/6b552e66-29a1-45f9-af17-762554193596" alt="별점">
+ </details>
+
+<details>
+  <summary>평균 별점</summary>
+   <img src="https://github.com/user-attachments/assets/309f1a0c-a98e-492d-88f9-7a0264ff5770" alt="평균 별점">
  </details>
 
   <details>
   <summary>커스텀 티켓</summary>
-   <img src="https://github.com/user-attachments/assets/efb7f131-2077-47f1-b2c1-078adcca8457" alt="커스텀 티켓">
+   <img src="https://github.com/user-attachments/assets/55769ea8-a6db-4123-ab66-6813e8a066bd" alt="커스텀 티켓">
  </details>
 
  ## 🍀5. UI 설계
@@ -238,13 +245,23 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
 
   - <details>
 
-    <summary>별점 생성</summary>
-     <img src="https://github.com/user-attachments/assets/243a039b-414c-4235-af93-c17ee02a006f" alt="별점 생성">
+    <summary>별점 생성 및 수정</summary>
+     <img src="https://github.com/user-attachments/assets/1f688607-6a5e-4424-acff-bfe0278af039" alt="별점 생성 및 수정">
 
   - <details>
 
-    <summary>별점 수정</summary>
-    <img src="https://github.com/user-attachments/assets/5facfa3e-c519-45b6-9d28-06e43cb73c5a" alt="별점 수정">
+    <summary>모든 별점 조회</summary>
+    <img src="https://github.com/user-attachments/assets/c4f00ac2-b0d5-4f5b-bf58-62b20b1f355f" alt="모든 별점 조회">
+
+  - <details>
+
+    <summary>해당 유저의 별점 모두 조회</summary>
+    <img src="https://github.com/user-attachments/assets/17c78b05-0088-456e-8c48-6c307bc2592c" alt="해당 유저의 별점 모두 조회">
+
+  - <details>
+
+    <summary>해당 유저의 득정 영화 별점 조회</summary>
+    <img src="https://github.com/user-attachments/assets/2931c47c-7eea-4698-8488-ff472f1cca61" alt="해당 유저의 득정 영화 별점 조회">
 
   </details>
 
@@ -255,13 +272,19 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
 
   - <details>
 
-    <summary>리뷰 생성</summary>
-    <img src="https://github.com/user-attachments/assets/ae3c0187-242d-45c1-91a1-15ba7be024ac" alt="별점 수정">
+    <summary>리뷰 생성 및 수정</summary>
+    <img src="https://github.com/user-attachments/assets/c171ce4f-5cb0-49cb-9623-68700f0b8717" alt="리뷰 생성 및 수정">
 
   - <details>
 
-    <summary>리뷰 수정</summary>
-         <img src="https://github.com/user-attachments/assets/80e9d576-6d96-4790-add3-5566ca309029" alt="리뷰 수정">
+    <summary>리뷰 삭제</summary>
+         <img src="https://github.com/user-attachments/assets/ad7e446a-6f77-4c6e-a4ad-a43f5a981d98" alt="리뷰 삭제">
+
+  - <details>
+
+    <summary>전체리뷰 조회</summary>
+         <img src="https://github.com/user-attachments/assets/f66967d6-6451-4864-98f0-9b84a1b0ed75" alt="전체리뷰 조회">
+
 
   </details>
 
@@ -273,24 +296,39 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
   - <details>
 
     <summary>커스텀 티켓 생성</summary>
-         <img src="https://github.com/user-attachments/assets/bbca2032-b4df-4dc5-8036-2e9d336bc65a" alt="커스텀 티켓 생성">
+         <img src="" alt="커스텀 티켓 생성">
 
   - <details>
 
     <summary>커스텀 티켓 삭제</summary>
-         <img src="https://github.com/user-attachments/assets/b46ff4b3-536b-4961-97bc-671ee00ee9f6" alt="커스텀 티켓 삭제">
-
-  </details>
-
-  ### 6.6 마이페이지
- 
- <details>
-  <summary>마이페이지</summary>
+         <img src="" alt="커스텀 티켓 삭제">
 
   - <details>
 
-    <summary>마이페이지 조회</summary>
-          <img src="https://github.com/user-attachments/assets/99ed0aa6-e5b8-417f-8a8d-966c370ae026" alt="마이페이지 조회">
+    <summary>커스텀 티켓 전체조회</summary>
+         <img src="https://github.com/user-attachments/assets/f5d54d5e-3325-47ad-9064-b15fe5dcb6dd" alt="커스텀 티켓 전체조회">
+
+  - <details>
+
+    <summary>해당 유저의 커스텀 티켓 조회</summary>
+         <img src="https://github.com/user-attachments/assets/1a649c74-49fb-4966-9f5b-2c8efdb3825e" alt="해당 유저의 커스텀 티켓 조회">
+
+  </details>
+
+  ### 6.6 평균별점
+ 
+ <details>
+  <summary>평균별점</summary>
+
+  - <details>
+
+    <summary>평균별점 조회</summary>
+          <img src="https://github.com/user-attachments/assets/fea02a29-a7f7-4898-b485-038a56281ba7" alt="평균별점 조회">
+
+  - <details>
+
+    <summary>해당 영화의 평균별점 조회</summary>
+          <img src="https://github.com/user-attachments/assets/202d8566-bf31-45d4-a9f4-fd22f6bd1586" alt="해당 영화의 평균별점 조회">
 
   </details>
 
@@ -306,7 +344,156 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
   </details>
 
 ## 🍀7. 프론트엔드 테스트 결과 
+### 7.1 회원
+ 
+ <details>
+  <summary>회원</summary>
 
+  - <details>
+
+    <summary>회원가입</summary>
+       <img src="https://github.com/user-attachments/assets/c5e4cb7f-df10-4f4a-9967-6516eba7316b" alt="회원가입">
+
+  - <details>
+
+    <summary>로그인</summary>
+    <img src="https://github.com/user-attachments/assets/8bb6430c-1e9a-465c-8af0-8e6b6f31e221" alt="로그인">
+
+  - <details>
+
+    <summary>비밀번호 수정</summary>
+     <img src="https://github.com/user-attachments/assets/9bed72b5-410e-4cfd-b62a-15c461b92b74" alt="비밀번호 수정">
+
+  - <details>
+
+    <summary>비밀번호 변경</summary>
+     <img src="https://github.com/user-attachments/assets/320d306b-7309-470b-b726-1dbe5627ef01" alt="비밀번호 변경">
+
+  - <details>
+
+    <summary>로그아웃</summary>
+     <img src="https://github.com/user-attachments/assets/8b8350fc-9397-48e5-9894-6ead64111466" alt="로그아웃">
+
+  </details>
+
+ ### 7.2 영화
+ 
+ <details>
+  <summary>영화</summary>
+
+  - <details>
+
+    <summary>영화 정보 조회</summary>
+     <img src="https://github.com/user-attachments/assets/cf1e9c67-0697-48e8-9c51-90294b9a1917" alt="영화 정보 조회">
+
+  </details>
+
+
+   ### 7.3 별점
+ 
+ <details>
+  <summary>별점</summary>
+
+  - <details>
+
+    <summary>별점 생성 및 수정</summary>
+     <img src="https://github.com/user-attachments/assets/1f688607-6a5e-4424-acff-bfe0278af039" alt="별점 생성 및 수정">
+
+  - <details>
+
+    <summary>모든 별점 조회</summary>
+    <img src="https://github.com/user-attachments/assets/c4f00ac2-b0d5-4f5b-bf58-62b20b1f355f" alt="모든 별점 조회">
+
+  - <details>
+
+    <summary>해당 유저의 별점 모두 조회</summary>
+    <img src="https://github.com/user-attachments/assets/17c78b05-0088-456e-8c48-6c307bc2592c" alt="해당 유저의 별점 모두 조회">
+
+  - <details>
+
+    <summary>해당 유저의 득정 영화 별점 조회</summary>
+    <img src="https://github.com/user-attachments/assets/2931c47c-7eea-4698-8488-ff472f1cca61" alt="해당 유저의 득정 영화 별점 조회">
+
+  </details>
+
+  ### 7.4 리뷰
+ 
+ <details>
+  <summary>리뷰</summary>
+
+  - <details>
+
+    <summary>리뷰 생성 및 수정</summary>
+    <img src="https://github.com/user-attachments/assets/c171ce4f-5cb0-49cb-9623-68700f0b8717" alt="리뷰 생성 및 수정">
+
+  - <details>
+
+    <summary>리뷰 삭제</summary>
+         <img src="https://github.com/user-attachments/assets/ad7e446a-6f77-4c6e-a4ad-a43f5a981d98" alt="리뷰 삭제">
+
+  - <details>
+
+    <summary>전체리뷰 조회</summary>
+         <img src="https://github.com/user-attachments/assets/f66967d6-6451-4864-98f0-9b84a1b0ed75" alt="전체리뷰 조회">
+
+
+  </details>
+
+  ### 7.5 커스텀 티켓
+ 
+ <details>
+  <summary>커스텀 티켓</summary>
+
+  - <details>
+
+    <summary>커스텀 티켓 생성</summary>
+         <img src="" alt="커스텀 티켓 생성">
+
+  - <details>
+
+    <summary>커스텀 티켓 삭제</summary>
+         <img src="" alt="커스텀 티켓 삭제">
+
+  - <details>
+
+    <summary>커스텀 티켓 전체조회</summary>
+         <img src="https://github.com/user-attachments/assets/f5d54d5e-3325-47ad-9064-b15fe5dcb6dd" alt="커스텀 티켓 전체조회">
+
+  - <details>
+
+    <summary>해당 유저의 커스텀 티켓 조회</summary>
+         <img src="https://github.com/user-attachments/assets/1a649c74-49fb-4966-9f5b-2c8efdb3825e" alt="해당 유저의 커스텀 티켓 조회">
+
+  </details>
+
+  ### 7.6 평균별점
+ 
+ <details>
+  <summary>평균별점</summary>
+
+  - <details>
+
+    <summary>평균별점 조회</summary>
+          <img src="https://github.com/user-attachments/assets/fea02a29-a7f7-4898-b485-038a56281ba7" alt="평균별점 조회">
+
+  - <details>
+
+    <summary>해당 영화의 평균별점 조회</summary>
+          <img src="https://github.com/user-attachments/assets/202d8566-bf31-45d4-a9f4-fd22f6bd1586" alt="해당 영화의 평균별점 조회">
+
+  </details>
+
+
+  ### 7.7 검색
+  <details>
+  <summary>검색</summary>
+
+  - <details>
+
+    <summary>영화 검색</summary>
+     <img src="https://github.com/user-attachments/assets/3491d006-477b-432c-a29b-017db7ec8bef" alt="영화 검색">
+  </details>
+  
 ## 🍀8. 느낀점 및 성과
 #### 김시우
 > 캡스톤 디자인이라는 과목 덕분에 처음으로 웹프로젝트를 진행하게 되었다. 이번에는 프론트를 맡아 진행하면서 흥미를 느끼고 뚜렸한 진로가 없었던 나에게 정할 수 있게 된 계기가 된 것같다. 이 후 현재 프로젝트의 문제점을 보완하고 백엔드의 경우에는 Java를 사용하여 고도화를 함으로써 풀스택을 도전해보고 싶다.
