@@ -186,7 +186,7 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
 
  ## 🍀6. 백엔드 테스트 결과 
 
- ### 5.1 회원
+ ### 6.1 회원
  
  <details>
   <summary>회원</summary>
@@ -194,21 +194,31 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
   - <details>
 
     <summary>회원가입</summary>
-       <img src="https://github.com/user-attachments/assets/c03f09be-571d-46c4-bab5-a7e0448770b1" alt="회원가입">
+       <img src="https://github.com/user-attachments/assets/c5e4cb7f-df10-4f4a-9967-6516eba7316b" alt="회원가입">
+
   - <details>
 
     <summary>로그인</summary>
-    <img src="https://github.com/user-attachments/assets/43616dae-1be2-4fb4-8dbe-8f26197655d9" alt="로그인">
+    <img src="https://github.com/user-attachments/assets/8bb6430c-1e9a-465c-8af0-8e6b6f31e221" alt="로그인">
+
+  - <details>
+
+    <summary>비밀번호 수정</summary>
+     <img src="https://github.com/user-attachments/assets/9bed72b5-410e-4cfd-b62a-15c461b92b74" alt="비밀번호 수정">
+
+  - <details>
+
+    <summary>비밀번호 변경</summary>
+     <img src="https://github.com/user-attachments/assets/320d306b-7309-470b-b726-1dbe5627ef01" alt="비밀번호 변경">
 
   - <details>
 
     <summary>로그아웃</summary>
-     <img src="https://github.com/user-attachments/assets/7d227bb2-84ad-4317-9a9f-f5cd4217942b" alt="로그아웃">
-
+     <img src="https://github.com/user-attachments/assets/8b8350fc-9397-48e5-9894-6ead64111466" alt="로그아웃">
 
   </details>
 
- ### 5.2 영화
+ ### 6.2 영화
  
  <details>
   <summary>영화</summary>
@@ -216,12 +226,12 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
   - <details>
 
     <summary>영화 정보 조회</summary>
-     <img src="https://github.com/user-attachments/assets/93acb9a3-01da-4728-a947-9127ff9eef01" alt="영화 정보 조회">
+     <img src="https://github.com/user-attachments/assets/cf1e9c67-0697-48e8-9c51-90294b9a1917" alt="영화 정보 조회">
 
   </details>
 
 
-   ### 5.3 별점
+   ### 6.3 별점
  
  <details>
   <summary>별점</summary>
@@ -238,7 +248,7 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
 
   </details>
 
-  ### 5.4 리뷰
+  ### 6.4 리뷰
  
  <details>
   <summary>리뷰</summary>
@@ -255,7 +265,7 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
 
   </details>
 
-  ### 5.5 커스텀 티켓
+  ### 6.5 커스텀 티켓
  
  <details>
   <summary>커스텀 티켓</summary>
@@ -272,7 +282,7 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
 
   </details>
 
-  ### 5.6 마이페이지
+  ### 6.6 마이페이지
  
  <details>
   <summary>마이페이지</summary>
@@ -284,26 +294,15 @@ CommodeAmi는 프랑스어로 "Commode(편리한)"와 "Ami(친구)"의 결합으
 
   </details>
 
-  ### 5.7 추천
-<details>
-  
-  <summary>날씨기반추천</summary>
 
-  - <details>
-
-    <summary>날씨기반 랜덤추천영화 조회</summary>
-              <img src="https://github.com/user-attachments/assets/e7527760-517b-4f7b-99cc-de1a2f11c2f3" alt="날씨기반 랜덤추천영화 조회">
-  </details>
-
-
-  ### 5.8 검색
+  ### 6.7 검색
   <details>
   <summary>검색</summary>
 
   - <details>
 
     <summary>영화 검색</summary>
-     <img src="https://github.com/user-attachments/assets/3021a5dc-c6cb-4116-a06a-0f3b4c0a3ced" alt="영화 검색">
+     <img src="https://github.com/user-attachments/assets/3491d006-477b-432c-a29b-017db7ec8bef" alt="영화 검색">
   </details>
 
 ## 🍀7. 프론트엔드 테스트 결과 
