@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
@@ -17,4 +18,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     @Query("SELECT m FROM Movie m WHERE LOWER(m.title) = LOWER(:title)")
     Optional<Movie> findByTitleIgnoreCase(@Param("title") String title);
+
+
+    List<Movie> findByMovieIdBetween(Long startId, Long endId);
 }
