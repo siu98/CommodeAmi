@@ -16,7 +16,10 @@ const MovieSection = ({ title, movies }) => {
                         {movie.boxOfficeRank && (
                             <p className="rank-label">{movie.boxOfficeRank}</p>
                         )}
-                    </div>
+                        {movie.high_rating_rank && (
+                            <p className="rank-label">{movie.high_rating_rank}</p>
+                        )}
+                </div>
                 </div>
             </div>
         );
