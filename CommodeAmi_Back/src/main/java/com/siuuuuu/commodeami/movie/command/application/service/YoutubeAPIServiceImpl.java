@@ -93,7 +93,7 @@ public class YoutubeAPIServiceImpl implements YoutubeAPIService {
      * - 매일 자정(`cron = "0 0 0 * * *"`) 실행 (필요하면 직접 변경 가능)
      */
 //    @Scheduled(cron = "0 0 0 * * *") // 매일 자정 실행 (필요 시 변경)
-    @Scheduled(fixedRate = 10000000)
+//    @Scheduled(fixedRate = 10000000)
     public void scheduledYouTubeReviewUpdate() {
         Long startId = 1L;  // ✅ 직접 설정 가능
         Long endId = 100L;    // ✅ 직접 설정 가능

@@ -366,3 +366,16 @@ main {
   font-size: 1rem;
   font-weight: bold;
 }
+
+.review-video-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.review-video-list iframe{
+  margin: 5px;
+  max-width: 300px;
+  max-height: 200px;
+  object-fit: cover;
+}

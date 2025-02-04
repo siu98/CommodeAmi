@@ -42,6 +42,18 @@ const MovieDetail = () => {
     const movieRating = scope?.[movieId] || 0;
     const movieReview = review?.[movieId] || { review: '' }; // 기본값 설정
 
+    const parseYouTubeUrls = (youtubeData) => {
+        try {
+            let urls = JSON.parse(youtubeData); // JSON 문자열을 배열로 변환
+            return urls
+                .filter(url => url.includes("youtube.com/watch?v=")) // 광고 URL 제거
+                .map(url => url.replace("watch?v=", "embed/")); // YouTube iframe URL 변환
+        } catch (error) {
+            console.error("❌ YouTube URL JSON 파싱 오류:", error);
+            return [];
+        }
+    };
+
     const formatDate = (timestamp) => {
         const date = new Date(timestamp);
         const year = date.getFullYear();
@@ -564,16 +576,6 @@ const MovieDetail = () => {
             <section className="movie-stills">
                 <h2>스틸컷{movie.stills.length}</h2>
                 <div className="still-list">
-                    {/* {movie.stills.slice(0, 4).map((still, index) => (
-                    <Image
-                        src={`${baseURL}${still}`}
-                        alt={`Still ${index + 1}`}
-                        key={index}
-                        // onClick={() => handleStillClick(`${baseURL}${still}`)}
-                        style={{ cursor: 'pointer' }}
-                        preview
-                    />
-            ))} */}
 
                 <Carousel
                     value={movie.stills} 
@@ -597,28 +599,29 @@ const MovieDetail = () => {
         <section className="movie-trailers">
             <h2>트레일러</h2>
             {Array.isArray(movie.trailers) && movie.trailers.length > 0 ? (
-        <Carousel
-            value={movie.trailers} // 트레일러 배열 전달
-            numVisible={3} // 한 번에 한 개의 트레일러 표시
-            numScroll={3} // 한 번에 스크롤할 트레일러 수
-            autoplayInterval={10000} // 자동 재생 간격
-            itemTemplate={(trailer, index) => (
-                <div className="trailer-item" key={index}>
-                    <iframe
-                        width="400" 
-                        height="220" // 고정 높이 설정
-                        src={trailer} // 트레일러 URL
-                        title={`Movie Trailer ${index + 1}`}
-                        frameBorder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                    ></iframe>
-                </div>
+                <Carousel
+                    value={movie.trailers} // 트레일러 배열 전달
+                    numVisible={3} // 한 번에 한 개의 트레일러 표시
+                    numScroll={3} // 한 번에 스크롤할 트레일러 수
+                    autoplayInterval={10000} // 자동 재생 간격
+                    itemTemplate={(trailer, index) => (
+                        <div className="trailer-item" key={index}>
+                            <iframe
+                                width="400" 
+                                height="220" // 고정 높이 설정
+                                src={trailer} // 트레일러 URL
+                                title={`Movie Trailer ${index + 1}`}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
+                        </div>
+                    )}
+                />
+            )  : (
+            <p>트레일러가 없습니다.</p>
             )}
-        />
-    ) : (
-        <p>트레일러가 없습니다.</p>
-    )}
+
             {/* <div className="trailer-list"> */}
                 {/* {Array.isArray(movie.trailers) && movie.trailers.length > 0 ? (
                     movie.trailers.map((trailer, index) => (
@@ -639,6 +642,49 @@ const MovieDetail = () => {
 
             {/* </div> */}
         </section>
+        <section className="movie-review-videos">
+    <h2>리뷰 영상</h2>
+    {movie.youtube_url ? (
+        (() => {
+            let youtubeVideos = [];
+
+            try {
+                youtubeVideos = JSON.parse(movie.youtube_url); // ✅ JSON 문자열을 배열로 변환
+                youtubeVideos = youtubeVideos.map((url) => 
+                    url.replace("watch?v=", "embed/") // ✅ URL 변환
+                );
+            } catch (error) {
+                console.error("❌ YouTube URL JSON 파싱 오류:", error);
+            }
+
+            return Array.isArray(youtubeVideos) && youtubeVideos.length > 0 ? (
+                <Carousel
+                    value={youtubeVideos} // ✅ 변환된 배열 전달
+                    numVisible={3} // 한 번에 표시할 개수
+                    numScroll={3} // 스크롤할 개수
+                    autoplayInterval={10000} // 자동 재생 간격 (10초)
+                    itemTemplate={(video, index) => (
+                        <div className="review-video-item" key={index}>
+                            <iframe
+                                width="400" 
+                                height="220"
+                                src={video} // ✅ 변환된 URL 사용
+                                title={`Review Video ${index + 1}`}
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                            ></iframe>
+                        </div>
+                    )}
+                />
+            ) : (
+                <p>리뷰 영상이 없습니다.</p>
+            );
+        })()
+    ) : (
+        <p>리뷰 영상이 없습니다.</p>
+    )}
+</section>
         </main>
     </div>
 
