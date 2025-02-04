@@ -81,12 +81,12 @@ public class RecommendationServiceImpl implements RecommendationService {
 
                 if (excludeRainy) {
                     if (matchesGenre && !isRainyGenre) { // ✅ clearGenres에 포함되면서, 스릴러/공포/범죄가 아닌 영화만 추가
-                        log.info("영화 '{}' 추가됨 (장르: {})", movie.getTitle(), movieGenres);
+//                        log.info("영화 '{}' 추가됨 (장르: {})", movie.getTitle(), movieGenres);
                         filteredMovies.add(movie);
                     }
                 } else {
                     if (matchesGenre) { // 일반 필터링 로직
-                        log.info("영화 '{}' 추가됨 (장르: {})", movie.getTitle(), movieGenres);
+//                        log.info("영화 '{}' 추가됨 (장르: {})", movie.getTitle(), movieGenres);
                         filteredMovies.add(movie);
                     }
                 }
