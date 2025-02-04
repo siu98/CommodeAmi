@@ -90,3 +90,11 @@ kobis:
   api:
     key: 98d803dc53cb34137673132c300efa0c
     url: http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json
+
+youtube:
+  api:
+    key: AIzaSyA0DnyL_qHKayzyN7dBwFh6BOtk98BsFsE
+
+openWeatherMap:
+  api:
+    key: 909c8cae93747813b3af1c72693e62eb

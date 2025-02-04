@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { fetchBoxOfficeMovies } from './api/movies';
+import { fetchBoxOfficeMovies, fetchWeatherRecommendedMovies} from './api/movies';
 // import { scrollLeft, scrollRight, handleScroll, updateScrollButtons } from './utils/scroll';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import './App.css';
@@ -32,13 +32,14 @@ function DashBoard({ handleLogout }) {
         // const highRatedData = await fetchHighRatedMovies();
         // setHighRatedMovies(highRatedData);
 
-        // const weatherRecommendedData = await fetchWeatherRecommendedMovies();
-        // setRecommendedMovies(weatherRecommendedData);
+        // ✅ 날씨 기반 추천 영화 추가
+        const weatherRecommendedData = await fetchWeatherRecommendedMovies();
+        setRecommendedMovies(weatherRecommendedData);
 
       } catch (error) {
         setBoxOfficeMovies([]);
         // setHighRatedMovies([]);
-        // setRecommendedMovies([]);
+        setRecommendedMovies([]);
         console.error('Error loading movies:', error);
       }
     };
