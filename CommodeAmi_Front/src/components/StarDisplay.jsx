@@ -1,6 +1,6 @@
 import React from 'react';
 import { FaStar, FaStarHalfAlt } from 'react-icons/fa';
-import './StarDisplay.css'; // 기본 CSS
+import './StarDisplay.css'; 
 
 function StarDisplay({ rating, className }) {
   return (

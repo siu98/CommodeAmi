@@ -59,8 +59,8 @@ public class ScopeServiceImpl implements ScopeService {
         Scope scope = scopeMapper.selectScopesByMovieId(movieId);
 
         if (scope == null) {
-//            throw new IllegalArgumentException("별점을 찾을 수 없습니다.");
-            throw new CommonException(ErrorCode.SCOPE_NOT_FOUND);
+            throw new IllegalArgumentException("별점을 찾을 수 없습니다.");
+//            throw new CommonException(ErrorCode.SCOPE_NOT_FOUND);
 //            log.info("별점이 없습니디.");
         }
 
@@ -74,8 +74,8 @@ public class ScopeServiceImpl implements ScopeService {
 
         if (scope == null) {
 //            throw new IllegalArgumentException("별점을 찾을 수 없습니다.");
-            throw new CommonException(ErrorCode.SCOPE_NOT_FOUND);
-//            return null;
+//            throw new CommonException(ErrorCode.SCOPE_NOT_FOUND);
+            return null;
         }
 
 

@@ -25,7 +25,6 @@ const MyPage = () => {
                     <h3>평가</h3>
                     <EvaluationPage movies={movies} />
                     <h3>리뷰</h3>
-                    {/* <ReviewsPage /> */}
                     <ReviewsPage reviews={reviews} movies={movies} />
                     <h3>티켓</h3>
                     <div className="ticket-list">

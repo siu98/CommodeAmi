@@ -34,19 +34,16 @@ function StarRating({ onRatingSelect, initialRating }) {
           <div className="star-div" key={idx} onClick={handleStarClick}>
             {score - Math.floor(score) === 0.5 && Math.floor(score) === idx ? (
               <FaStarHalfAlt
-                // style={{ position: 'absolute' }}
                 size={50}
                 color="gold"
               />
             ) : idx + 1 > score ? (
               <FaStar
-                // style={{ position: 'absolute' }}
                 size={50}
                 color="lightGray"
               />
             ) : (
               <FaStar
-                // style={{ position: 'absolute' }}
                 size={50}
                 color="gold"
               />

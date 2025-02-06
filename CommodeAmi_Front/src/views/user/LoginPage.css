@@ -1,37 +1,32 @@
-/* Dialog 전체 스타일 */
 .custom-dialog {
-    border-radius: 1rem; /* Dialog 전체 모서리 둥글게 */
+    border-radius: 1rem; 
     width: 40rem;
     border: 1px solid black;
 }
 
-/* Dialog 헤더 스타일 */
 .custom-dialog .p-dialog-header {
     display: flex;
     color: black;
     font-size: 1.2rem;
-    justify-content: center; /* 가운데 정렬 */
-    align-items: center;    /* 세로 가운데 정렬 */
-    text-align: center;     /* 텍스트 가운데 정렬 */
+    justify-content: center; 
+    align-items: center;    
+    text-align: center;    
     padding: 1rem;
 }
 
-/* Dialog 제목 여백 */
 .custom-dialog .p-dialog-title {
     margin-top: 2rem;
     margin-bottom: 2rem;
 }
 
-/* 로그인 폼 컨테이너 스타일 */
 .login-form-container {
     display: flex;
     flex-direction: column;
-    align-items: center; /* 컨테이너 내부 항목 중앙 정렬 */
+    align-items: center;
     gap: 1.5rem;
     margin-top: 1.5rem;
 }
 
-/* 각각의 폼 그룹 */
 .form-group {
     width: 100%;
     max-width: 400px;
@@ -40,14 +35,12 @@
     text-align: left;
 }
 
-/* 라벨 스타일 */
 .form-group label {
     font-size: 1rem;
     margin-bottom: 0.5rem;
     color: #333;
 }
 
-/* 인풋 필드 스타일 */
 .form-group input {
     width: 100%;
     padding: 15px;
@@ -63,24 +56,22 @@
     background-color: #ffffff;
 }
 
-/* 에러 메시지 스타일 */
 .error-message {
     color: red;
     font-size: 0.9rem;
     text-align: center;
     margin-top: -1rem;
 }
-/* form-controls 전체 컨테이너 */
+
 .form-controls {
     display: flex;
-    flex-direction: column; /* 세로 정렬 */
-    align-items: center; /* 가운데 정렬 */
+    flex-direction: column; 
+    align-items: center; 
     justify-content: center;
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
 
-/* 버튼 스타일 */
 .form-controls .p-button {
     padding: 16px 75px;
     background-color: #3D6094;
@@ -88,14 +79,13 @@
     color: white;
     border: none;
     font-size: 1.0rem;
-    margin-bottom: 1rem; /* 버튼과 링크 사이 간격 */
+    margin-bottom: 1rem;
 }
 
 .form-controls .p-button:hover {
     background-color: #2c4970;
 }
 
-/* 링크 컨테이너 */
 .link-container p {
     margin: 0;
     font-size: 12px;

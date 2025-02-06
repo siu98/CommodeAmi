@@ -12,12 +12,9 @@ const CustomTicket = () => {
     const [customTickets, setCustomTickets] = useState([]);
     const [showDialog, setShowDialog] = useState(false); // Dialog 표시 상태
     const [isFlipped, setIsFlipped] = useState([]);
-    // const user = useSelector((state) => state.auth.user);
     const { accessToken, user } = useSelector((state) => state.auth);
     const userId = user?.userId;
-    // console.log("Redux state.auth.user:", user);
-    // console.log("accessToken 확인: ", accessToken);
-    // console.log("커스텀 티켓에서 userId 찍기: ", userId);
+
     useEffect(() => {
         fetchCustomTickets();
     }, []);
@@ -132,7 +129,8 @@ const CustomTicket = () => {
                 style={{ width: '50vw' }}
                 onHide={() => setShowDialog(false)} // Dialog 닫기
             >
-                <FileUploadComponent onClose={() => setShowDialog(false)} />
+                {/* <FileUploadComponent onClose={() => setShowDialog(false)} /> */}
+                <FileUploadComponent fetchCustomTickets={fetchCustomTickets} onClose={() => setShowDialog(false)} />
             </Dialog>
             <div className="ticket-list">
                 {customTickets.map((ticket, index) => (

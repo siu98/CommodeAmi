@@ -29,15 +29,12 @@ function SearchResult() {
       const data = await fetchSearchMovies(query);
       if (data && data.length > 0) {
         setResults(data); // 검색 결과 설정
-        // setErrorMessage(""); // 에러 메시지 초기화
       } else {
         setResults([]); // 결과가 없으면 빈 배열로 설정
-        // setErrorMessage("검색 결과가 없습니다."); // 에러 메시지 설정
       }
     } catch (error) {
       console.error("검색 오류:", error);
       setResults([]);
-      // setErrorMessage("영화 검색 중 오류가 발생했습니다.");
     }
   };
 
@@ -63,3 +60,5 @@ return (
 );
 }
 export default SearchResult;
+
+

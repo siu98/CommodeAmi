@@ -88,7 +88,7 @@ public class YoutubeAPIServiceImpl implements YoutubeAPIService {
         }
     }
 
-    @Scheduled(fixedRate = 10000000)
+//    @Scheduled(fixedRate = 10000000)
     public void scheduledYouTubeReviewUpdate() {
         // youtube api는 한도가 작기 때문에 직접 id를 설정
         Long startId = 501L;
