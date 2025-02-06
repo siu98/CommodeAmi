@@ -6,7 +6,7 @@ export const searchMovies = async (title) => {
         const response = await axios.get(`/api/movie/search`, {
             params: { title },
             headers: {
-                Authorization: `Bearer ${token}`, // 인증 토큰 추가
+                Authorization: `Bearer ${token}`,
             },
         });
         return response.data.data;

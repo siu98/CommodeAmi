@@ -27,7 +27,7 @@ spring:
     host: smtp.gmail.com
     port: 587
     username: parancandy@gmail.com
-    password: hskx wziz djno lwmr
+    password: lkla rlnx wlvj qqei
     properties:
       mail:
         smtp:
@@ -93,7 +93,7 @@ kobis:
 
 youtube:
   api:
-    key: AIzaSyDLZRni6kwuP9IKIbO62SaCwLQ9ob2uIAU
+    key: AIzaSyCtJVM57AauGxu4VONBzX60IDwyN5ZLBR4
 
 openWeatherMap:
   api:

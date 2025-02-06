@@ -57,7 +57,7 @@ public class YoutubeAPIServiceImpl implements YoutubeAPIService {
             return videoUrls;
 
         } catch (Exception e) {
-            log.error("❌ YouTube API 요청 실패: {}", e.getMessage());
+            log.error("YouTube API 요청 실패: {}", e.getMessage());
             return new ArrayList<>();
         }
     }
@@ -72,31 +72,27 @@ public class YoutubeAPIServiceImpl implements YoutubeAPIService {
 
             if (!reviews.isEmpty()) {
                 try {
-                    // ✅ JSON 문자열로 변환하여 저장
+                    // JSON 문자열로 변환하여 저장
                     ObjectMapper objectMapper = new ObjectMapper();
                     String youtubeUrlJson = objectMapper.writeValueAsString(reviews);
 
                     movie.setYoutubeUrl(youtubeUrlJson);
                     movieRepository.save(movie);
-                    log.info("✅ '{}' (ID: {})의 YouTube 리뷰 URL 저장 완료: {}", movie.getTitle(), movie.getMovieId(), youtubeUrlJson);
+                    log.info("'{}' (ID: {})의 YouTube 리뷰 URL 저장 완료: {}", movie.getTitle(), movie.getMovieId(), youtubeUrlJson);
                 } catch (Exception e) {
-                    log.error("❌ JSON 변환 실패: {}", e.getMessage());
+                    log.error("JSON 변환 실패: {}", e.getMessage());
                 }
             } else {
-                log.warn("⚠️ '{}'에 대한 YouTube 리뷰 영상 없음", movie.getTitle());
+                log.warn("'{}'에 대한 YouTube 리뷰 영상 없음", movie.getTitle());
             }
         }
     }
 
-    /**
-     * ✅ 사용자가 직접 `startId`와 `endId`를 변경 후 실행할 수 있도록 설정
-     * - 매일 자정(`cron = "0 0 0 * * *"`) 실행 (필요하면 직접 변경 가능)
-     */
-//    @Scheduled(cron = "0 0 0 * * *") // 매일 자정 실행 (필요 시 변경)
 //    @Scheduled(fixedRate = 10000000)
     public void scheduledYouTubeReviewUpdate() {
-        Long startId = 1L;  // ✅ 직접 설정 가능
-        Long endId = 100L;    // ✅ 직접 설정 가능
+        // youtube api는 한도가 작기 때문에 직접 id를 설정
+        Long startId = 501L;
+        Long endId = 600L;
 
         saveYouTubeReviews(startId, endId);
     }

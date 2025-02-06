@@ -29,7 +29,7 @@ public class RecommendationController {
     @GetMapping("")
     public ResponseDTO<List<Movie>> recommendMovies(
             @RequestParam double lat, @RequestParam double lon) {
-        log.info("추천 영화 요청: lat={}, lon={}", lat, lon); // 디버깅 로그
+        log.info("추천 영화 요청: lat={}, lon={}", lat, lon);
         try {
             return ResponseDTO.ok(recommendationService.recommendMovies(lat, lon));
         } catch (CommonException e) {
@@ -38,13 +38,13 @@ public class RecommendationController {
                     false,
                     null,
                     ExceptionDTO.of(e.getErrorCode())
-            ); // ✅ 반환 타입을 명확히 지정
+            ); // 반환 타입을 명확히 지정
         } catch (Exception e) {
             return new ResponseDTO<>(
                     HttpStatus.INTERNAL_SERVER_ERROR,
                     false,
                     null,
-                    ExceptionDTO.of(ErrorCode.NOT_FOUND_USER) // ✅ ErrorCode만 사용
+                    ExceptionDTO.of(ErrorCode.NOT_FOUND_USER) // ErrorCode만 사용
             );
         }
     }

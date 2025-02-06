@@ -109,40 +109,5 @@ public class WebSecurity {
 
         return authenticationFilter;
     }
-//    @Bean
-//    protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
-//
-//        http.csrf((csrf) -> csrf.disable());
-//
-//        AuthenticationManagerBuilder authenticationManagerBuilder =
-//                http.getSharedObject(AuthenticationManagerBuilder.class);
-//        authenticationManagerBuilder.userDetailsService(userService)
-//                .passwordEncoder(bCryptPasswordEncoder);
-//
-//        AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
-//
-//        http.authorizeHttpRequests((authz) >
-//                authz.requestMatchers(new AntPathRequestMatcher("/api/user/**"))).permit()
-//                .anyRequest().authenticated())
-//
-//        // manager 등록
-//                .authenticationManager(authenticationManager)
-//                // session 방식 사용 x
-//                .sessionManagement((session) -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-//                // jwt filter 전에 로그아웃 필터 끼기
-//                .logout(logout -> logout
-//                        .logoutUrl("/api/user/logout")
-//                        .addLogoutHandler(new CustomLogoutHandler(redisTemplate, jwtUtil))
-//                        .logoutSuccessHandler((request, response, authentication) -> {
-//                            response.setStatus(HttpStatus.OK.value());
-//                            new ObjectMapper().writeValue(response.getOutputStream(),
-//                                    ResponseDTO.ok("로그아웃이 성공적으로 되었습니다."));
-//                        })
-//                )
-//                .addFilter(getAuthenticationFilter(authenticationManager))
-//                .addFilterBefore(new JwtFilter(userQueryServiceService, jwtUtil, redisTemplate), UsernamePasswordAuthenticationFilter.class);
-//
-//
-//        return http.build();
-//    }
+
 }

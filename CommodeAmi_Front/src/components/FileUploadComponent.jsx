@@ -3,10 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { ColorPicker } from 'primereact/colorpicker';
 import { FileUpload } from 'primereact/fileupload';
+// import { fetchCustomTickets } from '../views/customticket/CustomTicket';
 import axios from 'axios';
 import './FileUploadComponent.css';
 
-const FileUploadComponent = () => {
+const FileUploadComponent = ({ fetchCustomTickets, onClose }) => {
     const navigate = useNavigate();
     const [uploadedImage, setUploadedImage] = useState(null);
     const [hologramColor1, setHologramColor1] = useState('');
@@ -17,11 +18,9 @@ const FileUploadComponent = () => {
     const containerRef = useRef(null);
     const overlayRef = useRef(null);
 
-    // const user = useSelector((state) => state.auth.user);
     const { accessToken, user } = useSelector((state) => state.auth);
     const userId = user?.userId;
 
-    // console.log("Redux state.auth.user:", user);
     const flipCard = () => {
       setIsFlipped(!isFlipped);
     };
@@ -127,7 +126,16 @@ const FileUploadComponent = () => {
                 setHologramColor2('');
                 setUploadedImage(null);
                 setBackMessage('');
-                fetchCustomTickets();
+                if (fetchCustomTickets) {
+                  fetchCustomTickets(); // 새로고침
+              } else {
+                  console.warn("fetchCustomTickets가 정의되지 않았습니다.");
+              }
+
+              if (onClose) {
+                onClose();
+            }
+
                 navigate('/mypage');
             } else {
                 alert('티켓 저장에 실패했습니다.');
@@ -141,7 +149,6 @@ const FileUploadComponent = () => {
   return (
     <div className="ticket-container">
       <div className="file-upload">
-        {/* <input type="file" onChange={handleImageUpload} /> */}
         <FileUpload
           name="demo[]"
           customUpload
@@ -151,7 +158,7 @@ const FileUploadComponent = () => {
           onSelect={(e) => {
             if (e.files && e.files[0]) {
               const file = e.files[0];
-              console.log("선택된 파일:", file); // 디버깅: 파일 확인
+              console.log("선택된 파일:", file); 
 
               const reader = new FileReader();
               reader.onload = (event) => {
@@ -170,15 +177,6 @@ const FileUploadComponent = () => {
       <div className="controls">
         <label>
           <h1>홀로그램 색상 1</h1>
-          {/* <ColorPicker
-    value={hologramColor1}
-    onChange={(e) => {
-        setHologramColor1(e.value);
-        console.log("선택된 색상 1:", e.value);
-        applyHologramStyle(); 
-    }}
-    format="hex"
-/> */}
           <input
             type="color"
             value={hologramColor1}
@@ -187,15 +185,6 @@ const FileUploadComponent = () => {
         </label>
         <label>
           <h1>홀로그램 색상 2</h1>
-          {/* <ColorPicker
-    value={hologramColor2}
-    onChange={(e) => {
-        setHologramColor2(e.value);
-        console.log("선택된 색상 2:", e.value);
-        applyHologramStyle(); 
-    }}
-    format="hex"
-/> */}
           <input
             type="color"
             value={hologramColor2}

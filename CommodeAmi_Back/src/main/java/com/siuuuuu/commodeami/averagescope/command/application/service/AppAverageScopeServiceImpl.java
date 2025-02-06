@@ -29,43 +29,6 @@ public class AppAverageScopeServiceImpl implements AppAverageScopeService {
         this.scopeRepository = scopeRepository;
     }
 
-//    @Override
-//    @Transactional
-//    public AverageScopeDTO saveOrUpdateAverageScope(Long movieId, Double scope, boolean isUpdate) {
-//        // 1. 영화 조회
-//        Movie movie = movieRepository.findById(movieId)
-//                .orElseThrow(() -> new IllegalArgumentException("해당 ID의 영화가 없습니다."));
-//
-//        // 평균 별점 생성
-//        // AverageScope 조회 또는 생성
-//        AverageScope averageScope = averageScopeRepository.findByMovie_MovieId(movieId);
-//        if (averageScope == null) {
-//            averageScope = new AverageScope();
-//            averageScope.setMovie(movie);
-//            averageScope.setAverageScope(scope);
-//            averageScope.setNumberOfPeople(1);
-//        } else {
-//            // 기존 평균과 새 별점을 이용해 평균 계산
-//            int currentCount = averageScope.getNumberOfPeople();
-//            double newAverage = ((averageScope.getAverageScope() * currentCount) + scope) / (currentCount + 1);
-//
-//            averageScope.setAverageScope(newAverage);
-//            averageScope.setNumberOfPeople(currentCount + 1);
-//        }
-//
-//        // 4. 저장
-//        AverageScope savedScope = averageScopeRepository.save(averageScope);
-//
-//        // 5. DTO 반환
-//        AverageScopeDTO dto = new AverageScopeDTO();
-//        dto.setAverageScopeId(savedScope.getAverageScopeId());
-//        dto.setAverageScope(savedScope.getAverageScope());
-//        dto.setNumberOfPeople(savedScope.getNumberOfPeople());
-//        dto.setMovieId(savedScope.getMovie().getMovieId());
-//
-//        return dto;
-//    }
-
 
     @Override
     @Transactional

@@ -15,23 +15,11 @@
         <result property="title" column="title" />
     </resultMap>
 
-<!--    <resultMap id="movieReviewResultMap" type="com.siuuuuu.commodeami.review.query.aggregate.MovieReview">-->
-<!--        <id property="reviewId" column="review_id" />-->
-<!--        <result property="review" column="review" />-->
-<!--        <result property="createdAt" column="created_at" />-->
-<!--        <result property="watchedAt" column="watched_at" />-->
-<!--        <result property="userId" column="user_id" />-->
-<!--        <result property="movieId" column="movie_id" />-->
-<!--        <result property="nickname" column="nickname" />-->
-<!--        <result property="scope" column="scope" />-->
-<!--    </resultMap>-->
-
     <select id="selectAllReviews" resultMap="reviewResultMap">
         SELECT
             REVIEW_ID
            ,REVIEW
            ,CREATED_AT
-<!--           ,WATCHED_AT-->
            ,USER_ID
            ,MOVIE_ID
          FROM
@@ -65,7 +53,6 @@
             REVIEW_ID
            ,REVIEW
            ,CREATED_AT
-<!--           ,WATCHED_AT-->
            ,USER_ID
            ,MOVIE_ID
          FROM

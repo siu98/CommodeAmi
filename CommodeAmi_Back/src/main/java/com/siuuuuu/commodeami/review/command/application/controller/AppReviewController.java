@@ -27,7 +27,6 @@ public class AppReviewController {
         return ResponseDTO.ok(appReviewService.createReview(movieId, userId, reviewDTO));
     }
 
-    // 리뷰 수정
 
     // 리뷰 삭제
     @DeleteMapping("/{reviewId}")

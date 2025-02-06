@@ -24,18 +24,17 @@ const MovieDetail = () => {
     const [movieReviews, setMovieReviews] = useState([]);
     const [selectedRating, setSelectedRating] = useState(0);
     const [localReview, setLocalReview] = useState('');
-    const [averageScope, setAverageScope] = useState(null); // 평균별점 상태
-    const [numberOfPeople, setNumberOfPeople] = useState(null); // 평가 인원 수 상태
+    const [averageScope, setAverageScope] = useState(null); 
+    const [numberOfPeople, setNumberOfPeople] = useState(null); 
     const [showAllActorsPopup, setShowAllActorsPopup] = useState(false);
-    const [dialogVisible, setDialogVisible] = useState(null); // 다이얼로그 상태 관리
-    // const [review, setReview] = useState('');
-    const [viewingDate, setViewingDate] = useState(''); // 관람일자 입력값
+    const [dialogVisible, setDialogVisible] = useState(null); 
+    const [viewingDate, setViewingDate] = useState(''); 
 
     const [movieActors, setMovieActors] = useState([]);
     const baseURL = 'https://image.tmdb.org/t/p/original';
 
-    const dispatch = useDispatch(); // useDispatch를 최상위에서 호출
-    const { accessToken, user } = useSelector((state) => state.auth); // useSelector를 최상위에서 호출
+    const dispatch = useDispatch();
+    const { accessToken, user } = useSelector((state) => state.auth);
     const { scope, loading, error } = useSelector((state) => state.scope);
     const { review } = useSelector((state) => state.review);
     const userId = user?.userId; // user 객체에서 userId 추출
@@ -47,9 +46,9 @@ const MovieDetail = () => {
             let urls = JSON.parse(youtubeData); // JSON 문자열을 배열로 변환
             return urls
                 .filter(url => url.includes("youtube.com/watch?v=")) // 광고 URL 제거
-                .map(url => url.replace("watch?v=", "embed/")); // YouTube iframe URL 변환
+                .map(url => url.replace("watch?v=", "embed/"));
         } catch (error) {
-            console.error("❌ YouTube URL JSON 파싱 오류:", error);
+            console.error("YouTube URL JSON 파싱 오류:", error);
             return [];
         }
     };
@@ -115,20 +114,20 @@ const MovieDetail = () => {
 
     // 배우 데이터를 가져오는 추가 작업
     useEffect(() => {
-        if (!movieId) return; // movieId가 없으면 실행하지 않음
+        if (!movieId) return; 
         const getActorData = async () => {
             try {
                 const actorData = await fetchActors(movieId);
                 const response = actorData.data;
                 console.log("actors 확인: ", actorData);
-                setActors(response); // 배우 정보를 상태에 저장
+                setActors(response);
             } catch (err) {
                 console.error('Failed to fetch actor data:', err);
                 setError('Failed to fetch actor data');
             }
         };
     
-        getActorData(); // 배우 데이터를 가져오는 함수 호출
+        getActorData(); 
     
     }, [movieId]);
 
@@ -146,12 +145,6 @@ const MovieDetail = () => {
             dispatch(fetchMovieReview(userId, movieId));
         }
     }, [accessToken, userId, movieId, dispatch]);
-
-    // useEffect(() => {
-    //     if (accessToken && movieId) {
-    //         dispatch(fetchReviewByMovieId(movieId));
-    //     }
-    // }, [accessToken, movieId, dispatch]);
     
     useEffect(() => {
         if (movieReview?.review) {
@@ -163,21 +156,15 @@ const MovieDetail = () => {
         const getReviews = async () => {
             if (!movieId || !accessToken) return;
 
-            // setLoading(true);
-
             try {
                 const reviews = await fetchReviewByMovieId(movieId, accessToken);
                 const reviewsArray = Array.isArray(reviews) ? reviews : Object.values(reviews); // 배열로 변환
-                // setMovieReviews(reviews?.reviews || []); // 필요 데이터만 저장
                 console.log("리뷰 데이터 배열 형태:", reviewsArray);
             setMovieReviews(reviewsArray); // 상태 업데이트
             } catch (err) {
                 console.error("리뷰를 가져오는 중 오류 발생:", err);
                 setError("리뷰를 가져오지 못했습니다.");
             } 
-            // finally {
-            //     setLoading(false);
-            // }
         };
 
         getReviews();
@@ -190,8 +177,8 @@ const MovieDetail = () => {
                 console.log('fetchAverageScope API 응답확인:', response);
                 
                 if (response.success && response.data) {
-                    setAverageScope(response.data.average_scope); // 평균별점 설정
-                    setNumberOfPeople(response.data.number_of_people); // 평가 인원 수 설정
+                    setAverageScope(response.data.average_scope); 
+                    setNumberOfPeople(response.data.number_of_people); 
                 } else {
                     console.warn('API 응답이 예상과 다릅니다:', response);
                 }
@@ -206,8 +193,6 @@ const MovieDetail = () => {
     }, [movieId]);
     
 
-
-    // **로딩 또는 오류 처리**를 렌더링 초반부에 추가합니다.
     if (loading) {
         return <p>로딩 중...</p>;
     }
@@ -224,19 +209,6 @@ const MovieDetail = () => {
 
     const formattedDate = formatDate(movie.released_at);
     const formatAudience = (movie.cumulative_audience / 10000).toFixed(1) + '만 명';
-
-    // const getActorDetails = (actorId) => {
-    //     return actors.find(actor => actor.id === actorId);
-    //   };
-    
-    // const getCharacterDetails = (actorId) => {
-    //     return movieActors.find(ma => ma.actor === actorId && ma.movie === movie.id);
-    // };
-
-    // const filteredCredits = movie.filter(actorId => {
-    //     const actor = getActorDetails(actorId);
-    //     return actor && (actor.known_for_department === 'Acting' || actor.known_for_department === 'Directing');
-    //   });
 
     const handleShowAllActors = () => {
         setShowAllActorsPopup(true);
@@ -276,17 +248,27 @@ const MovieDetail = () => {
     
             // 4. 서버 요청 성공 시 Redux 상태 업데이트
             if (response.status === 200 || response.status === 201) {
-                const { scope, id: scopeId } = response.data.data; // 응답에서 scope와 scopeId를 추출
+                const { scope, id: scopeId } = response.data.data; 
                 // Redux 상태 업데이트
-                dispatch(setScope({ movieId, scope, scopeId })); // Redux에 저장
-                // dispatch(setScope({ movieId, scope: ratingValue }));
-    
-                // 성공 메시지 출력
-                const message =
-                    response.status === 201
-                        ? '별점이 생성되었습니다.'
-                        : '별점이 생성되었습니다.';
-                alert(message);
+                dispatch(setScope({ movieId, scope, scopeId })); 
+
+                // const message =
+                //     response.status === 201
+                //         ? '별점이 생성되었습니다.'
+                //         : '별점이 생성되었습니다.';
+                // alert(message);
+                alert('별점이 저장되었습니다.');
+
+
+                dispatch(fetchMovieScope(userId, movieId));
+                fetchAverageScope(movieId).then(response => {
+                    if (response.success && response.data) {
+                        setAverageScope(response.data.average_scope); 
+                        setNumberOfPeople(response.data.number_of_people); 
+                    }
+                });
+
+                setDialogVisible(null);
             } else {
                 alert('별점 저장에 실패했습니다.');
             }
@@ -316,7 +298,7 @@ const MovieDetail = () => {
         userId,
     }
 
-    console.log("전송할 reviewData:", reviewData); // 요청 전에 데이터를 확인
+    console.log("전송할 reviewData:", reviewData); 
 
 
     const handleSaveReview = async () => {
@@ -334,8 +316,7 @@ const MovieDetail = () => {
         // 3. 리뷰 작성 및 수정
 
         try {
-            const response = await axios.post(`/api/review/${movieId}/${userId}`, reviewData,
-            // { review, scopeId: movieRating.scopeId }, // 요청 바디에 데이터 전달    
+            const response = await axios.post(`/api/review/${movieId}/${userId}`, reviewData, 
                 {
                     headers: {
                         Authorization: `Bearer ${accessToken}`,
@@ -347,7 +328,14 @@ const MovieDetail = () => {
             if (response.status === 200 || response.status === 201) {
                 dispatch(setReview({ movieId, review: localReview}));
                 alert('리뷰가 저장되었습니다.');
-                setDialogVisible(null);
+
+            // ✅ fetchMovieReview() 실행 후 결과를 받아 상태 업데이트
+            const updatedReviews = await fetchReviewByMovieId(movieId, accessToken);
+            setMovieReviews(updatedReviews);
+
+            // ✅ 다이얼로그 닫기
+            setDialogVisible(null);
+                // setDialogVisible(null);
             } else {
                 alert('리뷰 저장에 실패했습니다.');
             }
@@ -379,10 +367,8 @@ const MovieDetail = () => {
                     <div className="movie-info">
                         <div className="movie-buttons">
                             <div className="star-display-container">
-                                {/* <StarDisplay rating={selectedRating} /> */}
+
                                 <StarDisplay rating={movieRating} />
-                                {/* <StarDisplay rating={movieRating.scope} /> */}
-                                {/* <StarDisplay rating={typeof movieRating === 'number' ? movieRating : 0} /> */}
                                 {console.log("movieRating:", movieRating)}
                                 <p>
                                     평균별점: {averageScope || 'N/A'}
@@ -397,61 +383,33 @@ const MovieDetail = () => {
                             <h2>줄거리</h2>
                             <p>{movie.plot}</p>
                         </div>
-                        {/* <section className="movie-reviews">
-                            {movieReviews.filter(review => review.review && review.review.trim() !== '').length > 0 && (
-                             <>
-                                <h2>리뷰 {movieReviews.filter(review => review.review && review.review.trim() !== '').length}</h2>
-                                <div className="review-list">
-                                    {movieReviews
-                                        .filter(review => review.review && review.review.trim() !== '')
-                                        .slice(0, 3)
-                                        .map(review => (
-                                        <div className="review-item" key={review.review_id}>
-                                            <div className="review-header">
-                                                <span className="review-username">{review.nickname}</span>
-                                                <span className="review-rating">⭐{review.rating}</span>
-                                            </div>
-                                            <p>{review.review}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                                {movieReviews.filter(review => review.review && review.review.trim() !== '').length > 3 && (
-                                <button className="more-button" onClick={handleMoreReviewsClick}>더보기</button>
-                                )}
-
-                            </>
-                            )}
-                        </section> */}
                         <section className="movie-reviews">
-    {movieReviews && movieReviews.length > 0 ? (
-        <>
-            <h2>리뷰 {movieReviews.length}</h2>
-            <div className="review-list">
-                {movieReviews
-                    .slice(0, 3) // 최대 3개의 리뷰만 표시
-                    .map((review) => (
-                        <div className="review-item" key={review.review_id}>
-                            <div className="review-header">
-                                <span className="review-username">작성자: {review.nickname}</span>
-                                <span className="review-rating">⭐{review.scope}</span>
-                                {/* <span className="review-rating">
-                                    작성일: {new Date(review.created_at).toLocaleDateString()}
-                                </span> */}
-                            </div>
-                            <p>{review.review}</p>
-                        </div>
-                    ))}
-            </div>
-            {movieReviews.length > 3 && (
-                <button className="more-button" onClick={handleMoreReviewsClick}>
-                    더보기
-                </button>
-            )}
-        </>
-    ) : (
-        <p>리뷰가 없습니다!</p>
-    )}
-</section>
+                            {movieReviews && movieReviews.length > 0 ? (
+                                <>
+                                    <h2>리뷰 {movieReviews.length}</h2>
+                                    <div className="review-list">
+                                        {movieReviews
+                                            .slice(0, 3) // 최대 3개의 리뷰만 표시
+                                            .map((review) => (
+                                            <div className="review-item" key={review.review_id}>
+                                                <div className="review-header">
+                                                    <span className="review-username">작성자: {review.nickname}</span>
+                                                    <span className="review-rating">⭐{review.scope}</span>
+                                                </div>
+                                                <p>{review.review}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    {movieReviews.length > 3 && (
+                                        <button className="more-button" onClick={handleMoreReviewsClick}>
+                                            더보기
+                                        </button>
+                                    )}
+                                </>
+                                ) : (
+                                <p>리뷰가 없습니다!</p>
+                            )}
+                        </section>
                     </div>
                 </div>
             </section>
@@ -520,11 +478,6 @@ const MovieDetail = () => {
                         placeholder="YYYY-MM-DD"
                     />
                 </div>
-                {/* <div className="review-button">
-                    <Button label="확인" 
-                        onClick={() => handleSaveReview(movieId, selectedRating)} 
-                    />
-                </div> */}
             </Dialog>
             
             <section className="movie-cast">
@@ -542,9 +495,7 @@ const MovieDetail = () => {
                     </div>
 
                     {actors.length > 8 && (
-                                            // <div className="more-button">
                         <button label="더보기"  className="more-button" onClick={handleShowAllActors}>더보기</button>
-                        // </div>
                     )}
 
                     {/* Dialog 구현 */}
@@ -560,7 +511,6 @@ const MovieDetail = () => {
                                     <img
                                         src={`${baseURL}${actor.profile_image}`}
                                         alt={actor.name}
-                                        // style={{ width: '100px', height: '150px', objectFit: 'cover' }}
                                     />
                                     <p>{actor.name}</p>
                                 </div>
@@ -600,16 +550,16 @@ const MovieDetail = () => {
             <h2>트레일러</h2>
             {Array.isArray(movie.trailers) && movie.trailers.length > 0 ? (
                 <Carousel
-                    value={movie.trailers} // 트레일러 배열 전달
-                    numVisible={3} // 한 번에 한 개의 트레일러 표시
-                    numScroll={3} // 한 번에 스크롤할 트레일러 수
-                    autoplayInterval={10000} // 자동 재생 간격
+                    value={movie.trailers} 
+                    numVisible={3} 
+                    numScroll={3} 
+                    autoplayInterval={10000} 
                     itemTemplate={(trailer, index) => (
                         <div className="trailer-item" key={index}>
                             <iframe
                                 width="400" 
-                                height="220" // 고정 높이 설정
-                                src={trailer} // 트레일러 URL
+                                height="220"
+                                src={trailer} 
                                 title={`Movie Trailer ${index + 1}`}
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -621,71 +571,51 @@ const MovieDetail = () => {
             )  : (
             <p>트레일러가 없습니다.</p>
             )}
-
-            {/* <div className="trailer-list"> */}
-                {/* {Array.isArray(movie.trailers) && movie.trailers.length > 0 ? (
-                    movie.trailers.map((trailer, index) => (
-                        <iframe 
-                            key={index}
-                            width="300"
-                            height="169"
-                            src={trailer}
-                            title={`Movie Trailer ${index + 1}`}
-                            frameBorder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                        ></iframe>
-                    ))
-                ) : (
-                    <p>트레일러가 없습니다.</p>
-                )} */}
-
-            {/* </div> */}
         </section>
         <section className="movie-review-videos">
-    <h2>리뷰 영상</h2>
-    {movie.youtube_url ? (
-        (() => {
-            let youtubeVideos = [];
+            <h2>리뷰 영상</h2>
+            {movie.youtube_url ? (
+                (() => {
+                    let youtubeVideos = [];
 
-            try {
-                youtubeVideos = JSON.parse(movie.youtube_url); // ✅ JSON 문자열을 배열로 변환
-                youtubeVideos = youtubeVideos.map((url) => 
-                    url.replace("watch?v=", "embed/") // ✅ URL 변환
+                    try {
+                        youtubeVideos = JSON.parse(movie.youtube_url); 
+                        youtubeVideos = youtubeVideos.map((url) => 
+                            url.replace("watch?v=", "embed/")
+                            );
+                        } catch (error) {
+                        console.error("YouTube URL JSON 파싱 오류:", error);
+                    }
+
+                    return Array.isArray(youtubeVideos) && youtubeVideos.length > 0 ? (
+                    <Carousel
+                        value={youtubeVideos} 
+                        numVisible={3} 
+                        numScroll={3} 
+                        autoplayInterval={10000} // 자동 재생 간격 (10초)
+                        itemTemplate={(video, index) => (
+                            <div className="review-video-item" key={index}>
+                                <iframe
+                                    width="400" 
+                                    height="220"
+                                    src={video}
+                                    title={`Review Video ${index + 1}`}
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+                        )}
+                    />
+                ) : (
+                    <p>리뷰 영상이 없습니다.</p>
                 );
-            } catch (error) {
-                console.error("❌ YouTube URL JSON 파싱 오류:", error);
-            }
-
-            return Array.isArray(youtubeVideos) && youtubeVideos.length > 0 ? (
-                <Carousel
-                    value={youtubeVideos} // ✅ 변환된 배열 전달
-                    numVisible={3} // 한 번에 표시할 개수
-                    numScroll={3} // 스크롤할 개수
-                    autoplayInterval={10000} // 자동 재생 간격 (10초)
-                    itemTemplate={(video, index) => (
-                        <div className="review-video-item" key={index}>
-                            <iframe
-                                width="400" 
-                                height="220"
-                                src={video} // ✅ 변환된 URL 사용
-                                title={`Review Video ${index + 1}`}
-                                frameBorder="0"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                            ></iframe>
-                        </div>
-                    )}
-                />
+            })()
             ) : (
-                <p>리뷰 영상이 없습니다.</p>
-            );
-        })()
-    ) : (
-        <p>리뷰 영상이 없습니다.</p>
-    )}
-</section>
-        </main>
+            <p>리뷰 영상이 없습니다.</p>
+            )}
+        </section>
+    </main>
     </div>
 
         

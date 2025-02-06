@@ -33,8 +33,7 @@ public class MovieServiceImpl implements MovieService {
         Movie movie = movieMapper.selectMovieById(movieId);
 
         if (movie == null) {
-            // 추후 errorcode 수정 예정
-            throw new CommonException(ErrorCode.NOT_FOUND_REFRESH_TOKEN);
+            throw new CommonException(ErrorCode.MOVIE_NOT_FOUND);
         }
 
         MovieDTO movieDTO = new MovieDTO();

@@ -1,19 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { fetchBoxOfficeMovies, fetchWeatherRecommendedMovies} from './api/movies';
-// import { scrollLeft, scrollRight, handleScroll, updateScrollButtons } from './utils/scroll';
 import { Routes, Route, Link, useNavigate } from 'react-router-dom';
 import './App.css';
 import MovieSection from './MovieSection';
 import FilterSection from './FilterSection';
 import MovieDetail from './MovieDetail';
-// import SearchResults from './SearchResults';
-// import MyPage from './MyPage';q
 
 function DashBoard({ handleLogout }) {
   const [boxOfficeMovies, setBoxOfficeMovies] = useState([]);
   const [highRatedMovies, setHighRatedMovies] = useState([]);
-  const [recommendedMovies, setRecommendedMovies] = useState([]); // 추가
+  const [recommendedMovies, setRecommendedMovies] = useState([]); 
   const [birthYearOptions, setBirthYearOptions] = useState([]);
   const [selectedGender, setSelectedGender] = useState(null);
   const [selectedBirthYear, setSelectedBirthYear] = useState(null);
@@ -32,7 +29,6 @@ function DashBoard({ handleLogout }) {
         // const highRatedData = await fetchHighRatedMovies();
         // setHighRatedMovies(highRatedData);
 
-        // ✅ 날씨 기반 추천 영화 추가
         const weatherRecommendedData = await fetchWeatherRecommendedMovies();
         setRecommendedMovies(weatherRecommendedData);
 
@@ -123,9 +119,8 @@ function DashBoard({ handleLogout }) {
               isLoggedIn={true}
             /> 
 
-            {/* 추가된 날씨 기반 추천 섹션 */}
             <MovieSection 
-              title="날씨 기반 랜덤 추천 ☀️ 🌤️ ☔️" 
+              title="날씨 기반 랜덤 추천 ☀️ 🌤️ ☔️ 🌨️" 
               movies={recommendedMovies} 
               scrollable
               sectionId="recommendations"

@@ -1,5 +1,7 @@
 package com.siuuuuu.commodeami.user.command.application.service;
 
+import com.siuuuuu.commodeami.common.exception.CommonException;
+import com.siuuuuu.commodeami.common.exception.ErrorCode;
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,20 +56,6 @@ public class EmailVerificationService {
         return code;
     }
 
-    // 인증 코드 검즌
-//    public void sendVerificationEmail(String email, String code) {
-//        String subject = "이메일 인증 코드";
-//        String message = "인증 코드: " + code + "\n" + "이 코드는 5분 동안 유효합니다.";
-//
-//        SimpleMailMessage emailMessage = new SimpleMailMessage();
-//        emailMessage.setTo(email);
-//        emailMessage.setSubject(subject);
-//        emailMessage.setText(message);
-//        emailMessage.setFrom("parancandy@gmail.com");
-//        log.info("code: {}", code);
-//        javaMailSender.send(emailMessage);
-//    }
-
     // 임시 비밀번호 전송
     public void sendTemporaryPassword(String email, String tempPassword) {
         try {
@@ -90,7 +78,7 @@ public class EmailVerificationService {
             log.info("Temporary password email sent to: {}", email);
         } catch (Exception e) {
             log.error("Failed to send temporary password to {}", email, e);
-            throw new RuntimeException("Failed to send email", e);
+            throw new CommonException(ErrorCode.EMAIL_SEND_FAILED);
         }
     }
 
@@ -115,7 +103,7 @@ public class EmailVerificationService {
             log.info("Verification email sent to: {}", email);
         } catch (Exception e) {
             log.error("Failed to send email to {}", email, e);
-            throw new RuntimeException("Failed to send email", e);
+            throw new CommonException(ErrorCode.EMAIL_SEND_FAILED);
         }
     }
 

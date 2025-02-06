@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { resetScope } from './scopeSlice'; // scopeSlice 파일 경로에 맞게 설정
+import { resetScope } from './scopeSlice'; 
 import axios from 'axios';
 import { jwtDecode }from 'jwt-decode';
 
@@ -64,12 +64,10 @@ const authSlice = createSlice({
 
 export const { setAccessToken, resetState } = authSlice.actions;
 
-// Thunk로 logout 정의
 export const logout = () => (dispatch) => {
-    dispatch(resetState()); // Redux 상태 초기화
-    dispatch(resetScope()); // Scope 상태 초기화
+    dispatch(resetState()); 
+    dispatch(resetScope()); 
 
-    // 로컬 스토리지 초기화
     localStorage.removeItem('accessToken');
     localStorage.removeItem('user');
 };

@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-//    Review findReviewDTOByUserIdAndMovieId(Long userId, Long movieId);
+
     @Query("SELECT r FROM Review r WHERE r.user.userId = :userId AND r.movie.movieId = :movieId")
     Review findReviewByUserIdAndMovieId(Long userId, Long movieId);
 }

@@ -185,21 +185,6 @@ public class APIServiceImpl implements APIService {
         return null;
     }
 
-// updateMovieActorRelationship 메서드 추가
-//    @Transactional
-//    public void updateMovieActorRelationship(Movie movie, Actor actor) {
-//        Optional<MovieActor> existingRelationship = movieActorRepository.findByMovieIdAndActorId(movie.getMovieId(), actor.getActorId());
-//
-//        if (existingRelationship.isEmpty()) {
-//            MovieActor movieActor = new MovieActor();
-//            movieActor.setMovie(movie);
-//            movieActor.setActor(actor);
-//            movieActorRepository.save(movieActor);
-//        } else {
-//            log.info("Relationship already exists for movie {} and actor {}", movie.getMovieId(), actor.getActorId());
-//        }
-//    }
-
     @Override
     @Transactional
     public void updateMovieCast(Long apiId, Movie movie) {

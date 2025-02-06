@@ -15,8 +15,6 @@ import java.util.Optional;
 @Repository
 public interface MovieActorRepository extends JpaRepository<MovieActor, Long> {
 
-//    Optional<MovieActor> findByMovieIdAndActorId(Long movieId, Long actorId);
-
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT ma FROM MovieActor ma WHERE ma.movie.movieId = :movieId AND ma.actor.actorId = :actorId")
     Optional<MovieActor> findByMovieIdAndActorId(@Param("movieId") Long movieId, @Param("actorId") Long actorId);

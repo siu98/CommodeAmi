@@ -28,7 +28,8 @@ public enum ErrorCode {
     INVALID_PASSWORD_REPEAT(40018, HttpStatus.BAD_REQUEST, "동일한 문자를 3번 이상 연속해서 사용할 수 없습니다."),
     INVALID_REPEAT_SCHEDULE_START_END(40021,HttpStatus.BAD_REQUEST,"일정 시작일보다 종료일이 앞설 수 없습니다."),
     INVALID_VERIFICATION_CODE(40022, HttpStatus.BAD_REQUEST, "잘못된 인증번호입니다. 인증번호를 다시 확인해주세요"),
-
+    VERIFICATION_CODE_INVALID(40023, HttpStatus.BAD_REQUEST, "유효하지 않은 인증코드입니다."),
+    VERIFICATION_CODE_EXPIRED(40024, HttpStatus.BAD_REQUEST, "인증 코드가 만료되었습니다."),
     //401
     INVALID_HEADER_VALUE(40100, HttpStatus.UNAUTHORIZED, "올바르지 않은 헤더값입니다."),
     EXPIRED_TOKEN_ERROR(40101, HttpStatus.UNAUTHORIZED, "만료된 토큰입니다."),
@@ -51,10 +52,31 @@ public enum ErrorCode {
     FORBIDDEN_ROLE(40300, HttpStatus.FORBIDDEN, "권한이 존재하지 않습니다."),
 
     //404
-    NOT_FOUND_USER(40401, HttpStatus.NOT_FOUND, "유저가 존재하지 않습니다.");
+    NOT_FOUND_USER(40401, HttpStatus.NOT_FOUND, "유저가 존재하지 않습니다."),
 
+    // 도메인 별 에러코드
+    // 04: 영화
+    MOVIE_NOT_FOUND(4040400, HttpStatus.NOT_FOUND, "양화가 존재하지 않습니다."),
 
+    // 05: 추천
+    WEATHER_NOT_FOUND(4040500, HttpStatus.NOT_FOUND, "날씨정보를 가져오지 못했습니다."),
+    MOVIE_NOT_FOUND_FOR_WEATHER(4040501, HttpStatus.NOT_FOUND, "날씨 조건에 맞는 영화를 찾을 수 없습니다."),
+    WEATHER_API_LIST_BAD_REQUEST(404502, HttpStatus.BAD_REQUEST, "날씨 API 가져오는데 실패했습니다."),
+    WEATHER_API_REQUEST_FAILED(5000501, HttpStatus.INTERNAL_SERVER_ERROR, "날씨 정보를 가져오는 중 오류가 발생했습니다."),
 
+    // 06: 유저
+    USER_NOT_FOUND(404600, HttpStatus.NOT_FOUND, "유저가 존재하지 않습니다."),
+
+    // 07: 별점
+    SCOPE_NOT_FOUND(404700, HttpStatus.NOT_FOUND, "별점이 존재하지 않습니다."),
+    WATCHED_AT_NOT_FOUND(404701, HttpStatus.NOT_FOUND, "관람일자가 존재하지 않습니다."),
+
+    // 08: 리뷰
+    REVIEW_NOT_FOUND(404800, HttpStatus.NOT_FOUND, "리뷰가 존재하지 않습니다."),
+
+    // 500
+    INTERNAL_SERVER_ERROR(50000, HttpStatus.INTERNAL_SERVER_ERROR, "서버 내부 오류입니다"),
+    EMAIL_SEND_FAILED(50010, HttpStatus.INTERNAL_SERVER_ERROR, "이메일 전송에 실패하였습니다.");
     private final Integer code;
     private final HttpStatus httpStatus;
     private final String message;

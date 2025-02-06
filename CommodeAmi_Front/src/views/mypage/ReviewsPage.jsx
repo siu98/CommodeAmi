@@ -35,7 +35,6 @@ return (
         <div key={index} className="profile-review-item">
   <div className="review-header">
     <h4>{review.title}</h4>
-    {/* <p>{review.review}</p> */}
     <p className="date-watched">{review.watched_at ? `관람일자: ${review.watched_at}` : '관람일자 없음'}</p>
   </div>
   <p>{review.review}</p>

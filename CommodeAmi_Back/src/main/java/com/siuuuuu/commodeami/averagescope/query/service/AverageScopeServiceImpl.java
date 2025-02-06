@@ -40,7 +40,7 @@ public class AverageScopeServiceImpl implements AverageScopeService {
 
         if (averageScope == null) {
             log.info("해당 영화에 대한 평가 데이터가 없습니다: movieId=" + movieId);
-// 기본값을 반환
+
             AverageScopeDTO defaultScope = new AverageScopeDTO();
             defaultScope.setAverageScope(0.0); // 기본 평균 별점
             defaultScope.setNumberOfPeople(0); // 평가 인원 수
