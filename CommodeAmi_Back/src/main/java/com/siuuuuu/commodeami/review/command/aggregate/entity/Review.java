@@ -5,10 +5,8 @@ import com.siuuuuu.commodeami.scope.command.aggregate.entity.Scope;
 import com.siuuuuu.commodeami.user.command.aggregate.entity.User;
 import jakarta.persistence.*;
 import lombok.Data;
-import org.apache.ibatis.annotations.One;
 import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Data
 @Entity

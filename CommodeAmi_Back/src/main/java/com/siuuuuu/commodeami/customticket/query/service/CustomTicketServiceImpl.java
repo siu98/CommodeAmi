@@ -48,6 +48,5 @@ public class CustomTicketServiceImpl implements CustomTicketService {
         List<CustomTicketDTO> customTicketDTOs =
                 customTicket.stream().map(customTickets -> modelMapper.map(customTickets, CustomTicketDTO.class)).collect(Collectors.toList());
         return customTicketDTOs;
-//        return modelMapper.map(customTicket, CustomTicketDTO.class);
     }
 }

@@ -14,14 +14,5 @@ public class AverageScopeDTO {
     private Double averageScope;
     private Integer numberOfPeople;
     private Long movieId;
-//    private Long userId;
-
-    // 네 개의 파라미터를 받는 생성자
-//    public AverageScopeDTO(Long averageScopeId, Double averageScope, Integer numberOfPeople, Long movieId) {
-//        this.averageScopeId = averageScopeId;
-//        this.averageScope = averageScope;
-//        this.numberOfPeople = numberOfPeople;
-//        this.movieId = movieId;
-//    }
 
 }

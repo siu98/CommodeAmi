@@ -3,9 +3,8 @@ package com.siuuuuu.commodeami.movieactor.command.aggregate.entity;
 import com.siuuuuu.commodeami.actor.command.aggregate.entity.Actor;
 import com.siuuuuu.commodeami.movie.command.aggregate.entity.Movie;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 @Data
 @Entity

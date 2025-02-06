@@ -17,7 +17,6 @@ public class ScopeDTO {
     private LocalDateTime createdAt;
     private Date watchedAt;
     private Long movieId;
-//    private Long reviewId;
     private Long userId;
 
 }

@@ -35,14 +35,9 @@ public class AppActorServiceImpl implements AppActorService {
                     newActor.setActorId(actorDTO.getActorId());
                     newActor.setName(actorDTO.getName());
                     newActor.setProfileImage(actorDTO.getProfileImage());
-                    newActor.setGender(actorDTO.getGender()); // 직접 설정
+                    newActor.setGender(actorDTO.getGender());
                     newActor.setOriginalName(actorDTO.getOriginalName());
                     newActor.setKnownForDepartment(actorDTO.getKnownForDepartment());
-                    // version은 자동으로 관리되지만 필요시 명시적 초기화
-//                    if (newActor.getVersion() == null) {
-//                        newActor.setVersion(0);
-//                    }
-//                    return actorRepository.save(newActor);
                     Actor savedActor = actorRepository.save(newActor);
                     log.info("Created new actor: {}", savedActor);
                     return savedActor;

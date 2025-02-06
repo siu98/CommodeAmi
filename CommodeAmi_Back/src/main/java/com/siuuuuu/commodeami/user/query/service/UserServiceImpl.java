@@ -84,18 +84,4 @@ public class UserServiceImpl implements UserService {
         return userDTO;
     }
 
-
-//    @Override
-//    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-//        User existingUser = userMapper.findByEmail(username);
-//
-//        if (existingUser == null) {
-//            throw new CommonException(ErrorCode.NOT_FOUND_USER);
-//        }
-//        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-//        // 우선 임의로 회원 권한 모두 USER로 설정. 피드백 받은 후 따로 권한 컬럼을 넣어서 세분화할 예정
-//        grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-//
-//        return new CustomUser(existingUser, grantedAuthorities);
-//    }
 }

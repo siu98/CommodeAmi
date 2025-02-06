@@ -12,5 +12,4 @@ public interface AppUserService  {
     void updateLastAccessTime(String email);
 
     boolean checkIfEmailAlreadyUsed(String email);
-//    UserDetails loadUserByUsername(String userId);
 }

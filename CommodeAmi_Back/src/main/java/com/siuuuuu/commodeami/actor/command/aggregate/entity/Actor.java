@@ -31,6 +31,4 @@ public class Actor {
     @Column(name="original_name")
     private String originalName;
 
-//    @Version
-//    private Integer version;
 }

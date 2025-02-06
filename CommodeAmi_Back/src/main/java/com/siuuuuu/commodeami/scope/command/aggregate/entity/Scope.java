@@ -43,7 +43,4 @@ public class Scope {
     @JoinColumn(name="user_id")
     private User user;
 
-//    @OneToOne
-//    @JoinColumn(name="review_id")
-//    private Review review;
 }

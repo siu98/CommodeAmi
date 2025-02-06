@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 public interface ActorRepository extends JpaRepository<Actor, Long> {
-//    Optional<Actor> findByName(String name);
+
 @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("SELECT a FROM Actor a WHERE a.name = :name")
     Optional<Actor> findByName(@Param("name") String name);

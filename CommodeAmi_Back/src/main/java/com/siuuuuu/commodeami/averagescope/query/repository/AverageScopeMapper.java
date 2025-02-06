@@ -10,6 +10,5 @@ import java.util.List;
 public interface AverageScopeMapper {
     List<AverageScope> selectAllAverageScopes();
 
-//    AverageScope selectAverageScopeByMovieId(@Param("movie_id") Long movieId);
     AverageScope selectAverageScopeByMovieId(Long movieId);
 }

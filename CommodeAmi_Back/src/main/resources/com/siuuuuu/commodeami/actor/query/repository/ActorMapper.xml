@@ -6,7 +6,6 @@
     <resultMap id="actorResultMap" type="com.siuuuuu.commodeami.actor.query.aggregate.Actor">
         <id property="actorId" column="actor_id" />
         <result property="name" column="name" />
-<!--        <result property="gender" column="gender" />-->
         <result property="profileImage" column="profile_image" />
         <result property="knownForDepartment" column="known_for_department" />
         <result property="originalName" column="original_name"/>
@@ -15,20 +14,17 @@
     <resultMap id="movieActorResultMap" type="com.siuuuuu.commodeami.actor.query.aggregate.MovieActor">
         <id property="actorId" column="actor_id" />
         <result property="name" column="name" />
-<!--        <result property="gender" column="gender" />-->
         <result property="profileImage" column="profile_image" />
         <result property="knownForDepartment" column="known_for_department" />
         <result property="originalName" column="original_name"/>
         <result property="role" column="role"/>
         <result property="castingOrder" column="casting_order"/>
-<!--        <result property="movieId" column="movie_id"/>-->
     </resultMap>
 
     <select id="selectAllActors" resultMap="actorResultMap">
         SELECT
             ACTOR_ID
            ,NAME
-<!--           ,GENDER-->
            ,PROFILE_IMAGE
            ,KNOWN_FOR_DEPARTMENT
            ,ORIGINAL_NAME
@@ -40,13 +36,11 @@
         SELECT
             a.ACTOR_ID
            ,a.NAME
-<!--           ,a.GENDER-->
            ,a.PROFILE_IMAGE
            ,a.KNOWN_FOR_DEPARTMENT
            ,a.ORIGINAL_NAME
            ,r.ROLE
            ,r.CASTING_ORDER
-<!--           ,r.MOVIE_ID-->
          FROM
             TBL_ACTOR a
          JOIN

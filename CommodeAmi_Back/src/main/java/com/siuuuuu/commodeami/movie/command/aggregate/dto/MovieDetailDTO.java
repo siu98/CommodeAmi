@@ -20,5 +20,4 @@ public class MovieDetailDTO {
     private List<GenreDTO> genres;
     private Integer runtime;
 
-//    private List<String> genres;
 }

@@ -1,6 +1,8 @@
 package com.siuuuuu.commodeami.scope.query.service;
 
 
+import com.siuuuuu.commodeami.common.exception.CommonException;
+import com.siuuuuu.commodeami.common.exception.ErrorCode;
 import com.siuuuuu.commodeami.scope.query.aggregate.Scope;
 import com.siuuuuu.commodeami.scope.query.aggregate.ScopeDTO;
 import com.siuuuuu.commodeami.scope.query.repository.ScopeMapper;
@@ -42,7 +44,7 @@ public class ScopeServiceImpl implements ScopeService {
 
         // 정보가 없을 시 예외처리
         if (scopes == null || scopes.isEmpty()) {
-            throw new IllegalArgumentException("별점을 찾을 수 없습니다.");
+            throw new CommonException(ErrorCode.SCOPE_NOT_FOUND);
         }
 
         // Entity -> DTO 변환 (리스트 처리)
@@ -58,7 +60,8 @@ public class ScopeServiceImpl implements ScopeService {
 
         if (scope == null) {
 //            throw new IllegalArgumentException("별점을 찾을 수 없습니다.");
-            log.info("별점이 없습니디.");
+            throw new CommonException(ErrorCode.SCOPE_NOT_FOUND);
+//            log.info("별점이 없습니디.");
         }
 
         return modelMapper.map(scope, ScopeDTO.class);
@@ -71,7 +74,8 @@ public class ScopeServiceImpl implements ScopeService {
 
         if (scope == null) {
 //            throw new IllegalArgumentException("별점을 찾을 수 없습니다.");
-            return null;
+            throw new CommonException(ErrorCode.SCOPE_NOT_FOUND);
+//            return null;
         }
 
 
