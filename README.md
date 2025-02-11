@@ -25,7 +25,7 @@
 | ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=flat-square&logo=MariaDB&logoColor=white) |
 
 ## 📋전체 프로젝트 일정
-**프로젝트 일정: 2025년 1월 8일 ~ 2025년 1월 24일**
+**프로젝트 일정: 2024년 12월 29일 ~ 2025년 1월 31일**
 
 
 ### 목차
